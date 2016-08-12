@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>wxWidgets笔记 第二篇 分析HelloWorld | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分析第一段wxWidgets代码看到自己复制代码并运行的HelloWorld之后，会不会感觉内容很陌生啊？那么问题来了！
+第一个问题：main函数在哪里？首先你会看到这段代码class MyApp : public wxApp{public:virtual bool OnInit();};这是因为每一个wxWidgets程序都需要定义一个wxApp类的子类，并且需要创建并且只能创建一个这个类的实例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wxWidgets笔记 第二篇 分析HelloWorld">
+<meta property="og:url" content="http://yoursite.com/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分析第一段wxWidgets代码看到自己复制代码并运行的HelloWorld之后，会不会感觉内容很陌生啊？那么问题来了！
+第一个问题：main函数在哪里？首先你会看到这段代码class MyApp : public wxApp{public:virtual bool OnInit();};这是因为每一个wxWidgets程序都需要定义一个wxApp类的子类，并且需要创建并且只能创建一个这个类的实例">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wxWidgets笔记 第二篇 分析HelloWorld">
+<meta name="twitter:description" content="分析第一段wxWidgets代码看到自己复制代码并运行的HelloWorld之后，会不会感觉内容很陌生啊？那么问题来了！
+第一个问题：main函数在哪里？首先你会看到这段代码class MyApp : public wxApp{public:virtual bool OnInit();};这是因为每一个wxWidgets程序都需要定义一个wxApp类的子类，并且需要创建并且只能创建一个这个类的实例">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/" class="article-date">
+  <time datetime="2014-10-27T16:25:37.000Z" itemprop="datePublished">2014-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      wxWidgets笔记 第二篇 分析HelloWorld
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分析第一段wxWidgets代码"><a href="#分析第一段wxWidgets代码" class="headerlink" title="分析第一段wxWidgets代码"></a>分析第一段wxWidgets代码</h1><p>看到自己复制代码并运行的HelloWorld之后，会不会感觉内容很陌生啊？<br>那么问题来了！</p>
+<h2 id="第一个问题：main函数在哪里？"><a href="#第一个问题：main函数在哪里？" class="headerlink" title="第一个问题：main函数在哪里？"></a>第一个问题：main函数在哪里？</h2><p>首先你会看到这段代码<br>class MyApp : public wxApp<br>{<br>public:<br>virtual bool OnInit();<br>};<br>这是因为每一个wxWidgets程序都需要定义一个wxApp类的子类，并且需要创建并且只能创建一个这个类的实例<br>你的这个继承自wxApp的子类至少需要定义一个OnInit函数，当wxWidgets准备好运行你写的代码的时候，它将<br>会调用这个函数（这和一个典型的Win32程序中的main函数或者WinMain函数类似）。</p>
+<h2 id="第二个问题：OnInit如何定义？"><a href="#第二个问题：OnInit如何定义？" class="headerlink" title="第二个问题：OnInit如何定义？"></a>第二个问题：OnInit如何定义？</h2><p>看这下面段代码<br>bool MyApp::OnInit()<br>{<br>//MyFrame <em>frame = new MyFrame(“Hello World”, wxPoint(50, 50), wxSize(450, 340));<br>MyFrame </em>frame = new MyFrame(“Hello World”, wxDefaultPosition, wxDefaultSize);<br>frame-&gt;Show(true);<br>return true;<br>}<br>在这个OnInit函数中，通常应该作的事情包括: 创建至少一个窗口实例(实例是C++中的关键词)，<br>对传入的命令行参数进行解析，为应用程序进行数据设置和其它的一些初始化的操作.如果这<br>个函数返回真，wxWidgets将开始事件循环用来接收用户输入并且在必要的情况下处理这些输入。<br>如果OnInit函数返回假，wxWidgets将会释放它内部已经分配的资源，然后结束整个程序的运行。</p>
+<p>&nbsp;</p>
+<h2 id="第四个问题：Frame类是什么类？"><a href="#第四个问题：Frame类是什么类？" class="headerlink" title="第四个问题：Frame类是什么类？"></a>第四个问题：Frame类是什么类？</h2><p>写过java图形界面的估计也能知道的差不多了，一个Frame窗口是一个可以容纳别的窗口的顶层窗口，<br>通常拥有一个标题栏和一个菜单栏。来看看代码：<br>class MyFrame : public wxFrame<br>{<br>public:<br>MyFrame(const wxString&amp; title, const wxPoint&amp; pos, const wxSize&amp; size);<br>private:<br>void OnHello(wxCommandEvent&amp; event);<br>void OnExit(wxCommandEvent&amp; event);<br>void OnAbout(wxCommandEvent&amp; event);<br>wxDECLARE_EVENT_TABLE();<br>};<br>写过java的估计一看也能明白，MyFrame是构造方法，OnExit是退出的方法，OnAbout是关于的方法；<br>这三个估计都是Frame必备的一些方法；而OnHello就是我们自己打印HelloWorld的方法了。</p>
+<h2 id="第五个问题：下面这段代码是搞神马的？"><a href="#第五个问题：下面这段代码是搞神马的？" class="headerlink" title="第五个问题：下面这段代码是搞神马的？"></a>第五个问题：下面这段代码是搞神马的？</h2><p>wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)<br>EVT_MENU(ID_Hello, MyFrame::OnHello)<br>EVT_MENU(wxID_EXIT, MyFrame::OnExit)<br>EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)<br>wxEND_EVENT_TABLE()<br>wxIMPLEMENT_APP(MyApp);</p>
+<p>实际上这是一个事件表，所谓事件表，是一组位于类的实现文件（.cpp文件）中的宏，用来告诉<br>wxWidgets来自用户或者其它地方的事件应该怎样和类的成员函数对应起来。前面展示的事件表表<br>明，要把标识符分别为wxID EXIT和wxID ABOUT的菜单事件和MyFrame的成员函数OnAbout和OnQuit<br>关联起来。这里的EVT MENU宏只是很多中事件宏中的一个，事件宏的作用是告诉wxWidgets哪种事<br>件应该被关联到哪个成员函数。这里的两个标识wxID ABOUT和wxID EXIT是wxWidgets预定义的宏，<br>通常你应该通过枚举，常量或者宏定义的方式定义你自己的标识符，比如ID_Hello。<br>类比于java给按钮添加监听器，这个事件表其实就是为方法添加事件响应。比如当用户点击退出菜<br>单项的时候，MyFrame::OnQuit函数被调用（你已经意识到了，这是事件表的功劳）。它调用wxFrame<br>类的Close函数来释放frame窗口。因为没有别的窗口存在了，所以就触发了应用程序的退出，实际上，<br>wxFrame类的Close函数并不直接关闭frame窗口，而是产生一个wxEVT CLOSE WINDOW事件，这个事件默<br>认的处理函数调用wxWindow::Destroy函数释放了frame窗口。</p>
+<h2 id="第六个问题：Frame的构造函数这么长，都什么意思啊？"><a href="#第六个问题：Frame的构造函数这么长，都什么意思啊？" class="headerlink" title="第六个问题：Frame的构造函数这么长，都什么意思啊？"></a>第六个问题：Frame的构造函数这么长，都什么意思啊？</h2><p>首先，构造方法后面又加了: wxFrame(NULL, wxID_ANY, title, pos, size)对于我这种C++初学者就很<br>难理解，其实这个构造函数首先调用它的基类（wxFrame）的构造函数，使用的参数是父窗口(还没有父窗<br>口，所以用NULL),窗口标识(wxID ANY标识让wxWidgets自己选择一个)和标题。这个基类的构造函数<br>才真正创建了一个窗口的实例。除了这样的调用方法，还有另外一种方法是直接在构造函数里面显<br>式调用基类默认的构造函数(就是指不带任何参数的构造函数)，然后调用wxFrame::Create函数来创<br>建一个frame窗口的实例。理解了这个以后，里面的内容就相对简单了，无非就是添加组建了，这个<br>跟java编程就大同小异了，所以不用过多赘述了。</p>
+<p>## </p>
+<h2 id="到此本次的问题就结束了"><a href="#到此本次的问题就结束了" class="headerlink" title="到此本次的问题就结束了"></a>到此本次的问题就结束了</h2><p>解决了这六个问题，我也就明白了这段代码的含义，估计大家也都能明白了吧。<br>忽然发现时间已经是0:13了，说好的早睡呢！<br>早睡！早睡！早睡！<br>安咯。。。。。</p>
+<p>&nbsp;</p>
+<p>参考书目：</p>
+<p>Cross-Platform GUI Programming with WxWidgets   ——Julian Smart, Kevin Hock, Stefan Csomor</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/" data-id="cirrslqcf000980ujfap08fjx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/30/e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          自定义QQ5.0侧滑菜单改进版
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/27/vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">wxWidgets笔记 第一篇  搭建环境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

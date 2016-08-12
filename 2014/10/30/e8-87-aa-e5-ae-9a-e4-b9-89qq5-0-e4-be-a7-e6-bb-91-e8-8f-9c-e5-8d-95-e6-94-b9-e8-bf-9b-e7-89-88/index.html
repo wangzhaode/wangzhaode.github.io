@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自定义QQ5.0侧滑菜单改进版 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于QQ5.0的侧滑估计大家现在在网上能看到很多教程与实现方法，我发现有一篇写的十分简单易懂，而且在慕课网上还有对应视频，感觉着一个教程应该是最适合大家学习的啦，在此十分感谢原创作者。不过其中也有一点待改进的地方，那就是在滑动式的判断上，他只对滑动距离做了判断，但是未对滑动速度做判断，导致使用滑动菜单式感觉十分生硬，所以我在此处添加了速度判断，希望能让这个教程更加完美。
+想细致学习的同学可以去博主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义QQ5.0侧滑菜单改进版">
+<meta property="og:url" content="http://yoursite.com/2014/10/30/e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="关于QQ5.0的侧滑估计大家现在在网上能看到很多教程与实现方法，我发现有一篇写的十分简单易懂，而且在慕课网上还有对应视频，感觉着一个教程应该是最适合大家学习的啦，在此十分感谢原创作者。不过其中也有一点待改进的地方，那就是在滑动式的判断上，他只对滑动距离做了判断，但是未对滑动速度做判断，导致使用滑动菜单式感觉十分生硬，所以我在此处添加了速度判断，希望能让这个教程更加完美。
+想细致学习的同学可以去博主">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义QQ5.0侧滑菜单改进版">
+<meta name="twitter:description" content="关于QQ5.0的侧滑估计大家现在在网上能看到很多教程与实现方法，我发现有一篇写的十分简单易懂，而且在慕课网上还有对应视频，感觉着一个教程应该是最适合大家学习的啦，在此十分感谢原创作者。不过其中也有一点待改进的地方，那就是在滑动式的判断上，他只对滑动距离做了判断，但是未对滑动速度做判断，导致使用滑动菜单式感觉十分生硬，所以我在此处添加了速度判断，希望能让这个教程更加完美。
+想细致学习的同学可以去博主">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/30/e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88/" class="article-date">
+  <time datetime="2014-10-30T06:49:57.000Z" itemprop="datePublished">2014-10-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自定义QQ5.0侧滑菜单改进版
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于QQ5.0的侧滑估计大家现在在网上能看到很多教程与实现方法，我发现有一篇写的十分简单易懂，而且在慕课网上还有对应视频，感觉着一个教程应该是最适合大家学习的啦，在此十分感谢原创作者。不过其中也有一点待改进的地方，那就是在滑动式的判断上，他只对滑动距离做了判断，但是未对滑动速度做判断，导致使用滑动菜单式感觉十分生硬，所以我在此处添加了速度判断，希望能让这个教程更加完美。</p>
+<p>想细致学习的同学可以去博主那里看一下博客，或者是去慕课网看一下视频，都是很不错的，首先了解了基本的滑动菜单实现，然后再来看如何添加速度判断就比较容易理解了。</p>
+<p><span style="color: #00ffff;"><strong><a href="http://blog.csdn.net/lmj623565791/article/details/39185641" target="_blank" rel="external"><span style="color: #00ffff;">原教程博客地址</span></a></strong></span></p>
+<p><span style="color: #00ccff;"><strong><a href="http://www.imooc.com/learn/211" target="_blank" rel="external"><span style="color: #00ccff;">慕课网视频教程地址</span></a></strong></span></p>
+<a id="more"></a>
+<h2 id="对于滑动速度的监测，首先我们需要了解VelocityTracker类"><a href="#对于滑动速度的监测，首先我们需要了解VelocityTracker类" class="headerlink" title="对于滑动速度的监测，首先我们需要了解VelocityTracker类"></a>对于滑动速度的监测，首先我们需要了解<a href="http://blog.csdn.net/hudashi/article/details/7352157" target="_blank" rel="external">VelocityTracker</a>类</h2><p>下面是这个类的主要函数</p>
+<table id="pubmethods"><br><tbody><br><tr><br><th colspan="12">Public Methods</th><br></tr><br><tr><br><td>void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#addMovement(android.view.MotionEvent" target="_blank" rel="external">addMovement</a>)(<a href="http://developer.android.com/reference/android/view/MotionEvent.html" target="_blank" rel="external">MotionEvent</a> event)<br><div>Add a user’s movement to the tracker.</div></td><br></tr><br><tr><br><td>void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#clear(" target="_blank" rel="external">clear</a>)()<br><div>Reset the velocity tracker back to its initial state.</div></td><br></tr><br><tr><br><td>void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#computeCurrentVelocity(int, float" target="_blank" rel="external">computeCurrentVelocity</a>)(int units, float maxVelocity)<br><div>Compute the current velocity based on the points that have been collected.</div><br><div>int unitis表示速率的基本时间单位。unitis值为1的表示是，一毫秒时间单位内运动了多少个像素， unitis值为1000表示一秒（1000毫秒）时间单位内运动了多少个像素</div><br><div>floatVelocity表示速率的最大值</div></td><br></tr><br><tr><br><td>void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#computeCurrentVelocity(int" target="_blank" rel="external">computeCurrentVelocity</a>)(int units)<br><div>Equivalent to invoking <code>[computeCurrentVelocity(int, float)](http://developer.android.com/reference/android/view/VelocityTracker.html#computeCurrentVelocity(int, float))</code> with a maximum velocity of Float.MAX_VALUE.</div></td><br></tr><br><tr><br><td>abstract T</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#getNextPoolable(" target="_blank" rel="external">getNextPoolable</a>)()</td><br></tr><br><tr><br><td>float</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#getXVelocity(" target="_blank" rel="external">getXVelocity</a>)()<br><div>Retrieve the last computed X velocity.</div></td><br></tr><br><tr><br><td>float</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#getXVelocity(int" target="_blank" rel="external">getXVelocity</a>)(int id)<br><div>Retrieve the last computed X velocity.</div></td><br></tr><br><tr><br><td>float</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#getYVelocity(int" target="_blank" rel="external">getYVelocity</a>)(int id)<br><div>Retrieve the last computed Y velocity.</div></td><br></tr><br><tr><br><td>float</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#getYVelocity(" target="_blank" rel="external">getYVelocity</a>)()<br><div>Retrieve the last computed Y velocity.</div></td><br></tr><br><tr><br><td>abstract boolean</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#isPooled(" target="_blank" rel="external">isPooled</a>)()</td><br></tr><br><tr><br><td>static <a href="http://developer.android.com/reference/android/view/VelocityTracker.html" target="_blank" rel="external">VelocityTracker</a></td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#obtain(" target="_blank" rel="external">obtain</a>)()<br><div>Retrieve a new VelocityTracker object to watch the velocity of a motion.</div></td><br></tr><br><tr><br><td>void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#recycle(" target="_blank" rel="external">recycle</a>)()<br><div>Return a VelocityTracker object back to be re-used by others.</div></td><br></tr><br><tr><br><td>abstract void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#setNextPoolable(T" target="_blank" rel="external">setNextPoolable</a>)(T element)</td><br></tr><br><tr><br><td>abstract void</td><br><td width="100%"><a href="http://developer.android.com/reference/android/view/VelocityTracker.html#setPooled(boolean" target="_blank" rel="external">setPooled</a>)(boolean isPooled)</td><br></tr><br></tbody><br></table>
+
+<h2 id="应用到自定义的SlidingMenu类中"><a href="#应用到自定义的SlidingMenu类中" class="headerlink" title="应用到自定义的SlidingMenu类中"></a>应用到自定义的SlidingMenu类中</h2><h3 id="1-首先我们定义这几个变量"><a href="#1-首先我们定义这几个变量" class="headerlink" title="1.首先我们定义这几个变量"></a>1.首先我们定义这几个变量</h3><p>//用于求滑动速度的实例 id为点击触点ID<br>private VelocityTracker mVelocityTracker;<br>private int mPointerId;<br>//0表示未达到速度阈值；1表示达到向右滑动的阈值；2表示达到向左滑动的阈值<br>private int slidstate = 0;</p>
+<h3 id="2-给原来的onTouchEvent方法增加速度判断"><a href="#2-给原来的onTouchEvent方法增加速度判断" class="headerlink" title="2.给原来的onTouchEvent方法增加速度判断"></a>2.给原来的onTouchEvent方法增加速度判断</h3><p>经过不断尝试，大概把 <strong>2~3像素/秒 </strong>设置为阈值可以达到理想的自然滑动效果，所以在改变slidedata的这两个判断中使用了3.0作为阈值，</p>
+<p>if (velocityX &gt;= 3.0&amp;&amp;slidstate==0) {</p>
+<p>slidstate = 2;</p>
+<p>}</p>
+<p>if (velocityX &lt;= -3.0&amp;&amp;slidstate==0) {</p>
+<p>slidstate = 1;</p>
+<p>}</p>
+<p>以下为改进后的onTouchEvent方法</p>
+<p>[sourcecode language=”java”]</p>
+<p>public boolean onTouchEvent(MotionEvent ev) {</p>
+<p>//首先获得VelocityTracker类实例</p>
+<p>if (mVelocityTracker == null) {</p>
+<p>mVelocityTracker = VelocityTracker.obtain();//获得VelocityTracker类实例</p>
+<p>}</p>
+<p>int action = ev.getAction();</p>
+<p>mVelocityTracker.addMovement(ev);//将事件加入到VelocityTracker类实例中</p>
+<p>final VelocityTracker verTracker = mVelocityTracker;</p>
+<p>switch (action) {</p>
+<p>case MotionEvent.ACTION_DOWN:</p>
+<p>mPointerId = ev.getPointerId(0);</p>
+<p>break;</p>
+<p>case MotionEvent.ACTION_MOVE:</p>
+<p>//求伪瞬时速度</p>
+<p>verTracker.computeCurrentVelocity(1,1000);</p>
+<p>final float velocityX = verTracker.getXVelocity(mPointerId);</p>
+<p>Log.d(&quot;sudu&quot;, velocityX+&quot;&quot;);</p>
+<p>//改变slidstate的状态</p>
+<p>if (velocityX &amp;gt;= 3.0&amp;amp;&amp;amp;slidstate==0) {</p>
+<p>slidstate = 2;</p>
+<p>}</p>
+<p>if (velocityX &amp;lt;= -3.0&amp;amp;&amp;amp;slidstate==0) {</p>
+<p>slidstate = 1;</p>
+<p>}</p>
+<p>break;</p>
+<p>case MotionEvent.ACTION_UP:</p>
+<p>releaseVelocityTracker();</p>
+<p>int scrollX = getScrollX();</p>
+<p>Log.d(&quot;slidstate&quot;, slidstate+&quot;&quot;);</p>
+<p>switch (slidstate) {</p>
+<p>case 0:</p>
+<p>if (scrollX &amp;gt;= mScreenWidth / 2) {</p>
+<p>this.smoothScrollTo(mMenuWidth, 0);</p>
+<p>isOpen = false;</p>
+<p>} else {</p>
+<p>this.smoothScrollTo(0, 0);</p>
+<p>isOpen = true;</p>
+<p>}</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>this.smoothScrollTo(mMenuWidth, 0);</p>
+<p>isOpen = false;</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>this.smoothScrollTo(0, 0);</p>
+<p>isOpen = true;</p>
+<p>break;</p>
+<p>}</p>
+<p>slidstate=0;</p>
+<p>return true;</p>
+<p>}</p>
+<p>return super.onTouchEvent(ev);</p>
+<p>}</p>
+<p>//其中释放releaseVelocityTracker的方法为</p>
+<p>private void releaseVelocityTracker() {<br>if(null != mVelocityTracker) {<br>mVelocityTracker.clear();<br>mVelocityTracker.recycle();<br>mVelocityTracker = null;<br>}<br>}<br>[/sourcecode]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/30/e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88/" data-id="cirrslqc3000580ujcwwpwga5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/30/openvc-e7-ac-94-e8-ae-b0-1-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenCV笔记 第一篇 环境搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">wxWidgets笔记 第二篇 分析HelloWorld</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用PHP搭建微信订阅号 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="感谢班主任老师们在前段时间为大家争取到了一些经费，使用其中一部分为大家买了不少大家推荐的书，大家都很开心能有这些不错的图书资源可以利用。但是图书来了之后如何管理又成了问题，薇姐说建议做个软件系统来管理，这个有点难度。经过仔细思考，我觉得微信公众号的形式不错，也算是一个最轻量级的图书管理系统吧。
+由于基于微信，所以实现起来相对简单，就由我担任coding的工作。
+搭建微信平台，首先申请订阅号，实名认">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用PHP搭建微信订阅号">
+<meta property="og:url" content="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="感谢班主任老师们在前段时间为大家争取到了一些经费，使用其中一部分为大家买了不少大家推荐的书，大家都很开心能有这些不错的图书资源可以利用。但是图书来了之后如何管理又成了问题，薇姐说建议做个软件系统来管理，这个有点难度。经过仔细思考，我觉得微信公众号的形式不错，也算是一个最轻量级的图书管理系统吧。
+由于基于微信，所以实现起来相对简单，就由我担任coding的工作。
+搭建微信平台，首先申请订阅号，实名认">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用PHP搭建微信订阅号">
+<meta name="twitter:description" content="感谢班主任老师们在前段时间为大家争取到了一些经费，使用其中一部分为大家买了不少大家推荐的书，大家都很开心能有这些不错的图书资源可以利用。但是图书来了之后如何管理又成了问题，薇姐说建议做个软件系统来管理，这个有点难度。经过仔细思考，我觉得微信公众号的形式不错，也算是一个最轻量级的图书管理系统吧。
+由于基于微信，所以实现起来相对简单，就由我担任coding的工作。
+搭建微信平台，首先申请订阅号，实名认">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/" class="article-date">
+  <time datetime="2014-10-11T15:25:27.000Z" itemprop="datePublished">2014-10-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用PHP搭建微信订阅号
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>感谢班主任老师们在前段时间为大家争取到了一些经费，使用其中一部分为大家买了不少大家推荐的书，大家都很开心能有这些不错的图书资源可以利用。但是图书来了之后如何管理又成了问题，薇姐说建议做个软件系统来管理，这个有点难度。经过仔细思考，我觉得微信公众号的形式不错，也算是一个最轻量级的图书管理系统吧。</p>
+<p>由于基于微信，所以实现起来相对简单，就由我担任coding的工作。</p>
+<p>搭建微信平台，首先申请订阅号，实名认证；然后搭建新浪云的应用（我是建立的基于PHP的）;然后coding就ok了。</p>
+<p>不过由于本人大一一年没有利用好时间，所以各方面都没有什么了解，连PHP这么广泛使用的语言也没有涉猎过，所以只能临时学起。当然我之前也正有学习的打算，这也算是一个很好的契机。</p>
+<p>比起找框架直接写肯定要麻烦好多，所以我决定先找框架，这次我是用的是方倍工作室 <a href="http://www.cnblogs.com/的一个小框架，再次表示感谢。有了这个框架，我基本只需要coding核心的几个方法就ok了。" target="_blank" rel="external">http://www.cnblogs.com/的一个小框架，再次表示感谢。有了这个框架，我基本只需要coding核心的几个方法就ok了。</a></p>
+<p>下面贴出后台的源码：</p>
+<p>[php]<br>&lt;?php<br>define(&quot;TOKEN&quot;, &quot;weixin&quot;);<br>$wechatObj = new wechatCallbackapiTest();<br>if (!isset($_GET[‘echostr’])) {<br> $wechatObj-&gt;responseMsg();<br>}else{</p>
+<p>$wechatObj-&gt;valid();</p>
+<p>}</p>
+<p>class wechatCallbackapiTest</p>
+<p>{</p>
+<p>//验证消息</p>
+<p>public function valid()</p>
+<p>{</p>
+<p>$echoStr = $_GET[&quot;echostr&quot;];</p>
+<p>if($this-&gt;checkSignature()){</p>
+<p>echo $echoStr;</p>
+<p>exit;</p>
+<p>}</p>
+<p>}</p>
+<p>//检查签名</p>
+<p>private function checkSignature()</p>
+<p>{</p>
+<p>$signature = $_GET[&quot;signature&quot;];</p>
+<p>$timestamp = $_GET[&quot;timestamp&quot;];</p>
+<p>$nonce = $_GET[&quot;nonce&quot;];</p>
+<p>$token = TOKEN;</p>
+<p>$tmpArr = array($token, $timestamp, $nonce);</p>
+<p>sort($tmpArr, SORT_STRING);</p>
+<p>$tmpStr = implode($tmpArr);</p>
+<p>$tmpStr = sha1($tmpStr);</p>
+<p>if($tmpStr == $signature){</p>
+<p>return true;</p>
+<p>}else{</p>
+<p>return false;</p>
+<p>}</p>
+<p>}</p>
+<p>//响应消息</p>
+<p>public function responseMsg()</p>
+<p>{</p>
+<p>$postStr = $GLOBALS[&quot;HTTP_RAW_POST_DATA&quot;];</p>
+<p>if (!empty($postStr)){</p>
+<p>$this-&gt;logger(&quot;R &quot;.$postStr);</p>
+<p>$postObj = simplexml_load_string($postStr, ‘SimpleXMLElement’, LIBXML_NOCDATA);</p>
+<p>$RX_TYPE = trim($postObj-&gt;MsgType);</p>
+<p>switch ($RX_TYPE)</p>
+<p>{</p>
+<p>case &quot;event&quot;:</p>
+<p>$result = $this-&gt;receiveEvent($postObj);</p>
+<p>break;</p>
+<p>case &quot;text&quot;:</p>
+<p>$result = $this-&gt;receiveText($postObj);</p>
+<p>break;</p>
+<p>case &quot;image&quot;:</p>
+<p>$result = $this-&gt;receiveImage($postObj);</p>
+<p>break;</p>
+<p>case &quot;location&quot;:</p>
+<p>$result = $this-&gt;receiveLocation($postObj);</p>
+<p>break;</p>
+<p>case &quot;voice&quot;:</p>
+<p>$result = $this-&gt;receiveVoice($postObj);</p>
+<p>break;</p>
+<p>case &quot;video&quot;:</p>
+<p>$result = $this-&gt;receiveVideo($postObj);</p>
+<p>break;</p>
+<p>case &quot;link&quot;:</p>
+<p>$result = $this-&gt;receiveLink($postObj);</p>
+<p>break;</p>
+<p>default:</p>
+<p>$result = &quot;unknown msg type: &quot;.$RX_TYPE;</p>
+<p>break;</p>
+<p>}</p>
+<p>$this-&gt;logger(&quot;T &quot;.$result);</p>
+<p>echo $result;</p>
+<p>}else {</p>
+<p>echo &quot;&quot;;</p>
+<p>exit;</p>
+<p>}</p>
+<p>}</p>
+<p>//接收事件消息</p>
+<p>private function receiveEvent($object)</p>
+<p>{</p>
+<p>$content = &quot;&quot;;</p>
+<p>switch ($object-&gt;Event)</p>
+<p>{</p>
+<p>case &quot;subscribe&quot;:</p>
+<p>$content = &quot;欢迎关注山大计算机菁英班图书管理公众平台，回复【导航】,了解更多平台内容~ &quot;;</p>
+<p>$content .= (!empty($object-&gt;EventKey))?(&quot;n来自二维码场景 &quot;.str<em>replace(&quot;qrscene</em>&quot;,&quot;&quot;,$object-&gt;EventKey)):&quot;&quot;;</p>
+<p>break;</p>
+<p>case &quot;unsubscribe&quot;:</p>
+<p>$content = &quot;取消关注&quot;;</p>
+<p>break;</p>
+<p>case &quot;SCAN&quot;:</p>
+<p>$content = &quot;扫描场景 &quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>case &quot;CLICK&quot;:</p>
+<p>switch ($object-&gt;EventKey)</p>
+<p>{</p>
+<p>case &quot;COMPANY&quot;:</p>
+<p>$content = &quot;方倍工作室提供互联网相关产品与服务。&quot;;</p>
+<p>break;</p>
+<p>default:</p>
+<p>$content = &quot;点击菜单：&quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>}</p>
+<p>break;</p>
+<p>case &quot;LOCATION&quot;:</p>
+<p>$content = &quot;上传位置：纬度 &quot;.$object-&gt;Latitude.&quot;;经度 &quot;.$object-&gt;Longitude;</p>
+<p>break;</p>
+<p>case &quot;VIEW&quot;:</p>
+<p>$content = &quot;跳转链接 &quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>default:</p>
+<p>$content = &quot;receive a new event: &quot;.$object-&gt;Event;</p>
+<p>break;</p>
+<p>}</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收文本消息</p>
+<p>private function receiveText($object)</p>
+<p>{</p>
+<p>$keyword = trim($object-&gt;Content);</p>
+<p>//多客服人工回复模式</p>
+<p>if (strstr($keyword, &quot;您好&quot;) || strstr($keyword, &quot;你好&quot;) || strstr($keyword, &quot;在吗&quot;)){</p>
+<p>$result = $this-&gt;transmitService($object);</p>
+<p>}</p>
+<p>//自动回复模式</p>
+<p>else{</p>
+<p>if (strstr($keyword, &quot;导航&quot;)){</p>
+<p>$content = &quot;回复关键词了解相关内容吧n回复【本人】了解个人借书情况；n回复【图书】了解现有图书情况；n回复【借阅】申请借书或预约；n回复【归还】归还图书；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;本人&quot;)){</p>
+<p>$content = &quot;回复【%】加【学号】查看您现在的借书情况；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;图书&quot;)){</p>
+<p>$content = ‘查看所有书目及其借阅情况请点击：’.’<a href="http://tushuguanli.sinaapp.com/data/book_data.php" target="_blank" rel="external">http://tushuguanli.sinaapp.com/data/book_data.php</a>‘;</p>
+<p>}else if (strstr($keyword, &quot;借阅&quot;)){</p>
+<p>$content = &quot;回复【#】加【学号】加【书序号】借阅或预约书籍；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;归还&quot;)){</p>
+<p>$content = &quot;回复【*】加【学号】加【书序号】归还您所借的书籍；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;%&quot;)){</p>
+<p>$content = $this-&gt;get_Userbook(substr($keyword,1));</p>
+<p>}else if (strstr($keyword, &quot;#&quot;)){</p>
+<p>$content = $this-&gt;getBook(substr($keyword,1,12),substr($keyword,13,4));</p>
+<p>}else if (strstr($keyword, &quot;*&quot;)){</p>
+<p>$content = $this-&gt;getBack(substr($keyword,1,12),substr($keyword,13,4));</p>
+<p>}else{</p>
+<p>$content = date(&quot;Y-m-d H:i:s&quot;,time()).&quot;n技术支持 王召德&quot;;</p>
+<p>}</p>
+<p>if(is_array($content)){</p>
+<p>if (isset($content[0][‘PicUrl’])){</p>
+<p>$result = $this-&gt;transmitNews($object, $content);</p>
+<p>}else if (isset($content[‘MusicUrl’])){</p>
+<p>$result = $this-&gt;transmitMusic($object, $content);</p>
+<p>}</p>
+<p>}else{</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>}</p>
+<p>}</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收图片消息</p>
+<p>private function receiveImage($object)</p>
+<p>{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId);</p>
+<p>$result = $this-&gt;transmitImage($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收位置消息</p>
+<p>private function receiveLocation($object)</p>
+<p>{</p>
+<p>$content = &quot;你发送的是位置，纬度为：&quot;.$object-&gt;Location_X.&quot;；经度为：&quot;.$object-&gt;Location_Y.&quot;；缩放级别为：&quot;.$object-&gt;Scale.&quot;；位置为：&quot;.$object-&gt;Label;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收语音消息</p>
+<p>private function receiveVoice($object)</p>
+<p>{</p>
+<p>if (isset($object-&gt;Recognition) &amp;&amp; !empty($object-&gt;Recognition)){</p>
+<p>$content = &quot;你刚才说的是：&quot;.$object-&gt;Recognition;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>}else{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId);</p>
+<p>$result = $this-&gt;transmitVoice($object, $content);</p>
+<p>}</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收视频消息</p>
+<p>private function receiveVideo($object)</p>
+<p>{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId, &quot;ThumbMediaId&quot;=&gt;$object-&gt;ThumbMediaId, &quot;Title&quot;=&gt;&quot;&quot;, &quot;Description&quot;=&gt;&quot;&quot;);</p>
+<p>$result = $this-&gt;transmitVideo($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收链接消息</p>
+<p>private function receiveLink($object)</p>
+<p>{</p>
+<p>$content = &quot;你发送的是链接，标题为：&quot;.$object-&gt;Title.&quot;；内容为：&quot;.$object-&gt;Description.&quot;；链接地址为：&quot;.$object-&gt;Url;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复文本消息</p>
+<p>private function transmitText($object, $content)</p>
+<p>{</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time(), $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复图片消息</p>
+<p>private function transmitImage($object, $imageArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $imageArray[‘MediaId’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复语音消息</p>
+<p>private function transmitVoice($object, $voiceArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $voiceArray[‘MediaId’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复视频消息</p>
+<p>private function transmitVideo($object, $videoArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $videoArray[‘MediaId’], $videoArray[‘ThumbMediaId’], $videoArray[‘Title’], $videoArray[‘Description’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复图文消息</p>
+<p>private function transmitNews($object, $newsArray)</p>
+<p>{</p>
+<p>if(!is_array($newsArray)){</p>
+<p>return;</p>
+<p>}</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = &quot;&quot;;</p>
+<p>foreach ($newsArray as $item){</p>
+<p>$item_str .= sprintf($itemTpl, $item[‘Title’], $item[‘Description’], $item[‘PicUrl’], $item[‘Url’]);</p>
+<p>}</p>
+<p>$newsTpl = &quot;</p>
+<p>%s</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($newsTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time(), count($newsArray));</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复音乐消息</p>
+<p>private function transmitMusic($object, $musicArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $musicArray[‘Title’], $musicArray[‘Description’], $musicArray[‘MusicUrl’], $musicArray[‘HQMusicUrl’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//日志记录</p>
+<p>private function logger($log_content)</p>
+<p>{</p>
+<p>if(isset($_SERVER[‘HTTP_APPNAME’])){ //SAE</p>
+<p>sae_set_display_errors(false);</p>
+<p>sae_debug($log_content);</p>
+<p>sae_set_display_errors(true);</p>
+<p>}else if($_SERVER[‘REMOTE_ADDR’] != &quot;127.0.0.1&quot;){ //LOCAL</p>
+<p>$max_size = 10000;</p>
+<p>$log_filename = &quot;log.xml&quot;;</p>
+<p>if(file_exists($log_filename) and (abs(filesize($log_filename)) &gt; $max_size)){unlink($log_filename);}</p>
+<p>file_put_contents($log_filename, date(‘H:i:s’).&quot; &quot;.$log_content.&quot;rn&quot;, FILE_APPEND);</p>
+<p>}</p>
+<p>}</p>
+<p>//查看所有图书</p>
+<p>private function get_Allbook(){</p>
+<p>$str=’’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$sql = &quot;SELECT * FROM book_user&quot;;</p>
+<p>$data = $mysql-&gt;getData( $sql );</p>
+<p>foreach ($data as $row)</p>
+<p>{</p>
+<p>foreach ($row as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’num’||$key==’name’)</p>
+<p>$str=$str.$value.&quot; &quot;;</p>
+<p>}</p>
+<p>$str=$str.&quot;n&quot;;</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>return $str;</p>
+<p>}</p>
+<p>//查找个人所借书籍</p>
+<p>private function get_Userbook($code){</p>
+<p>$str=’’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$sql = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row = $mysql-&gt;getLine($sql);</p>
+<p>foreach ($row as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’code’) $str=$str.&quot;学号：&quot;.$value.&quot;n&quot;;</p>
+<p>if($key==’name’) $str=$str.&quot;姓名：&quot;.$value.&quot;n&quot;;</p>
+<p>if($key==’num1’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book1’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time1’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’num2’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book2’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time2’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’num3’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book3’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time3’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value;}}</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>if(strlen($str)==0) return &quot;学号错误，请重试！&quot;;</p>
+<p>else return $str;</p>
+<p>}</p>
+<p>//借阅书籍</p>
+<p>private function getBook($code,$num){</p>
+<p>$name = ‘’;</p>
+<p>$book = ‘’;</p>
+<p>$time = date(&quot;Y-m-d&quot;,time());</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$user = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row1 = $mysql-&gt;getLine($user);</p>
+<p>//用于标记已借阅的书本数</p>
+<p>$getted = 0;</p>
+<p>foreach ($row1 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$name = $value;else return &quot;学号错误，请重试！&quot;;</p>
+<p>if($key==’num1’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>if($key==’num2’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>if($key==’num3’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>}</p>
+<p>$books = &quot;SELECT * FROM <code>book_user</code> WHERE <code>num</code>=&quot;.$num;</p>
+<p>$row2 = $mysql-&gt;getLine($books);</p>
+<p>//用于标记多少人借阅</p>
+<p>$used = 0;</p>
+<p>$str = ‘’;</p>
+<p>foreach ($row2 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$book = $value;else return &quot;书序号错误，请重试！&quot;;</p>
+<p>if($key==’user1’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>if($key==’user2’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>if($key==’user3’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>}</p>
+<p>//先判断此用户是否还能继续借书</p>
+<p>if($getted==3) return &quot;您已经借阅了三本书，请给别人留点机会，谢谢！&quot;;</p>
+<p>else{</p>
+<p>//根据判断所借阅书籍的当前状况给予回复</p>
+<p>switch ($used)</p>
+<p>{</p>
+<p>case 0:</p>
+<p>$sql0 = &quot;UPDATE book_user SET user1 = ‘$name’ ,time1 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql0 );</p>
+<p>switch ($getted){</p>
+<p>case 0:</p>
+<p>$sql00 = &quot;UPDATE user_book SET num1 = ‘$num’, book1 = ‘$book’ ,start_time1 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql00 );</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql01 = &quot;UPDATE user_book SET num2 = ‘$num’, book2 = ‘$book’ ,start_time2 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql01 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql02 = &quot;UPDATE user_book SET num3 = ‘$num’, book3 = ‘$book’ ,start_time3 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql02 );</p>
+<p>break;</p>
+<p>}</p>
+<p>return $name.&quot;同学借阅&quot;.$book.&quot;成功，您可以近期前往3-517领取书籍。&quot;;</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql1 = &quot;UPDATE book_user SET user2 = ‘$name’ ,time2 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql1 );</p>
+<p>return $name.&quot;同学预约&quot;.$book.&quot;成功,上一位同学阅读完毕您即可借阅。&quot;;</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql2 = &quot;UPDATE book_user SET user3 = ‘$name’ ,time3 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql2 );</p>
+<p>return $name.&quot;同学预约&quot;.$book.&quot;成功，上一位同学阅读完毕您即可借阅。&quot;;</p>
+<p>break;</p>
+<p>default:</p>
+<p>return $book.&quot;预约名额已满，请等待一段时间再来借阅。&quot;;</p>
+<p>}</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>}</p>
+<p>private function getBack($code,$num) {</p>
+<p>$time = date(&quot;Y-m-d&quot;,time());</p>
+<p>//对应学号的用户名</p>
+<p>$name = ‘’;</p>
+<p>//用于标记所还书是所借书的第几本</p>
+<p>$user_index = 0;</p>
+<p>//用于存放用户所借第二三本书的信息以便于删掉前面的后面往前转移</p>
+<p>$num2 = ‘’; $book2 = ‘’; $time2 = ‘’;</p>
+<p>$num3 = ‘’; $book3 = ‘’; $time3 = ‘’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>//以下方法用于从user表中删除，并将后面的依次前移</p>
+<p>$user = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row1 = $mysql-&gt;getLine($user);</p>
+<p>foreach ($row1 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$name = $value;else return &quot;学号错误，请重试！&quot;;</p>
+<p>if($key==’num1’) {if($value==$num){$user_index = 1;}}</p>
+<p>if($key==’num2’) {if($value==$num){$user_index = 2;}$num2=$value;}</p>
+<p>if($key==’book2’) $book2=$value; if($key==’start_time2’) $time2=$value;</p>
+<p>if($key==’num3’) {if($value==$num){$user_index = 3;}$num3=$value;}</p>
+<p>if($key==’book3’) $book3=$value; if($key==’start_time3’) $time3=$value;</p>
+<p>}</p>
+<p>switch($user_index){</p>
+<p>case 0:</p>
+<p>return &quot;您未借此书，请重试！&quot;;</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql1 = &quot;UPDATE user_book SET num1 = ‘$num2’, book1 = ‘$book2’ ,start_time1 = ‘$time2’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql1 );</p>
+<p>$sql11 = &quot;UPDATE user_book SET num2 = ‘$num3’, book2 = ‘$book3’ ,start_time2 = ‘$time3’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql11 );</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql2 = &quot;UPDATE user_book SET num2 = ‘$num3’, book2 = ‘$book3’ ,start_time2 = ‘$time3’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql2 );</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>break;</p>
+<p>default:</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>}</p>
+<p>//书名</p>
+<p>$book_name = ‘’;</p>
+<p>//用于存放预约者信息，将之前移</p>
+<p>$user2 = ‘’; $time_2 = ‘’;</p>
+<p>$user3 = ‘’; $time_3 = ‘’;</p>
+<p>$user2_code = ‘’;</p>
+<p>//以下用于从book表中删除，并将预约者前移</p>
+<p>$books = &quot;SELECT * FROM <code>book_user</code> WHERE <code>num</code>=&quot;.$num;</p>
+<p>$row2 = $mysql-&gt;getLine($books);</p>
+<p>foreach ($row2 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$book_name = $value;else return &quot;书序号错误，请重试！&quot;;</p>
+<p>if($key==’user2’) $user2 = $value;</p>
+<p>if($key==’time2’) $time_2 = $value;</p>
+<p>if($key==’user3’) $user3 = $value;</p>
+<p>if($key==’time3’) $time_3 = $value;</p>
+<p>}</p>
+<p>$del1 = &quot;UPDATE book_user SET user1 = ‘$user2’ ,time1 = ‘$time_2’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del1 );</p>
+<p>$del2 = &quot;UPDATE book_user SET user2 = ‘$user3’ ,time2 = ‘$time_3’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del2 );</p>
+<p>$del3 = &quot;UPDATE book_user SET user3 = ‘’ ,time3 = ‘’ WHERE num = ‘$num’&quot;;</p>
+<p>if(strlen($user2)!=0){</p>
+<p>$find = &quot;SELECT * FROM <code>user_book</code> WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$findrow = $mysql-&gt;getLine($findcode);</p>
+<p>//用于标记已借阅的书本数</p>
+<p>$getted = 0;</p>
+<p>foreach ($findrow as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’num1’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>if($key==’num2’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>if($key==’num3’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>}</p>
+<p>switch ($getted){</p>
+<p>case 0:</p>
+<p>$sql00 = &quot;UPDATE user_book SET num1 = ‘$num’, book1 = ‘$book_name’ ,start_time1 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql00 );</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql01 = &quot;UPDATE user_book SET num2 = ‘$num’, book2 = ‘$book_name’ ,start_time2 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql01 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql02 = &quot;UPDATE user_book SET num3 = ‘$num’, book3 = ‘$book_name’ ,start_time3 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql02 );</p>
+<p>break;</p>
+<p>default:</p>
+<p>$del1 = &quot;UPDATE book_user SET user1 = ‘$user2’ ,time1 = ‘$time_2’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del1 );</p>
+<p>$del2 = &quot;UPDATE book_user SET user2 = ‘$user3’ ,time2 = ‘$time_3’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del2 );</p>
+<p>}</p>
+<p>}</p>
+<p>$mysql-&gt;runSql( $del3 );</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>return $name.&quot;同学成功归还&quot;.$book_name;</p>
+<p> }<br>}<br>?&gt;<br>[/php]</p>
+<p><span style="font-size: 18px;"></span></p>
+<p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/" data-id="cirrslqcb000780uj5jcymmir" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/27/vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          wxWidgets笔记 第一篇  搭建环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C++指针小记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

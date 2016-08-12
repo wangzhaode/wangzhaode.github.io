@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/" class="article-date">
+  <time datetime="2014-10-27T16:25:37.000Z" itemprop="datePublished">2014-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/">wxWidgets笔记 第二篇 分析HelloWorld</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分析第一段wxWidgets代码"><a href="#分析第一段wxWidgets代码" class="headerlink" title="分析第一段wxWidgets代码"></a>分析第一段wxWidgets代码</h1><p>看到自己复制代码并运行的HelloWorld之后，会不会感觉内容很陌生啊？<br>那么问题来了！</p>
+<h2 id="第一个问题：main函数在哪里？"><a href="#第一个问题：main函数在哪里？" class="headerlink" title="第一个问题：main函数在哪里？"></a>第一个问题：main函数在哪里？</h2><p>首先你会看到这段代码<br>class MyApp : public wxApp<br>{<br>public:<br>virtual bool OnInit();<br>};<br>这是因为每一个wxWidgets程序都需要定义一个wxApp类的子类，并且需要创建并且只能创建一个这个类的实例<br>你的这个继承自wxApp的子类至少需要定义一个OnInit函数，当wxWidgets准备好运行你写的代码的时候，它将<br>会调用这个函数（这和一个典型的Win32程序中的main函数或者WinMain函数类似）。</p>
+<h2 id="第二个问题：OnInit如何定义？"><a href="#第二个问题：OnInit如何定义？" class="headerlink" title="第二个问题：OnInit如何定义？"></a>第二个问题：OnInit如何定义？</h2><p>看这下面段代码<br>bool MyApp::OnInit()<br>{<br>//MyFrame <em>frame = new MyFrame(“Hello World”, wxPoint(50, 50), wxSize(450, 340));<br>MyFrame </em>frame = new MyFrame(“Hello World”, wxDefaultPosition, wxDefaultSize);<br>frame-&gt;Show(true);<br>return true;<br>}<br>在这个OnInit函数中，通常应该作的事情包括: 创建至少一个窗口实例(实例是C++中的关键词)，<br>对传入的命令行参数进行解析，为应用程序进行数据设置和其它的一些初始化的操作.如果这<br>个函数返回真，wxWidgets将开始事件循环用来接收用户输入并且在必要的情况下处理这些输入。<br>如果OnInit函数返回假，wxWidgets将会释放它内部已经分配的资源，然后结束整个程序的运行。</p>
+<p>&nbsp;</p>
+<h2 id="第四个问题：Frame类是什么类？"><a href="#第四个问题：Frame类是什么类？" class="headerlink" title="第四个问题：Frame类是什么类？"></a>第四个问题：Frame类是什么类？</h2><p>写过java图形界面的估计也能知道的差不多了，一个Frame窗口是一个可以容纳别的窗口的顶层窗口，<br>通常拥有一个标题栏和一个菜单栏。来看看代码：<br>class MyFrame : public wxFrame<br>{<br>public:<br>MyFrame(const wxString&amp; title, const wxPoint&amp; pos, const wxSize&amp; size);<br>private:<br>void OnHello(wxCommandEvent&amp; event);<br>void OnExit(wxCommandEvent&amp; event);<br>void OnAbout(wxCommandEvent&amp; event);<br>wxDECLARE_EVENT_TABLE();<br>};<br>写过java的估计一看也能明白，MyFrame是构造方法，OnExit是退出的方法，OnAbout是关于的方法；<br>这三个估计都是Frame必备的一些方法；而OnHello就是我们自己打印HelloWorld的方法了。</p>
+<h2 id="第五个问题：下面这段代码是搞神马的？"><a href="#第五个问题：下面这段代码是搞神马的？" class="headerlink" title="第五个问题：下面这段代码是搞神马的？"></a>第五个问题：下面这段代码是搞神马的？</h2><p>wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)<br>EVT_MENU(ID_Hello, MyFrame::OnHello)<br>EVT_MENU(wxID_EXIT, MyFrame::OnExit)<br>EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)<br>wxEND_EVENT_TABLE()<br>wxIMPLEMENT_APP(MyApp);</p>
+<p>实际上这是一个事件表，所谓事件表，是一组位于类的实现文件（.cpp文件）中的宏，用来告诉<br>wxWidgets来自用户或者其它地方的事件应该怎样和类的成员函数对应起来。前面展示的事件表表<br>明，要把标识符分别为wxID EXIT和wxID ABOUT的菜单事件和MyFrame的成员函数OnAbout和OnQuit<br>关联起来。这里的EVT MENU宏只是很多中事件宏中的一个，事件宏的作用是告诉wxWidgets哪种事<br>件应该被关联到哪个成员函数。这里的两个标识wxID ABOUT和wxID EXIT是wxWidgets预定义的宏，<br>通常你应该通过枚举，常量或者宏定义的方式定义你自己的标识符，比如ID_Hello。<br>类比于java给按钮添加监听器，这个事件表其实就是为方法添加事件响应。比如当用户点击退出菜<br>单项的时候，MyFrame::OnQuit函数被调用（你已经意识到了，这是事件表的功劳）。它调用wxFrame<br>类的Close函数来释放frame窗口。因为没有别的窗口存在了，所以就触发了应用程序的退出，实际上，<br>wxFrame类的Close函数并不直接关闭frame窗口，而是产生一个wxEVT CLOSE WINDOW事件，这个事件默<br>认的处理函数调用wxWindow::Destroy函数释放了frame窗口。</p>
+<h2 id="第六个问题：Frame的构造函数这么长，都什么意思啊？"><a href="#第六个问题：Frame的构造函数这么长，都什么意思啊？" class="headerlink" title="第六个问题：Frame的构造函数这么长，都什么意思啊？"></a>第六个问题：Frame的构造函数这么长，都什么意思啊？</h2><p>首先，构造方法后面又加了: wxFrame(NULL, wxID_ANY, title, pos, size)对于我这种C++初学者就很<br>难理解，其实这个构造函数首先调用它的基类（wxFrame）的构造函数，使用的参数是父窗口(还没有父窗<br>口，所以用NULL),窗口标识(wxID ANY标识让wxWidgets自己选择一个)和标题。这个基类的构造函数<br>才真正创建了一个窗口的实例。除了这样的调用方法，还有另外一种方法是直接在构造函数里面显<br>式调用基类默认的构造函数(就是指不带任何参数的构造函数)，然后调用wxFrame::Create函数来创<br>建一个frame窗口的实例。理解了这个以后，里面的内容就相对简单了，无非就是添加组建了，这个<br>跟java编程就大同小异了，所以不用过多赘述了。</p>
+<p>## </p>
+<h2 id="到此本次的问题就结束了"><a href="#到此本次的问题就结束了" class="headerlink" title="到此本次的问题就结束了"></a>到此本次的问题就结束了</h2><p>解决了这六个问题，我也就明白了这段代码的含义，估计大家也都能明白了吧。<br>忽然发现时间已经是0:13了，说好的早睡呢！<br>早睡！早睡！早睡！<br>安咯。。。。。</p>
+<p>&nbsp;</p>
+<p>参考书目：</p>
+<p>Cross-Platform GUI Programming with WxWidgets   ——Julian Smart, Kevin Hock, Stefan Csomor</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/28/c-e7-9a-84ui-e4-b9-8b-e8-b7-af-e7-ac-ac-e4-ba-8c-e7-af-87/" data-id="cirrslqcf000980ujfap08fjx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/27/vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83/" class="article-date">
+  <time datetime="2014-10-27T14:32:28.000Z" itemprop="datePublished">2014-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/27/vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83/">wxWidgets笔记 第一篇  搭建环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VS2012搭建wxWidgets开发环境"><a href="#VS2012搭建wxWidgets开发环境" class="headerlink" title="VS2012搭建wxWidgets开发环境"></a>VS2012搭建wxWidgets开发环境</h1><h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a><span style="font-size: 13px;">一、安装</span></h2><div><br><div id="niwozhi_content_div"><br><br>前往官网下载最新wxWidgets 3.0.0。<br><br><a href="https://sourceforge.net/projects/wxwindows/files/3.0.0/wxMSW-3.0.0-Setup.exe/download" target="_blank" rel="external">https://sourceforge.net/projects/wxwindows/files/3.0.0/wxMSW-3.0.0-Setup.exe/download</a><br><br>下载完默认安装即可，可修改安装路径。<br><br>假设安装在E盘根目录   可设置环境变量如下<br><br>1.右键计算机<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224346.jpg" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224346-150x150.jpg" alt="" title="计算机右键"></a><br><br>2.选择 “高级系统设置”<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224409.png" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224409-300x217.png" alt="" title="QQ图片20141027224409"></a><br><br>3.选择右下角的 “环境变量”<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224436.png" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224436-244x300.png" alt="" title="QQ图片20141027224436"></a><br><br>4.添加环境变量<br><br>变量名：WXWIN<br><br>变量值：E:wxWidgets-3.0.0<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224529.png" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/QQ图片20141027224529-300x138.png" alt="" title="QQ图片20141027224529"></a><br><br>## 二、编译<br><br>打开安装目录wxWidgets-3.0.0在buildmsw下找到wx.dsw。<br><br>用VS2012打开wx.dsw，等待工程从VC6到VS2013的转换完成。<br><br>解决方案结构如下图所示<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/test.png" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/test-190x300.png" alt="" title="test"></a><br><br>右击解决方案，点击批生成，勾选所有Debug和Release（可根据需要选择），点击生成进行编译。<br><br>## 三、配置<br><br>新建Win32控制台应用程序，应用程序类型勾选Windows应用程序或控制台应用程序。<br><br>新建源文件test.cc，粘贴以下代码。<br>[sourcecode language=”c”]<br>// wxWidgets &quot;Hello world&quot; Program<br><br>// For compilers that support precompilation, includes &quot;wx/wx.h&quot;.<br><br>#include &amp;lt;wx/wxprec.h&amp;gt;<br><br>#ifndef WX_PRECOMP<br><br>#include &amp;lt;wx/wx.h&amp;gt;<br><br>#endif<br><br>class MyApp : public wxApp<br><br>{<br><br>public:<br><br>virtual bool OnInit();<br><br>};<br><br>class MyFrame : public wxFrame<br><br>{<br><br>public:<br><br>MyFrame(const wxString&amp;amp; title, const wxPoint&amp;amp; pos, const wxSize&amp;amp; size);<br><br>private:<br><br>void OnHello(wxCommandEvent&amp;amp; event);<br><br>void OnExit(wxCommandEvent&amp;amp; event);<br><br>void OnAbout(wxCommandEvent&amp;amp; event);<br><br>wxDECLARE_EVENT_TABLE();<br><br>};<br><br>enum<br><br>{<br><br>ID_Hello = 1<br><br>};<br><br>wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)<br><br>EVT_MENU(ID_Hello, MyFrame::OnHello)<br><br>EVT_MENU(wxID_EXIT, MyFrame::OnExit)<br><br>EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)<br><br>wxEND_EVENT_TABLE()<br><br>wxIMPLEMENT_APP(MyApp);<br><br>bool MyApp::OnInit()<br><br>{<br><br>//MyFrame <em>frame = new MyFrame(&quot;Hello World&quot;, wxPoint(50, 50), wxSize(450, 340));<br><br>MyFrame </em>frame = new MyFrame(&quot;Hello World&quot;, wxDefaultPosition, wxDefaultSize);<br><br>frame-&amp;gt;Show(true);<br><br>return true;<br><br>}<br><br>MyFrame::MyFrame(const wxString&amp;amp; title, const wxPoint&amp;amp; pos, const wxSize&amp;amp; size)<br><br>: wxFrame(NULL, wxID_ANY, title, pos, size)<br><br>{<br><br>wxMenu <em>menuFile = new wxMenu;<br><br>menuFile-&amp;gt;Append(ID_Hello, &quot;&amp;amp;Hello…tCtrl-H&quot;,<br><br>&quot;Help string shown in status bar for this menu item&quot;);<br><br>menuFile-&amp;gt;AppendSeparator();<br><br>menuFile-&amp;gt;Append(wxID_EXIT);<br><br>wxMenu </em>menuHelp = new wxMenu;<br><br>menuHelp-&amp;gt;Append(wxID_ABOUT);<br><br>wxMenuBar *menuBar = new wxMenuBar;<br><br>menuBar-&amp;gt;Append(menuFile, &quot;&amp;amp;File&quot;);<br><br>menuBar-&amp;gt;Append(menuHelp, &quot;&amp;amp;Help&quot;);<br><br>SetMenuBar(menuBar);<br><br>CreateStatusBar();<br><br>SetStatusText(&quot;Welcome to wxWidgets!&quot;);<br><br>}<br><br>void MyFrame::OnExit(wxCommandEvent&amp;amp; event)<br><br>{<br><br>Close(true);<br><br>}<br><br>void MyFrame::OnAbout(wxCommandEvent&amp;amp; event)<br><br>{<br><br>wxMessageBox(&quot;This is a wxWidgets’ Hello world sample&quot;,<br><br>&quot;About Hello World&quot;, wxOK | wxICON_INFORMATION);<br><br>}<br><br>void MyFrame::OnHello(wxCommandEvent&amp;amp; event)<br><br>{<br><br>wxLogMessage(&quot;Hello world from wxWidgets!&quot;);<br><br>}<br>[/sourcecode]<br><br>1、 包含目录<br><br>右击项目，打开项目属性页，配置一项选择所有配置<br><br>配置属性-&gt;C/C++-&gt;常规-&gt;附加包含目录 中添加：<br><br>$(WXWIN)include<br><br>$(WXWIN)libvc_libmswu<br><br>&nbsp;<br><br>2、 库目录<br><br>配置属性-&gt;链接器-&gt;常规-&gt;附加库目录 中添加：<br><br>$(WXWIN)libvc_lib<br><br>&nbsp;<br><br>3、 MFC的使用<br><br>配置属性-&gt;MFC的使用：使用标准 Windows 库<br><br>4、 依赖项<br><br>配置属性-&gt;链接器-&gt;输入-&gt;附加依赖项 按照如下规则添加：<br><br>A、 配置一项改为Release<br>[sourcecode language=”plain”]<br><br>wxbase30u.lib<br><br>wxbase30u_net.lib<br><br>wxbase30u_xml.lib<br><br>wxexpat.lib<br><br>wxjpeg.lib<br><br>wxmsw30u_adv.lib<br><br>wxmsw30u_aui.lib<br><br>wxmsw30u_core.lib<br><br>wxmsw30u_gl.lib<br><br>wxmsw30u_html.lib<br><br>wxmsw30u_media.lib<br><br>wxmsw30u_propgrid.lib<br><br>wxmsw30u_qa.lib<br><br>wxmsw30u_ribbon.lib<br><br>wxmsw30u_richtext.lib<br><br>wxmsw30u_stc.lib<br><br>wxmsw30u_xrc.lib<br><br>wxpng.lib<br><br>wxregexu.lib<br><br>wxscintilla.lib<br><br>wxtiff.lib<br><br>wxzlib.lib<br><br>comctl32.lib<br><br>rpcrt4.lib<br><br>&amp;nbsp;<br>[/sourcecode]<br><br>B、 配置一项改为Debug<br>[sourcecode language=”plain”]<br><br>wxbase30ud_net.lib<br><br>wxmsw30ud_html.lib<br><br>wxbase30ud_xml.lib<br><br>wxmsw30ud_adv.lib<br><br>wxmsw30ud_aui.lib<br><br>wxmsw30ud_gl.lib<br><br>wxmsw30ud_media.lib<br><br>wxmsw30ud_propgrid.lib<br><br>wxmsw30ud_qa.lib<br><br>wxmsw30ud_ribbon.lib<br><br>wxmsw30ud_richtext.lib<br><br>wxmsw30ud_stc.lib<br><br>wxmsw30ud_xrc.lib<br><br>wxscintillad.lib<br><br>wxmsw30ud_core.lib<br><br>wxbase30ud.lib<br><br>wxtiffd.lib<br><br>wxjpegd.lib<br><br>wxpngd.lib<br><br>wxzlibd.lib<br><br>wxexpatd.lib<br><br>winmm.lib<br><br>comctl32.lib<br><br>rpcrt4.lib<br><br>wsock32.lib<br><br>odbc32.lib<br>[/sourcecode]<br><br>&nbsp;<br><br>5、 预处理器定义<br><br>配置一项改为Debug<br><br>配置属性-&gt;C/C++-&gt;预处理器-&gt;预处理器定义 中添加：<br><br><strong>WXMSW</strong><br><br><strong>WXDEBUG</strong><br><br>&nbsp;<br><br>6、 保存后即可编译<br><br>&nbsp;<br><br>此文章感谢 你我知 网站的部分教程<br><br><a href="http://www.niwozhi.net/" target="_blank" rel="external">http://www.niwozhi.net/</a><br><br></div><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/27/vs2012-e6-90-ad-e5-bb-bawxwidgets-e5-bc-80-e5-8f-91-e7-8e-af-e5-a2-83/" data-id="cirrslqd8000l80uj9jr5apre" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/" class="article-date">
+  <time datetime="2014-10-11T15:25:27.000Z" itemprop="datePublished">2014-10-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/">使用PHP搭建微信订阅号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>感谢班主任老师们在前段时间为大家争取到了一些经费，使用其中一部分为大家买了不少大家推荐的书，大家都很开心能有这些不错的图书资源可以利用。但是图书来了之后如何管理又成了问题，薇姐说建议做个软件系统来管理，这个有点难度。经过仔细思考，我觉得微信公众号的形式不错，也算是一个最轻量级的图书管理系统吧。</p>
+<p>由于基于微信，所以实现起来相对简单，就由我担任coding的工作。</p>
+<p>搭建微信平台，首先申请订阅号，实名认证；然后搭建新浪云的应用（我是建立的基于PHP的）;然后coding就ok了。</p>
+<p>不过由于本人大一一年没有利用好时间，所以各方面都没有什么了解，连PHP这么广泛使用的语言也没有涉猎过，所以只能临时学起。当然我之前也正有学习的打算，这也算是一个很好的契机。</p>
+<p>比起找框架直接写肯定要麻烦好多，所以我决定先找框架，这次我是用的是方倍工作室 <a href="http://www.cnblogs.com/的一个小框架，再次表示感谢。有了这个框架，我基本只需要coding核心的几个方法就ok了。" target="_blank" rel="external">http://www.cnblogs.com/的一个小框架，再次表示感谢。有了这个框架，我基本只需要coding核心的几个方法就ok了。</a></p>
+<p>下面贴出后台的源码：</p>
+<p>[php]<br>&lt;?php<br>define(&quot;TOKEN&quot;, &quot;weixin&quot;);<br>$wechatObj = new wechatCallbackapiTest();<br>if (!isset($_GET[‘echostr’])) {<br> $wechatObj-&gt;responseMsg();<br>}else{</p>
+<p>$wechatObj-&gt;valid();</p>
+<p>}</p>
+<p>class wechatCallbackapiTest</p>
+<p>{</p>
+<p>//验证消息</p>
+<p>public function valid()</p>
+<p>{</p>
+<p>$echoStr = $_GET[&quot;echostr&quot;];</p>
+<p>if($this-&gt;checkSignature()){</p>
+<p>echo $echoStr;</p>
+<p>exit;</p>
+<p>}</p>
+<p>}</p>
+<p>//检查签名</p>
+<p>private function checkSignature()</p>
+<p>{</p>
+<p>$signature = $_GET[&quot;signature&quot;];</p>
+<p>$timestamp = $_GET[&quot;timestamp&quot;];</p>
+<p>$nonce = $_GET[&quot;nonce&quot;];</p>
+<p>$token = TOKEN;</p>
+<p>$tmpArr = array($token, $timestamp, $nonce);</p>
+<p>sort($tmpArr, SORT_STRING);</p>
+<p>$tmpStr = implode($tmpArr);</p>
+<p>$tmpStr = sha1($tmpStr);</p>
+<p>if($tmpStr == $signature){</p>
+<p>return true;</p>
+<p>}else{</p>
+<p>return false;</p>
+<p>}</p>
+<p>}</p>
+<p>//响应消息</p>
+<p>public function responseMsg()</p>
+<p>{</p>
+<p>$postStr = $GLOBALS[&quot;HTTP_RAW_POST_DATA&quot;];</p>
+<p>if (!empty($postStr)){</p>
+<p>$this-&gt;logger(&quot;R &quot;.$postStr);</p>
+<p>$postObj = simplexml_load_string($postStr, ‘SimpleXMLElement’, LIBXML_NOCDATA);</p>
+<p>$RX_TYPE = trim($postObj-&gt;MsgType);</p>
+<p>switch ($RX_TYPE)</p>
+<p>{</p>
+<p>case &quot;event&quot;:</p>
+<p>$result = $this-&gt;receiveEvent($postObj);</p>
+<p>break;</p>
+<p>case &quot;text&quot;:</p>
+<p>$result = $this-&gt;receiveText($postObj);</p>
+<p>break;</p>
+<p>case &quot;image&quot;:</p>
+<p>$result = $this-&gt;receiveImage($postObj);</p>
+<p>break;</p>
+<p>case &quot;location&quot;:</p>
+<p>$result = $this-&gt;receiveLocation($postObj);</p>
+<p>break;</p>
+<p>case &quot;voice&quot;:</p>
+<p>$result = $this-&gt;receiveVoice($postObj);</p>
+<p>break;</p>
+<p>case &quot;video&quot;:</p>
+<p>$result = $this-&gt;receiveVideo($postObj);</p>
+<p>break;</p>
+<p>case &quot;link&quot;:</p>
+<p>$result = $this-&gt;receiveLink($postObj);</p>
+<p>break;</p>
+<p>default:</p>
+<p>$result = &quot;unknown msg type: &quot;.$RX_TYPE;</p>
+<p>break;</p>
+<p>}</p>
+<p>$this-&gt;logger(&quot;T &quot;.$result);</p>
+<p>echo $result;</p>
+<p>}else {</p>
+<p>echo &quot;&quot;;</p>
+<p>exit;</p>
+<p>}</p>
+<p>}</p>
+<p>//接收事件消息</p>
+<p>private function receiveEvent($object)</p>
+<p>{</p>
+<p>$content = &quot;&quot;;</p>
+<p>switch ($object-&gt;Event)</p>
+<p>{</p>
+<p>case &quot;subscribe&quot;:</p>
+<p>$content = &quot;欢迎关注山大计算机菁英班图书管理公众平台，回复【导航】,了解更多平台内容~ &quot;;</p>
+<p>$content .= (!empty($object-&gt;EventKey))?(&quot;n来自二维码场景 &quot;.str<em>replace(&quot;qrscene</em>&quot;,&quot;&quot;,$object-&gt;EventKey)):&quot;&quot;;</p>
+<p>break;</p>
+<p>case &quot;unsubscribe&quot;:</p>
+<p>$content = &quot;取消关注&quot;;</p>
+<p>break;</p>
+<p>case &quot;SCAN&quot;:</p>
+<p>$content = &quot;扫描场景 &quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>case &quot;CLICK&quot;:</p>
+<p>switch ($object-&gt;EventKey)</p>
+<p>{</p>
+<p>case &quot;COMPANY&quot;:</p>
+<p>$content = &quot;方倍工作室提供互联网相关产品与服务。&quot;;</p>
+<p>break;</p>
+<p>default:</p>
+<p>$content = &quot;点击菜单：&quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>}</p>
+<p>break;</p>
+<p>case &quot;LOCATION&quot;:</p>
+<p>$content = &quot;上传位置：纬度 &quot;.$object-&gt;Latitude.&quot;;经度 &quot;.$object-&gt;Longitude;</p>
+<p>break;</p>
+<p>case &quot;VIEW&quot;:</p>
+<p>$content = &quot;跳转链接 &quot;.$object-&gt;EventKey;</p>
+<p>break;</p>
+<p>default:</p>
+<p>$content = &quot;receive a new event: &quot;.$object-&gt;Event;</p>
+<p>break;</p>
+<p>}</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收文本消息</p>
+<p>private function receiveText($object)</p>
+<p>{</p>
+<p>$keyword = trim($object-&gt;Content);</p>
+<p>//多客服人工回复模式</p>
+<p>if (strstr($keyword, &quot;您好&quot;) || strstr($keyword, &quot;你好&quot;) || strstr($keyword, &quot;在吗&quot;)){</p>
+<p>$result = $this-&gt;transmitService($object);</p>
+<p>}</p>
+<p>//自动回复模式</p>
+<p>else{</p>
+<p>if (strstr($keyword, &quot;导航&quot;)){</p>
+<p>$content = &quot;回复关键词了解相关内容吧n回复【本人】了解个人借书情况；n回复【图书】了解现有图书情况；n回复【借阅】申请借书或预约；n回复【归还】归还图书；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;本人&quot;)){</p>
+<p>$content = &quot;回复【%】加【学号】查看您现在的借书情况；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;图书&quot;)){</p>
+<p>$content = ‘查看所有书目及其借阅情况请点击：’.’<a href="http://tushuguanli.sinaapp.com/data/book_data.php" target="_blank" rel="external">http://tushuguanli.sinaapp.com/data/book_data.php</a>‘;</p>
+<p>}else if (strstr($keyword, &quot;借阅&quot;)){</p>
+<p>$content = &quot;回复【#】加【学号】加【书序号】借阅或预约书籍；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;归还&quot;)){</p>
+<p>$content = &quot;回复【*】加【学号】加【书序号】归还您所借的书籍；&quot;;</p>
+<p>}else if (strstr($keyword, &quot;%&quot;)){</p>
+<p>$content = $this-&gt;get_Userbook(substr($keyword,1));</p>
+<p>}else if (strstr($keyword, &quot;#&quot;)){</p>
+<p>$content = $this-&gt;getBook(substr($keyword,1,12),substr($keyword,13,4));</p>
+<p>}else if (strstr($keyword, &quot;*&quot;)){</p>
+<p>$content = $this-&gt;getBack(substr($keyword,1,12),substr($keyword,13,4));</p>
+<p>}else{</p>
+<p>$content = date(&quot;Y-m-d H:i:s&quot;,time()).&quot;n技术支持 王召德&quot;;</p>
+<p>}</p>
+<p>if(is_array($content)){</p>
+<p>if (isset($content[0][‘PicUrl’])){</p>
+<p>$result = $this-&gt;transmitNews($object, $content);</p>
+<p>}else if (isset($content[‘MusicUrl’])){</p>
+<p>$result = $this-&gt;transmitMusic($object, $content);</p>
+<p>}</p>
+<p>}else{</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>}</p>
+<p>}</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收图片消息</p>
+<p>private function receiveImage($object)</p>
+<p>{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId);</p>
+<p>$result = $this-&gt;transmitImage($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收位置消息</p>
+<p>private function receiveLocation($object)</p>
+<p>{</p>
+<p>$content = &quot;你发送的是位置，纬度为：&quot;.$object-&gt;Location_X.&quot;；经度为：&quot;.$object-&gt;Location_Y.&quot;；缩放级别为：&quot;.$object-&gt;Scale.&quot;；位置为：&quot;.$object-&gt;Label;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收语音消息</p>
+<p>private function receiveVoice($object)</p>
+<p>{</p>
+<p>if (isset($object-&gt;Recognition) &amp;&amp; !empty($object-&gt;Recognition)){</p>
+<p>$content = &quot;你刚才说的是：&quot;.$object-&gt;Recognition;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>}else{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId);</p>
+<p>$result = $this-&gt;transmitVoice($object, $content);</p>
+<p>}</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收视频消息</p>
+<p>private function receiveVideo($object)</p>
+<p>{</p>
+<p>$content = array(&quot;MediaId&quot;=&gt;$object-&gt;MediaId, &quot;ThumbMediaId&quot;=&gt;$object-&gt;ThumbMediaId, &quot;Title&quot;=&gt;&quot;&quot;, &quot;Description&quot;=&gt;&quot;&quot;);</p>
+<p>$result = $this-&gt;transmitVideo($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//接收链接消息</p>
+<p>private function receiveLink($object)</p>
+<p>{</p>
+<p>$content = &quot;你发送的是链接，标题为：&quot;.$object-&gt;Title.&quot;；内容为：&quot;.$object-&gt;Description.&quot;；链接地址为：&quot;.$object-&gt;Url;</p>
+<p>$result = $this-&gt;transmitText($object, $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复文本消息</p>
+<p>private function transmitText($object, $content)</p>
+<p>{</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time(), $content);</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复图片消息</p>
+<p>private function transmitImage($object, $imageArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $imageArray[‘MediaId’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复语音消息</p>
+<p>private function transmitVoice($object, $voiceArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $voiceArray[‘MediaId’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复视频消息</p>
+<p>private function transmitVideo($object, $videoArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $videoArray[‘MediaId’], $videoArray[‘ThumbMediaId’], $videoArray[‘Title’], $videoArray[‘Description’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复图文消息</p>
+<p>private function transmitNews($object, $newsArray)</p>
+<p>{</p>
+<p>if(!is_array($newsArray)){</p>
+<p>return;</p>
+<p>}</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = &quot;&quot;;</p>
+<p>foreach ($newsArray as $item){</p>
+<p>$item_str .= sprintf($itemTpl, $item[‘Title’], $item[‘Description’], $item[‘PicUrl’], $item[‘Url’]);</p>
+<p>}</p>
+<p>$newsTpl = &quot;</p>
+<p>%s</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($newsTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time(), count($newsArray));</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//回复音乐消息</p>
+<p>private function transmitMusic($object, $musicArray)</p>
+<p>{</p>
+<p>$itemTpl = &quot;</p>
+<p>&quot;;</p>
+<p>$item_str = sprintf($itemTpl, $musicArray[‘Title’], $musicArray[‘Description’], $musicArray[‘MusicUrl’], $musicArray[‘HQMusicUrl’]);</p>
+<p>$textTpl = &quot;</p>
+<p>%s</p>
+<p>$item_str</p>
+<p>&quot;;</p>
+<p>$result = sprintf($textTpl, $object-&gt;FromUserName, $object-&gt;ToUserName, time());</p>
+<p>return $result;</p>
+<p>}</p>
+<p>//日志记录</p>
+<p>private function logger($log_content)</p>
+<p>{</p>
+<p>if(isset($_SERVER[‘HTTP_APPNAME’])){ //SAE</p>
+<p>sae_set_display_errors(false);</p>
+<p>sae_debug($log_content);</p>
+<p>sae_set_display_errors(true);</p>
+<p>}else if($_SERVER[‘REMOTE_ADDR’] != &quot;127.0.0.1&quot;){ //LOCAL</p>
+<p>$max_size = 10000;</p>
+<p>$log_filename = &quot;log.xml&quot;;</p>
+<p>if(file_exists($log_filename) and (abs(filesize($log_filename)) &gt; $max_size)){unlink($log_filename);}</p>
+<p>file_put_contents($log_filename, date(‘H:i:s’).&quot; &quot;.$log_content.&quot;rn&quot;, FILE_APPEND);</p>
+<p>}</p>
+<p>}</p>
+<p>//查看所有图书</p>
+<p>private function get_Allbook(){</p>
+<p>$str=’’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$sql = &quot;SELECT * FROM book_user&quot;;</p>
+<p>$data = $mysql-&gt;getData( $sql );</p>
+<p>foreach ($data as $row)</p>
+<p>{</p>
+<p>foreach ($row as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’num’||$key==’name’)</p>
+<p>$str=$str.$value.&quot; &quot;;</p>
+<p>}</p>
+<p>$str=$str.&quot;n&quot;;</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>return $str;</p>
+<p>}</p>
+<p>//查找个人所借书籍</p>
+<p>private function get_Userbook($code){</p>
+<p>$str=’’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$sql = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row = $mysql-&gt;getLine($sql);</p>
+<p>foreach ($row as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’code’) $str=$str.&quot;学号：&quot;.$value.&quot;n&quot;;</p>
+<p>if($key==’name’) $str=$str.&quot;姓名：&quot;.$value.&quot;n&quot;;</p>
+<p>if($key==’num1’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book1’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time1’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’num2’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book2’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time2’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’num3’) {if(strlen($value)==0){}else{$str=$str.&quot;编号：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’book3’){if(strlen($value)==0){}else{$str=$str.&quot;书名：&quot;.$value.&quot;n&quot;;}}</p>
+<p>if($key==’start_time3’){if(strlen($value)==0){}else{$str=$str.&quot;开始时间：&quot;.$value;}}</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>if(strlen($str)==0) return &quot;学号错误，请重试！&quot;;</p>
+<p>else return $str;</p>
+<p>}</p>
+<p>//借阅书籍</p>
+<p>private function getBook($code,$num){</p>
+<p>$name = ‘’;</p>
+<p>$book = ‘’;</p>
+<p>$time = date(&quot;Y-m-d&quot;,time());</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>$user = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row1 = $mysql-&gt;getLine($user);</p>
+<p>//用于标记已借阅的书本数</p>
+<p>$getted = 0;</p>
+<p>foreach ($row1 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$name = $value;else return &quot;学号错误，请重试！&quot;;</p>
+<p>if($key==’num1’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>if($key==’num2’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>if($key==’num3’) {if(strlen($value)!=0){$getted++;} if($num==$value) return &quot;此书当前正在借阅！&quot;;}</p>
+<p>}</p>
+<p>$books = &quot;SELECT * FROM <code>book_user</code> WHERE <code>num</code>=&quot;.$num;</p>
+<p>$row2 = $mysql-&gt;getLine($books);</p>
+<p>//用于标记多少人借阅</p>
+<p>$used = 0;</p>
+<p>$str = ‘’;</p>
+<p>foreach ($row2 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$book = $value;else return &quot;书序号错误，请重试！&quot;;</p>
+<p>if($key==’user1’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>if($key==’user2’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>if($key==’user3’) {if(strlen($value)!=0)$used++;$str = $str.$$value;}</p>
+<p>}</p>
+<p>//先判断此用户是否还能继续借书</p>
+<p>if($getted==3) return &quot;您已经借阅了三本书，请给别人留点机会，谢谢！&quot;;</p>
+<p>else{</p>
+<p>//根据判断所借阅书籍的当前状况给予回复</p>
+<p>switch ($used)</p>
+<p>{</p>
+<p>case 0:</p>
+<p>$sql0 = &quot;UPDATE book_user SET user1 = ‘$name’ ,time1 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql0 );</p>
+<p>switch ($getted){</p>
+<p>case 0:</p>
+<p>$sql00 = &quot;UPDATE user_book SET num1 = ‘$num’, book1 = ‘$book’ ,start_time1 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql00 );</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql01 = &quot;UPDATE user_book SET num2 = ‘$num’, book2 = ‘$book’ ,start_time2 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql01 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql02 = &quot;UPDATE user_book SET num3 = ‘$num’, book3 = ‘$book’ ,start_time3 = ‘$time’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql02 );</p>
+<p>break;</p>
+<p>}</p>
+<p>return $name.&quot;同学借阅&quot;.$book.&quot;成功，您可以近期前往3-517领取书籍。&quot;;</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql1 = &quot;UPDATE book_user SET user2 = ‘$name’ ,time2 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql1 );</p>
+<p>return $name.&quot;同学预约&quot;.$book.&quot;成功,上一位同学阅读完毕您即可借阅。&quot;;</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql2 = &quot;UPDATE book_user SET user3 = ‘$name’ ,time3 = ‘$time’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql2 );</p>
+<p>return $name.&quot;同学预约&quot;.$book.&quot;成功，上一位同学阅读完毕您即可借阅。&quot;;</p>
+<p>break;</p>
+<p>default:</p>
+<p>return $book.&quot;预约名额已满，请等待一段时间再来借阅。&quot;;</p>
+<p>}</p>
+<p>}</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>}</p>
+<p>private function getBack($code,$num) {</p>
+<p>$time = date(&quot;Y-m-d&quot;,time());</p>
+<p>//对应学号的用户名</p>
+<p>$name = ‘’;</p>
+<p>//用于标记所还书是所借书的第几本</p>
+<p>$user_index = 0;</p>
+<p>//用于存放用户所借第二三本书的信息以便于删掉前面的后面往前转移</p>
+<p>$num2 = ‘’; $book2 = ‘’; $time2 = ‘’;</p>
+<p>$num3 = ‘’; $book3 = ‘’; $time3 = ‘’;</p>
+<p>$mysql = new SaeMysql();</p>
+<p>if( $mysql-&gt;errno() != 0 )</p>
+<p>{</p>
+<p>die( &quot;Error:&quot; . $mysql-&gt;errmsg() );</p>
+<p>}</p>
+<p>//以下方法用于从user表中删除，并将后面的依次前移</p>
+<p>$user = &quot;SELECT * FROM <code>user_book</code> WHERE <code>code</code>=&quot;.$code;</p>
+<p>$row1 = $mysql-&gt;getLine($user);</p>
+<p>foreach ($row1 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$name = $value;else return &quot;学号错误，请重试！&quot;;</p>
+<p>if($key==’num1’) {if($value==$num){$user_index = 1;}}</p>
+<p>if($key==’num2’) {if($value==$num){$user_index = 2;}$num2=$value;}</p>
+<p>if($key==’book2’) $book2=$value; if($key==’start_time2’) $time2=$value;</p>
+<p>if($key==’num3’) {if($value==$num){$user_index = 3;}$num3=$value;}</p>
+<p>if($key==’book3’) $book3=$value; if($key==’start_time3’) $time3=$value;</p>
+<p>}</p>
+<p>switch($user_index){</p>
+<p>case 0:</p>
+<p>return &quot;您未借此书，请重试！&quot;;</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql1 = &quot;UPDATE user_book SET num1 = ‘$num2’, book1 = ‘$book2’ ,start_time1 = ‘$time2’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql1 );</p>
+<p>$sql11 = &quot;UPDATE user_book SET num2 = ‘$num3’, book2 = ‘$book3’ ,start_time2 = ‘$time3’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql11 );</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql2 = &quot;UPDATE user_book SET num2 = ‘$num3’, book2 = ‘$book3’ ,start_time2 = ‘$time3’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql2 );</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>break;</p>
+<p>default:</p>
+<p>$sql3 = &quot;UPDATE user_book SET num3 = ‘’, book3 = ‘’ ,start_time3 = ‘’ WHERE code = ‘$code’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql3 );</p>
+<p>}</p>
+<p>//书名</p>
+<p>$book_name = ‘’;</p>
+<p>//用于存放预约者信息，将之前移</p>
+<p>$user2 = ‘’; $time_2 = ‘’;</p>
+<p>$user3 = ‘’; $time_3 = ‘’;</p>
+<p>$user2_code = ‘’;</p>
+<p>//以下用于从book表中删除，并将预约者前移</p>
+<p>$books = &quot;SELECT * FROM <code>book_user</code> WHERE <code>num</code>=&quot;.$num;</p>
+<p>$row2 = $mysql-&gt;getLine($books);</p>
+<p>foreach ($row2 as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’name’) if(strlen($value)!=0)$book_name = $value;else return &quot;书序号错误，请重试！&quot;;</p>
+<p>if($key==’user2’) $user2 = $value;</p>
+<p>if($key==’time2’) $time_2 = $value;</p>
+<p>if($key==’user3’) $user3 = $value;</p>
+<p>if($key==’time3’) $time_3 = $value;</p>
+<p>}</p>
+<p>$del1 = &quot;UPDATE book_user SET user1 = ‘$user2’ ,time1 = ‘$time_2’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del1 );</p>
+<p>$del2 = &quot;UPDATE book_user SET user2 = ‘$user3’ ,time2 = ‘$time_3’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del2 );</p>
+<p>$del3 = &quot;UPDATE book_user SET user3 = ‘’ ,time3 = ‘’ WHERE num = ‘$num’&quot;;</p>
+<p>if(strlen($user2)!=0){</p>
+<p>$find = &quot;SELECT * FROM <code>user_book</code> WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$findrow = $mysql-&gt;getLine($findcode);</p>
+<p>//用于标记已借阅的书本数</p>
+<p>$getted = 0;</p>
+<p>foreach ($findrow as $key=&gt;$value)</p>
+<p>{</p>
+<p>if($key==’num1’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>if($key==’num2’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>if($key==’num3’) {if(strlen($value)!=0){$getted++;} }</p>
+<p>}</p>
+<p>switch ($getted){</p>
+<p>case 0:</p>
+<p>$sql00 = &quot;UPDATE user_book SET num1 = ‘$num’, book1 = ‘$book_name’ ,start_time1 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql00 );</p>
+<p>break;</p>
+<p>case 1:</p>
+<p>$sql01 = &quot;UPDATE user_book SET num2 = ‘$num’, book2 = ‘$book_name’ ,start_time2 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql01 );</p>
+<p>break;</p>
+<p>case 2:</p>
+<p>$sql02 = &quot;UPDATE user_book SET num3 = ‘$num’, book3 = ‘$book_name’ ,start_time3 = ‘$time’ WHERE <code>name</code>=’$user2’&quot;;</p>
+<p>$mysql-&gt;runSql( $sql02 );</p>
+<p>break;</p>
+<p>default:</p>
+<p>$del1 = &quot;UPDATE book_user SET user1 = ‘$user2’ ,time1 = ‘$time_2’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del1 );</p>
+<p>$del2 = &quot;UPDATE book_user SET user2 = ‘$user3’ ,time2 = ‘$time_3’ WHERE num = ‘$num’&quot;;</p>
+<p>$mysql-&gt;runSql( $del2 );</p>
+<p>}</p>
+<p>}</p>
+<p>$mysql-&gt;runSql( $del3 );</p>
+<p>$mysql-&gt;closeDb();</p>
+<p>return $name.&quot;同学成功归还&quot;.$book_name;</p>
+<p> }<br>}<br>?&gt;<br>[/php]</p>
+<p><span style="font-size: 18px;"></span></p>
+<p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/" data-id="cirrslqcb000780uj5jcymmir" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/" class="article-date">
+  <time datetime="2014-10-10T16:22:09.000Z" itemprop="datePublished">2014-10-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/">C++指针小记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p><strong>1.int * 类型</strong><br>int <em> 是一种类型，一定要区分 int </em> p 跟 <em>p 的区别，因为受java影响我开始以为int </em> p = x; 等价于 *p = x;而实际上是等价于 p = x;</p>
+</li>
+<li><p><strong>2.指针和数组</strong><br>在C++中 定义数组a[] 变量a其实是首位元素的地址，也就是说a就是int类型的指针变量 a[n] 的意义是先按照a+i<em>d计算数组元素地址然后取 值，此方法等同于 </em>（a+n）。例如定义数组 int a[10] = {1,2,3,4,5,6,7,8,9,10};        就有a[2] = <em>(a+2) = 3;          不过使用</em>（a+n）这种方法占内存少，运行速度快，虽然其看起来不是那么直观（真想吐槽这点啊！！！）。</p>
+</li>
+</ul>
+<p>那是不是*p = a;之后p跟a就完全等价了，这样说我觉得其实也可以。但有一点一定要注意，就是sizeof()方法的使用在p与a之间是不同的sizeof(a)=40而sizeof(p)=4，导致出现这种差异的原因其实是因为sizeof()方法是在编译时调用的，而非在运行时调用，知道了这个原因相比大家就能明白了。所以千万不要见一个方法，形参是指针接受的一个数组实参，在方法体里面使用sizeof()这个方法来判断数组长度，这样是不行的。</p>
+<ul>
+<li><p><strong>3.指针和函数</strong><br>可以将指针指向函数 int max(int x,int y); int(<em>p)(int x,int y); p=max;则p即可当作max使用。需要注意的是int(</em>p)(int x,int y);中一定要记得加括号成为（<em>p），否则成了int </em>p(int x,int y);就成了一个返回值是int类型的指针的函数了。</p>
+</li>
+<li><p><strong>4.指向指针的指针</strong><br>char <em>*p;<br>char </em>name[]={“BASIC”,”JAVA”,”C++”,”PYTHON”,”PHP”};<br>p = name+1;<br>cout&lt;&lt;<em>p&lt;&lt;endl;<br>cout&lt;&lt;</em>(*p+1)&lt;&lt;endl;<br>这段代码会输出 JAVA 和 A</p>
+</li>
+</ul>
+<p><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/png" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/指针指针-300x168.png" alt="" title="指针的指针"></a></p>
+<ul>
+<li><strong>5.const指针</strong><br>const <em>p = &amp;a; 是指不能通过p改变a的值；</em>const p = &amp;a;是指不能呢个改变a的指向；</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/" data-id="cirrslqbh000280ujpnqm04zf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-helloworld" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/08/helloworld/" class="article-date">
+  <time datetime="2014-10-08T08:55:23.000Z" itemprop="datePublished">2014-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/08/helloworld/">HelloWorld</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>发此文纪念一下这个小站。许久不写东西，提笔有些犯难，还望此站能给我些许写东西的动力，让我以后多多动手写下一些感悟。<br>搭建个人博客，想法已久，但总觉未到时机。此次国庆无意中看到了.wang的域名，顿感时机已至，就果断动手成立此站。<br>维护网站，显然我IT方面技能完全不够用，所以此站成立后，至少需要给PHP点上一些技能点了。</p>
+<p>仓促之中搭建，还有好多地方未完善，不过还是先放在这里，给自己立个flag，让自己以后抽出些时间来管理这个网站。</p>
+<p>最后感谢ing的小伙伴们给我动力搭建这个小站。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/08/helloworld/" data-id="cirrslqcx000e80uj30chch6t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

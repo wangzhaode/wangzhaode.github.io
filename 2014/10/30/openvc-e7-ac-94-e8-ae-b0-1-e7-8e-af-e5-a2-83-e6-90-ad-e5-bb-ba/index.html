@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OpenCV笔记 第一篇 环境搭建 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="OpenVC2.4.10+VS2012环境配置1. 安装OpenCV和VS（基础工作）2. 新建VS项目，配置项目属性
+如图所示
+依次填入
+1.可执行文件目录
+E:opencvbuildx86vc11bin
+2.包含目录
+E:opencvbuildinclude
+3.添加库目录
+E:opencvbuildx86vc11lib
+3. 添加链接器的附加依赖项
+添加链接器的附加依赖项
+debug的填写这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV笔记 第一篇 环境搭建">
+<meta property="og:url" content="http://yoursite.com/2014/10/30/openvc-e7-ac-94-e8-ae-b0-1-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OpenVC2.4.10+VS2012环境配置1. 安装OpenCV和VS（基础工作）2. 新建VS项目，配置项目属性
+如图所示
+依次填入
+1.可执行文件目录
+E:opencvbuildx86vc11bin
+2.包含目录
+E:opencvbuildinclude
+3.添加库目录
+E:opencvbuildx86vc11lib
+3. 添加链接器的附加依赖项
+添加链接器的附加依赖项
+debug的填写这">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/包含目录库-300x129.jpg">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/依赖项-300x112.jpg">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenCV笔记 第一篇 环境搭建">
+<meta name="twitter:description" content="OpenVC2.4.10+VS2012环境配置1. 安装OpenCV和VS（基础工作）2. 新建VS项目，配置项目属性
+如图所示
+依次填入
+1.可执行文件目录
+E:opencvbuildx86vc11bin
+2.包含目录
+E:opencvbuildinclude
+3.添加库目录
+E:opencvbuildx86vc11lib
+3. 添加链接器的附加依赖项
+添加链接器的附加依赖项
+debug的填写这">
+<meta name="twitter:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/包含目录库-300x129.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-openvc-e7-ac-94-e8-ae-b0-1-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/30/openvc-e7-ac-94-e8-ae-b0-1-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" class="article-date">
+  <time datetime="2014-10-30T12:15:56.000Z" itemprop="datePublished">2014-10-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenCV笔记 第一篇 环境搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="OpenVC2-4-10-VS2012环境配置"><a href="#OpenVC2-4-10-VS2012环境配置" class="headerlink" title="OpenVC2.4.10+VS2012环境配置"></a>OpenVC2.4.10+VS2012环境配置</h1><h2 id="1-安装OpenCV和VS（基础工作）"><a href="#1-安装OpenCV和VS（基础工作）" class="headerlink" title="1. 安装OpenCV和VS（基础工作）"></a>1. 安装OpenCV和VS（基础工作）</h2><h2 id="2-新建VS项目，配置项目属性"><a href="#2-新建VS项目，配置项目属性" class="headerlink" title="2. 新建VS项目，配置项目属性"></a>2. 新建VS项目，配置项目属性</h2><p><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/jpg" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/包含目录库-300x129.jpg" alt="" title="包含目录库"></a></p>
+<p>如图所示</p>
+<p>依次填入</p>
+<p>1.可执行文件目录</p>
+<p>E:opencvbuildx86vc11bin</p>
+<p>2.包含目录</p>
+<p>E:opencvbuildinclude</p>
+<p>3.添加库目录</p>
+<p>E:opencvbuildx86vc11lib</p>
+<h2 id="3-添加链接器的附加依赖项"><a href="#3-添加链接器的附加依赖项" class="headerlink" title="3. 添加链接器的附加依赖项"></a>3. 添加链接器的附加依赖项</h2><p><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/jpg-1" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/依赖项-300x112.jpg" alt="" title="依赖项"></a></p>
+<p>添加链接器的附加依赖项</p>
+<p>debug的填写这些</p>
+<p>opencv_core2410d.lib<br>opencv_imgproc2410d.lib<br>opencv_highgui2410d.lib<br>opencv_ml2410d.lib<br>opencv_video2410d.lib<br>opencv_features2d2410d.lib<br>opencv_calib3d2410d.lib<br>opencv_objdetect2410d.lib<br>opencv_contrib2410d.lib<br>opencv_legacy2410d.lib<br>opencv_flann2410d.lib</p>
+<p>release的去掉d即可</p>
+<h2 id="4-新建-cpp文件"><a href="#4-新建-cpp文件" class="headerlink" title="4.新建.cpp文件"></a>4.新建.cpp文件</h2><p>内容为<br></p><pre class="cpp" name="code"><br>//显示图像文件<br>[sourcecode language=”c”]<p></p>
+<p>#include &lt;opencv2/opencv.hpp&gt; </p>
+<p>using namespace std;</p>
+<p>#pragma comment(linker, &quot;/subsystem:&quot;windows&quot; /entry:&quot;mainCRTStartup&quot;&quot;)</p>
+<p>int main()</p>
+<p>{</p>
+<p>const char *pstrImageName = &quot;D:/test.jpg&quot;;</p>
+<p>const char *pstrWindowsTitle = &quot;OpenCV第一个程序&quot;;</p>
+<p>//从文件中读取图像</p>
+<p>IplImage *pImage = cvLoadImage(pstrImageName, CV_LOAD_IMAGE_UNCHANGED);</p>
+<p>//创建窗口</p>
+<p>cvNamedWindow(pstrWindowsTitle, CV_WINDOW_AUTOSIZE);</p>
+<p>//在指定窗口中显示图像</p>
+<p>cvShowImage(pstrWindowsTitle, pImage);</p>
+<p>//等待按键事件</p>
+<p>cvWaitKey();</p>
+<p>cvDestroyWindow(pstrWindowsTitle);</p>
+<p>cvReleaseImage(&amp;pImage);</p>
+<p>return 0;<br>}<br>[/sourcecode]<br></p></pre><p><span style="font-size:18px;"></span></p>
+<p># </p>
+<h1 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a>完成！</h1><p><span style="color: #ff0000;">如果说丢失msvcp100d.dll和msvcr100d.dll的话</span></p>
+<p><span style="color: #ff0000;">可以百度下载把他们放在system32 和SysWOW64文件夹下即可</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/30/openvc-e7-ac-94-e8-ae-b0-1-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" data-id="cirrslqd5000j80ujwkz7nug3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/30/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-b8-89-e7-af-87-e9-bc-a0-e6-a0-87-e4-ba-8b-e4-bb-b6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          wxWidgets笔记 第三篇  鼠标事件与简单绘画
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/30/e8-87-aa-e5-ae-9a-e4-b9-89qq5-0-e4-be-a7-e6-bb-91-e8-8f-9c-e5-8d-95-e6-94-b9-e8-bf-9b-e7-89-88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">自定义QQ5.0侧滑菜单改进版</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OpenCV笔记 第二篇 图片的仿射变换与透视变换 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="OpenCV提供了很多图像处理函数十分简单易用且十分快捷，CSDN上有个博主关于opencv的介绍十分简单易懂，下面贴下地址
+http://blog.csdn.net/morewindows/article/details/8225783
+原图如下
+
+1.仿射变换代码&amp;nbsp;
+#include &amp;lt;opencv2/opencv.hpp&amp;gt;using namespace std;
+#pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV笔记 第二篇 图片的仿射变换与透视变换">
+<meta property="og:url" content="http://yoursite.com/2014/10/31/opencv-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-ba-8c-e7-af-87-e5-9b-be-e7-89-87-e7-9a-84-e4-bb-bf-e5-b0-84-e5-8f-98-e6-8d-a2-e4-b8-8e-e9-80-8f-e8-a7-86-e5-8f-98-e6-8d-a2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OpenCV提供了很多图像处理函数十分简单易用且十分快捷，CSDN上有个博主关于opencv的介绍十分简单易懂，下面贴下地址
+http://blog.csdn.net/morewindows/article/details/8225783
+原图如下
+
+1.仿射变换代码&amp;nbsp;
+#include &amp;lt;opencv2/opencv.hpp&amp;gt;using namespace std;
+#pr">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/原图-300x189.jpg">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/仿射变换-300x133.jpg">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/透视变换-300x165.jpg">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenCV笔记 第二篇 图片的仿射变换与透视变换">
+<meta name="twitter:description" content="OpenCV提供了很多图像处理函数十分简单易用且十分快捷，CSDN上有个博主关于opencv的介绍十分简单易懂，下面贴下地址
+http://blog.csdn.net/morewindows/article/details/8225783
+原图如下
+
+1.仿射变换代码&amp;nbsp;
+#include &amp;lt;opencv2/opencv.hpp&amp;gt;using namespace std;
+#pr">
+<meta name="twitter:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/原图-300x189.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-opencv-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-ba-8c-e7-af-87-e5-9b-be-e7-89-87-e7-9a-84-e4-bb-bf-e5-b0-84-e5-8f-98-e6-8d-a2-e4-b8-8e-e9-80-8f-e8-a7-86-e5-8f-98-e6-8d-a2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/31/opencv-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-ba-8c-e7-af-87-e5-9b-be-e7-89-87-e7-9a-84-e4-bb-bf-e5-b0-84-e5-8f-98-e6-8d-a2-e4-b8-8e-e9-80-8f-e8-a7-86-e5-8f-98-e6-8d-a2/" class="article-date">
+  <time datetime="2014-10-31T14:48:47.000Z" itemprop="datePublished">2014-10-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenCV笔记 第二篇 图片的仿射变换与透视变换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>OpenCV提供了很多图像处理函数十分简单易用且十分快捷，CSDN上有个博主关于opencv的介绍十分简单易懂，下面贴下地址</p>
+<p><a href="http://blog.csdn.net/morewindows/article/details/8225783" title="简单易懂的opencv教学博客" target="_blank" rel="external">http://blog.csdn.net/morewindows/article/details/8225783</a></p>
+<p>原图如下</p>
+<p><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/jpg-4" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/原图-300x189.jpg" alt="" title="原图"></a></p>
+<h5 id="1-仿射变换代码"><a href="#1-仿射变换代码" class="headerlink" title="1.仿射变换代码"></a>1.仿射变换代码</h5><p>&nbsp;</p>
+<p><pre class="cpp">#include &lt;opencv2/opencv.hpp&gt;<br>using namespace std;</pre></p>
+<p>#pragma comment(linker, “/subsystem:”windows” /entry:”mainCRTStartup””)</p>
+<p>int main(int argc, char<em>* argv)<br>{<br>    CvPoint2D32f srcTri[3], dstTri[3]; //二维坐标下的点，类型为浮点<br>    CvMat</em> rot_mat = cvCreateMat( 2, 3, CV_32FC1 );  //多通道矩阵<br>    CvMat<em> warp_mat = cvCreateMat( 2, 3, CV_32FC1 );<br>    IplImage </em>src, *dst;</p>
+<pre><code>src = cvLoadImage(&quot;d:/test2.jpg&quot;, 1 );
+dst = cvCloneImage( src );  //制作图像的完整拷贝
+cvNamedWindow( &quot;A&quot;, 1 );
+cvShowImage( &quot;A&quot;, src ); 
+dst -&amp;gt;origin = src -&amp;gt;origin;  
+/*
+int origin; /* 0 - 顶—左结构,
+1 - 底—左结构 (Windows bitmaps 风格) 
+*/
+cvZero( dst );  //清空数组
+</code></pre><p>/*<br>        //计算矩阵仿射变换<br>        srcTri[0].x = 0;<br>        srcTri[0].y = 0;<br>        srcTri[1].x = src -&gt; width - 1;  //缩小一个像素<br>        srcTri[1].y = 0;<br>        srcTri[2].x = 0;<br>        srcTri[2].y = src -&gt; height - 1;</p>
+<pre><code>//改变目标图像大小
+dstTri[0].x = src -&amp;gt; width * 0.0;
+dstTri[0].y = src -&amp;gt; height * 0.33;
+dstTri[1].x = src -&amp;gt; width * 0.85;
+dstTri[1].y = src -&amp;gt; height * 0.25;
+dstTri[2].x = src -&amp;gt; width * 0.15;
+dstTri[2].y = src -&amp;gt; height * 0.7;
+cvGetAffineTransform( srcTri, dstTri, warp_mat );  //由三对点计算仿射变换 
+cvWarpAffine( src, dst, warp_mat );  //对图像做仿射变换
+cvCopy( dst, src );  //将dst拷贝给src
+*/
+srcTri[0].x = 0;
+srcTri[0].y = 0;
+srcTri[1].x = 0;  //缩小一个像素
+srcTri[1].y = src -&amp;gt; height;
+srcTri[2].x = src -&amp;gt; width;
+srcTri[2].y = src -&amp;gt; height;
+//改变目标图像大小
+dstTri[0].x = src -&amp;gt; width * 0.0;
+dstTri[0].y = src -&amp;gt; height * 0.0;
+dstTri[1].x = src -&amp;gt; width * 0.0;
+dstTri[1].y = src -&amp;gt; height * 0.5;
+dstTri[2].x = src -&amp;gt; width * 0.75;
+dstTri[2].y = src -&amp;gt; height * 0.75;
+cvGetAffineTransform( srcTri, dstTri, warp_mat );  //由三对点计算仿射变换 
+cvWarpAffine( src, dst, warp_mat );  //对图像做仿射变换
+cvCopy( dst, src );  //将dst拷贝给src
+</code></pre><p>/<em><br>        //计算旋转仿射变换<br>        CvPoint2D32f center = cvPoint2D32f( src -&gt; width / 2, src -&gt; height / 2 );<br>        double angle = 50.0; //旋转角度，负值表示顺时针<br>        double scale = 0.6;  //各项同性的尺度因子<br>        cv2DRotationMatrix( center, angle, scale, rot_mat );<br>        cvWarpAffine( src, dst, rot_mat );  //将src仿射变换存入dst
+</em>/<br>        //输出<br>        cvNamedWindow( “Affine_Transform”, 1 );<br>        cvShowImage( “Affine_Transform”, dst );  //最终是输出dst<br>        cvWaitKey();<br>    cvReleaseImage( &amp;dst );<br>    cvReleaseMat( &amp;rot_mat );<br>    cvReleaseMat( &amp;warp_mat );</p>
+<pre><code>return 0;
+</code></pre><p>}<br>&nbsp;</p>
+<p>转换后效果图<br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/jpg-2" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/仿射变换-300x133.jpg" alt="" title="仿射变换"></a></p>
+<h1 id="2-透视变换"><a href="#2-透视变换" class="headerlink" title="2.透视变换"></a>2.透视变换</h1><p>代码如下<br></p><pre class="cpp" name="code"><br>int main()<br>{<br>    CvPoint2D32f srcTri[4], dstTri[4];<br>    CvMat<em>       warp_mat = cvCreateMat (3, 3, CV_32FC1);<br>    IplImage</em>    src = NULL;<br>    IplImage*    dst = NULL;<p></p>
+<pre><code>src = cvLoadImage (&quot;d:/test.jpg&quot;, 1);
+dst = cvCloneImage (src);
+dst-&gt;origin = src-&gt;origin;
+cvZero (dst);
+
+srcTri[0].x = 0;
+srcTri[0].y = 0;
+srcTri[1].x = src-&gt;width - 1;
+srcTri[1].y = 0;
+srcTri[2].x = 0;
+srcTri[2].y = src-&gt;height - 1;
+srcTri[3].x = src-&gt;width - 1;
+srcTri[3].y = src-&gt;height - 1;
+
+dstTri[0].x = src-&gt;width * 0.05;
+dstTri[0].y = src-&gt;height * 0.33;
+dstTri[1].x = src-&gt;width * 0.9;
+dstTri[1].y = src-&gt;height * 0.25;
+dstTri[2].x = src-&gt;width * 0.2;
+dstTri[2].y = src-&gt;height * 0.7;
+dstTri[3].x = src-&gt;width * 0.8;
+dstTri[3].y = src-&gt;height * 0.9;
+
+cvGetPerspectiveTransform (srcTri, dstTri, warp_mat);
+cvWarpPerspective (src, dst, warp_mat);
+
+cvNamedWindow(&quot;src&quot;, 1);
+cvShowImage(&quot;src&quot;, src);
+cvNamedWindow (&quot;Affine_Transform&quot;, 1);
+cvShowImage (&quot;Affine_Transform&quot;, dst);
+
+cvWaitKey (0);
+
+cvReleaseImage (&amp;src);
+cvReleaseImage (&amp;dst);
+cvReleaseMat (&amp;warp_mat);
+
+return 0;
+</code></pre><p>}<br></p></pre><p><span style="font-size:18px;"><br>转换后效果图如下<br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/jpg-3" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/透视变换-300x165.jpg" alt="" title="透视变换"></a><br>&nbsp;</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/31/opencv-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-ba-8c-e7-af-87-e5-9b-be-e7-89-87-e7-9a-84-e4-bb-bf-e5-b0-84-e5-8f-98-e6-8d-a2-e4-b8-8e-e9-80-8f-e8-a7-86-e5-8f-98-e6-8d-a2/" data-id="cirrslqd0000g80uj12gp8bci" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/31/wxwidgets-e4-b8-8b-e4-bd-bf-e7-94-a8openvc-e7-9a-84-e5-9b-be-e5-83-8f-e7-9a-84-e6-96-b9-e6-b3-95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          wxWidgets下使用OpenCV的图像的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/30/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-b8-89-e7-af-87-e9-bc-a0-e6-a0-87-e4-ba-8b-e4-bb-b6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">wxWidgets笔记 第三篇  鼠标事件与简单绘画</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/笔记/">笔记</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/实习/" style="font-size: 10px;">实习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/">关于微软实习面试</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/">wxWidgets笔记 第四篇  数据结构课设-表达式计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/">Git笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/">Android事件传递机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

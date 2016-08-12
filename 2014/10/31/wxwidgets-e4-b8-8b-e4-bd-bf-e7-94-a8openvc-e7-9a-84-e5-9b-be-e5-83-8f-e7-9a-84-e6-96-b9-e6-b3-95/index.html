@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/8 | Hexo</title>
+  <title>wxWidgets下使用OpenCV的图像的方法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2016/08/index.html">
+  <meta name="description" content="去网上找了好久才发现openvc的图##转化为wxwidgets的图像的方法，
+##贴下来备以后使用
+void copy_and_swap_rb(char s, char d, int size) {// Copy image data source s to destination d, swapping R and B channels.// Assumes 8 bit depth, 3 in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wxWidgets下使用OpenCV的图像的方法">
+<meta property="og:url" content="http://yoursite.com/2014/10/31/wxwidgets-e4-b8-8b-e4-bd-bf-e7-94-a8openvc-e7-9a-84-e5-9b-be-e5-83-8f-e7-9a-84-e6-96-b9-e6-b3-95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="去网上找了好久才发现openvc的图##转化为wxwidgets的图像的方法，
+##贴下来备以后使用
+void copy_and_swap_rb(char s, char d, int size) {// Copy image data source s to destination d, swapping R and B channels.// Assumes 8 bit depth, 3 in">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="wxWidgets下使用OpenCV的图像的方法">
+<meta name="twitter:description" content="去网上找了好久才发现openvc的图##转化为wxwidgets的图像的方法，
+##贴下来备以后使用
+void copy_and_swap_rb(char s, char d, int size) {// Copy image data source s to destination d, swapping R and B channels.// Assumes 8 bit depth, 3 in">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,39 +69,70 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/08/04/hello-world/" class="archive-article-date">
-  <time datetime="2016-08-04T14:30:23.484Z" itemprop="datePublished">Aug 4</time>
+        <section id="main"><article id="post-wxwidgets-e4-b8-8b-e4-bd-bf-e7-94-a8openvc-e7-9a-84-e5-9b-be-e5-83-8f-e7-9a-84-e6-96-b9-e6-b3-95" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/31/wxwidgets-e4-b8-8b-e4-bd-bf-e7-94-a8openvc-e7-9a-84-e5-9b-be-e5-83-8f-e7-9a-84-e6-96-b9-e6-b3-95/" class="article-date">
+  <time datetime="2014-10-31T14:52:02.000Z" itemprop="datePublished">2014-10-31</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/04/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      wxWidgets下使用OpenCV的图像的方法
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="去网上找了好久才发现openvc的图"><a href="#去网上找了好久才发现openvc的图" class="headerlink" title="去网上找了好久才发现openvc的图"></a>去网上找了好久才发现openvc的图</h2><p>##<br>转化为wxwidgets的图像的方法，</p>
+<p>##<br>贴下来备以后使用</p>
+<p><pre class="cpp">void copy_and_swap_rb(char <em>s, char </em>d, int size) {<br>// Copy image data source s to destination d, swapping R and B channels.<br>// Assumes 8 bit depth, 3 interleaved channels, and width_step = width<em>3<br>const int step = 3;<br>char </em>end = s + size;<br>while (simageData, ipl-&gt;imageSize);<br>}</pre></p>
+<p>void cv2wx(IplImage <em>ipl, wxImage &amp;wx ) {<br>// Copy image data from Ipl (opencv) image to wxImage<br>// Assumes ipl image has seq “GBR”, depth 8, and 3 channels, and<br>// has the same size as the wxImage, and width_step = width</em>3.<br>copy_and_swap_rb( ipl-&gt;imageData, (char<em>)wx.GetData(),<br>wx.GetWidth()</em>wx.GetHeight()*3);<br>}</p>
+<p>IplImage <em>cv_from_wx(wxImage &amp;wx) {<br>// Return a new IplImage copied from a wxImage.<br>// Must be freed by user with cvReleaseImage().<br>IplImage </em>ret = cvCreateImage(cvSize(wx.GetWidth(), wx.GetHeight()),<br>IPL_DEPTH_8U, 3);<br>wx2cv(wx, ret);<br>return ret;<br>}</p>
+<p>wxImage wx_from_cv( IplImage <em>cx) {<br>// Return new wxImage copied from a compatible IplImage.<br>// Assumes ipl image has seq “GBR”, depth 8, and 3 channels<br>// Fear not. The copy on return is cheap; does not deep-copy the data.<br>wxImage wx(cx-&gt;width, cx-&gt;height, (unsigned char</em>) malloc(cx-&gt;imageSize), false);<br>cv2wx(cx, wx);<br>return wx;<br>}<br><span style="font-size: 18px;"><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/31/wxwidgets-e4-b8-8b-e4-bd-bf-e7-94-a8openvc-e7-9a-84-e5-9b-be-e5-83-8f-e7-9a-84-e6-96-b9-e6-b3-95/" data-id="cirrslqdd000o80ujrbhxlire" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android事件传递机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/31/opencv-e7-ac-94-e8-ae-b0-e7-ac-ac-e4-ba-8c-e7-af-87-e5-9b-be-e7-89-87-e7-9a-84-e4-bb-bf-e5-b0-84-e5-8f-98-e6-8d-a2-e4-b8-8e-e9-80-8f-e8-a7-86-e5-8f-98-e6-8d-a2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OpenCV笔记 第二篇 图片的仿射变换与透视变换</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

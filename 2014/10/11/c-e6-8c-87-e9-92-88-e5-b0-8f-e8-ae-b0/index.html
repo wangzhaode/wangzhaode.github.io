@@ -3,21 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Hexo</title>
+  <title>C++指针小记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="1.int * 类型int  是一种类型，一定要区分 int  p 跟 p 的区别，因为受java影响我开始以为int  p = x; 等价于 *p = x;而实际上是等价于 p = x;
+
+2.指针和数组在C++中 定义数组a[] 变量a其实是首位元素的地址，也就是说a就是int类型的指针变量 a[n] 的意义是先按照a+id计算数组元素地址然后取 值，此方法等同于 （a+n）。例如定义数组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/08/04/hello-world/index.html">
+<meta property="og:title" content="C++指针小记">
+<meta property="og:url" content="http://yoursite.com/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-08-04T15:10:33.478Z">
+<meta property="og:description" content="1.int * 类型int  是一种类型，一定要区分 int  p 跟 p 的区别，因为受java影响我开始以为int  p = x; 等价于 *p = x;而实际上是等价于 p = x;
+
+2.指针和数组在C++中 定义数组a[] 变量a其实是首位元素的地址，也就是说a就是int类型的指针变量 a[n] 的意义是先按照a+id计算数组元素地址然后取 值，此方法等同于 （a+n）。例如定义数组">
+<meta property="og:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/指针指针-300x168.png">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="C++指针小记">
+<meta name="twitter:description" content="1.int * 类型int  是一种类型，一定要区分 int  p 跟 p 的区别，因为受java影响我开始以为int  p = x; 等价于 *p = x;而实际上是等价于 p = x;
+
+2.指针和数组在C++中 定义数组a[] 变量a其实是首位元素的地址，也就是说a就是int类型的指针变量 a[n] 的意义是先按照a+id计算数组元素地址然后取 值，此方法等同于 （a+n）。例如定义数组">
+<meta name="twitter:image" content="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/指针指针-300x168.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -66,12 +71,16 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/08/04/hello-world/" class="article-date">
-  <time datetime="2016-08-04T14:30:23.484Z" itemprop="datePublished">2016-08-04</time>
+    <a href="/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/" class="article-date">
+  <time datetime="2014-10-10T16:22:09.000Z" itemprop="datePublished">2014-10-11</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -80,7 +89,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      C++指针小记
     </h1>
   
 
@@ -88,20 +97,28 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <ul>
+<li><p><strong>1.int * 类型</strong><br>int <em> 是一种类型，一定要区分 int </em> p 跟 <em>p 的区别，因为受java影响我开始以为int </em> p = x; 等价于 *p = x;而实际上是等价于 p = x;</p>
+</li>
+<li><p><strong>2.指针和数组</strong><br>在C++中 定义数组a[] 变量a其实是首位元素的地址，也就是说a就是int类型的指针变量 a[n] 的意义是先按照a+i<em>d计算数组元素地址然后取 值，此方法等同于 </em>（a+n）。例如定义数组 int a[10] = {1,2,3,4,5,6,7,8,9,10};        就有a[2] = <em>(a+2) = 3;          不过使用</em>（a+n）这种方法占内存少，运行速度快，虽然其看起来不是那么直观（真想吐槽这点啊！！！）。</p>
+</li>
+</ul>
+<p>那是不是*p = a;之后p跟a就完全等价了，这样说我觉得其实也可以。但有一点一定要注意，就是sizeof()方法的使用在p与a之间是不同的sizeof(a)=40而sizeof(p)=4，导致出现这种差异的原因其实是因为sizeof()方法是在编译时调用的，而非在运行时调用，知道了这个原因相比大家就能明白了。所以千万不要见一个方法，形参是指针接受的一个数组实参，在方法体里面使用sizeof()这个方法来判断数组长度，这样是不行的。</p>
+<ul>
+<li><p><strong>3.指针和函数</strong><br>可以将指针指向函数 int max(int x,int y); int(<em>p)(int x,int y); p=max;则p即可当作max使用。需要注意的是int(</em>p)(int x,int y);中一定要记得加括号成为（<em>p），否则成了int </em>p(int x,int y);就成了一个返回值是int类型的指针的函数了。</p>
+</li>
+<li><p><strong>4.指向指针的指针</strong><br>char <em>*p;<br>char </em>name[]={“BASIC”,”JAVA”,”C++”,”PYTHON”,”PHP”};<br>p = name+1;<br>cout&lt;&lt;<em>p&lt;&lt;endl;<br>cout&lt;&lt;</em>(*p+1)&lt;&lt;endl;<br>这段代码会输出 JAVA 和 A</p>
+</li>
+</ul>
+<p><a href="http://123.206.41.244/wordpress/wp-content/uploads/2014/10/png" target="_blank" rel="external"><img src="http://zhaodeblog-wordpress.stor.sinaapp.com/uploads/2014/10/指针指针-300x168.png" alt="" title="指针的指针"></a></p>
+<ul>
+<li><strong>5.const指针</strong><br>const <em>p = &amp;a; 是指不能通过p改变a的值；</em>const p = &amp;a;是指不能呢个改变a的指向；</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/04/hello-world/" data-id="cirrslqee000v80ujww1ytgi7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/10/11/c-e6-8c-87-e9-92-88-e5-b0-8f-e8-ae-b0/" data-id="cirrslqbh000280ujpnqm04zf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -110,10 +127,19 @@ Quick">
     
 <nav id="article-nav">
   
+    <a href="/2014/10/11/e4-bd-bf-e7-94-a8php-e6-90-ad-e5-bb-ba-e5-be-ae-e4-bf-a1-e8-ae-a2-e9-98-85-e5-8f-b7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用PHP搭建微信订阅号
+        
+      </div>
+    </a>
   
-    <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2014/10/08/helloworld/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">关于微软实习面试</div>
+      <div class="article-nav-title">HelloWorld</div>
     </a>
   
 </nav>

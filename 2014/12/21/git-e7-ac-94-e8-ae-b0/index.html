@@ -3,14 +3,72 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/8 | Hexo</title>
+  <title>Git笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2016/08/index.html">
+  <meta name="description" content="创建版本库
+$git init
+
+本地库添加、修改文件命令
+$git add *** //***为文件名
+$git commit -m &quot;注释&quot;
+
+查看仓库当前状态
+$git status
+
+查看修改内容
+$git diff
+
+查看提交历史
+$git log
+$git log --pretty=onelin //只查看部分内容
+
+回退到上一版本
+$git reset --hard HEAD^ //">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git笔记">
+<meta property="og:url" content="http://yoursite.com/2014/12/21/git-e7-ac-94-e8-ae-b0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="创建版本库
+$git init
+
+本地库添加、修改文件命令
+$git add *** //***为文件名
+$git commit -m &quot;注释&quot;
+
+查看仓库当前状态
+$git status
+
+查看修改内容
+$git diff
+
+查看提交历史
+$git log
+$git log --pretty=onelin //只查看部分内容
+
+回退到上一版本
+$git reset --hard HEAD^ //">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.604Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Git笔记">
+<meta name="twitter:description" content="创建版本库
+$git init
+
+本地库添加、修改文件命令
+$git add *** //***为文件名
+$git commit -m &quot;注释&quot;
+
+查看仓库当前状态
+$git status
+
+查看修改内容
+$git diff
+
+查看提交历史
+$git log
+$git log --pretty=onelin //只查看部分内容
+
+回退到上一版本
+$git reset --hard HEAD^ //">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,39 +117,132 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/08/04/hello-world/" class="archive-article-date">
-  <time datetime="2016-08-04T14:30:23.484Z" itemprop="datePublished">Aug 4</time>
+        <section id="main"><article id="post-git-e7-ac-94-e8-ae-b0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/" class="article-date">
+  <time datetime="2014-12-21T04:50:33.000Z" itemprop="datePublished">2014-12-21</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/04/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Git笔记
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre>创建版本库
+$git init
+
+本地库添加、修改文件命令
+$git add *** //***为文件名
+$git commit -m "注释"
+
+查看仓库当前状态
+$git status
+
+查看修改内容
+$git diff
+
+查看提交历史
+$git log
+$git log --pretty=onelin //只查看部分内容
+
+回退到上一版本
+$git reset --hard HEAD^ //HEAD表示当前版本，HEAD^表示上一版本，HEAD^^表示上上版本,HEAD~100表示往上100个版本
+$git reset --hard commit_id //commit_id可以通过log查看得到，如果已关闭窗口可以用下面的命令
+
+记录之前每次的命令
+$git reflog
+
+恢复修改、删除的内容
+$git checkout --*** //***为文件名，此命令丢弃未add的修改
+$git reset HEAD *** //***为文件名，此命令丢弃未commit的修改
+
+删除文件
+$git rm *** //***为文件名
+$git commit -m "注释"
+
+要关联一个远程库
+$git remote add origin git@server_name:path/project_name.git
+$git push origin master //第一次push的命令为 $git push -u origin master
+
+从远程库克隆一个工程，以下两种方式皆可
+$git clone git@server_name:path/project_name.git
+$git clone https://server_name/path/project_name.git
+
+操作分支命令 为分支名
+$git branch //查看分支情况
+$git branch //创建分支
+$git checkout //切换分支
+$git checkout -b //创建+切换分支
+$git merge //合并某分支到当前分支
+$git branch -d //删除指定分支
+$git branch -D //强制删除指定分支
+
+处理合并分支时的冲突（当两个分支都有改动时合并，无法自动合并）
+$git merge //出现无法自动合并提示,手动修改后执行以下命令
+$ git add *** //***为文件名
+$ git commit -m "conflict fixed"
+
+合并后保存分支历史的合并方式
+$git merge --no-ff -m "注释"
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，
+用命令git branch --set-upstream branch-name origin/branch-name。
+
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/12/21/git-e7-ac-94-e8-ae-b0/" data-id="cirrslqcq000b80ujkchbd6be" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          wxWidgets笔记 第四篇  数据结构课设-表达式计算器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/18/android-e4-ba-8b-e4-bb-b6-e4-bc-a0-e9-80-92-e6-9c-ba-e5-88-b6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android事件传递机制</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

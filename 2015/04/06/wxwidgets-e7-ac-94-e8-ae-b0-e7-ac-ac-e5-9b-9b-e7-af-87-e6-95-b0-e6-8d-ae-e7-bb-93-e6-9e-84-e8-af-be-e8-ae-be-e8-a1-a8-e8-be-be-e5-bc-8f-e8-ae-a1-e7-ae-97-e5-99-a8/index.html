@@ -3,14 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/8 | Hexo</title>
+  <title>wxWidgets笔记 第四篇  数据结构课设-表达式计算器 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2016/08/index.html">
+  <meta name="description" content="实现要求：假设算术表达式Expression内可以含有变量（a-z）,常量（0-9）和二元运算符（+，-，*，/，^（乘幂））。实现以下操作：(1) ReadExpr(E)――以字符序列的形式输入语法正确的前缀表达式并构造表达式E。(2) WriteExpr(E)――用带括号的中缀表达式输出表达式E。(3) Assign(V，c)――实现对变量V的赋值(V=c)，变量的初值为0。(4) Value">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wxWidgets笔记 第四篇  数据结构课设-表达式计算器">
+<meta property="og:url" content="http://yoursite.com/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实现要求：假设算术表达式Expression内可以含有变量（a-z）,常量（0-9）和二元运算符（+，-，*，/，^（乘幂））。实现以下操作：(1) ReadExpr(E)――以字符序列的形式输入语法正确的前缀表达式并构造表达式E。(2) WriteExpr(E)――用带括号的中缀表达式输出表达式E。(3) Assign(V，c)――实现对变量V的赋值(V=c)，变量的初值为0。(4) Value">
+<meta property="og:image" content="http://123.206.41.244/wordpress/wp-content/uploads/2015/04/png">
+<meta property="og:updated_time" content="2016-08-12T13:31:07.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="wxWidgets笔记 第四篇  数据结构课设-表达式计算器">
+<meta name="twitter:description" content="实现要求：假设算术表达式Expression内可以含有变量（a-z）,常量（0-9）和二元运算符（+，-，*，/，^（乘幂））。实现以下操作：(1) ReadExpr(E)――以字符序列的形式输入语法正确的前缀表达式并构造表达式E。(2) WriteExpr(E)――用带括号的中缀表达式输出表达式E。(3) Assign(V，c)――实现对变量V的赋值(V=c)，变量的初值为0。(4) Value">
+<meta name="twitter:image" content="http://123.206.41.244/wordpress/wp-content/uploads/2015/04/png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,39 +65,64 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/08/04/hello-world/" class="archive-article-date">
-  <time datetime="2016-08-04T14:30:23.484Z" itemprop="datePublished">Aug 4</time>
+        <section id="main"><article id="post-wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/" class="article-date">
+  <time datetime="2015-04-06T09:43:29.000Z" itemprop="datePublished">2015-04-06</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/04/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      wxWidgets笔记 第四篇  数据结构课设-表达式计算器
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <address>实现要求：</address>假设算术表达式Expression内可以含有变量（a-z）,常量（0-9）和二元运算符（+，-，*，/，^（乘幂））。实现以下操作：<br><br>(1) ReadExpr(E)――以字符序列的形式输入语法正确的前缀表达式并<br><br>构造表达式E。<br><br>(2) WriteExpr(E)――用带括号的中缀表达式输出表达式E。<br><br>(3) Assign(V，c)――实现对变量V的赋值(V=c)，变量的初值为0。<br><br>(4) Value(E)――对算术表达式E求值。<br><br>(5) CompoundExpr(p,E1,E2)――构造一个新的复合表达式(E1)p(E2)。<br><br>(6) 合并常数操作MergeConst(E)一合并表达式E中所有的常数运算。<br><br># 图形化界面效果：<br><br><a href="http://123.206.41.244/wordpress/wp-content/uploads/2015/04/png" target="_blank" rel="external"><img src="http://123.206.41.244/wordpress/wp-content/uploads/2015/04/png" alt="" title="课设"></a><br><br># 代码下载：<br><br><a href="http://pan.baidu.com/s/1bnq9dEn" target="_blank" rel="external">百度云盘</a><br><br><address> </address>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/06/wxwidgets-e7-ac-94-e8-ae-b0-e7-ac-ac-e5-9b-9b-e7-af-87-e6-95-b0-e6-8d-ae-e7-bb-93-e6-9e-84-e8-af-be-e8-ae-be-e8-a1-a8-e8-be-be-e5-bc-8f-e8-ae-a1-e7-ae-97-e5-99-a8/" data-id="cirrslqdr000s80ujp89y2362" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/28/e5-85-b3-e4-ba-8e-e5-ae-9e-e4-b9-a0-e9-9d-a2-e8-af-95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于微软实习面试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/21/git-e7-ac-94-e8-ae-b0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Git笔记</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
