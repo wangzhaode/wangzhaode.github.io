@@ -2,16 +2,16 @@
 #
 # This is the configuration file for your blog, please change these items after forked.
 
-title: Your title
-email: your-email@example.com
-name: Your name
+title: 杂记
+email: hi@zhaode.wang
+name: wangzhaode
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here.
-keywords: [Your keywords]
+  工作笔记
+keywords: [programer]
 baseurl: '' # the subpath of your site, e.g. /`blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
-domain: 'example.com' # the domain name for your site, e.g. example.com
-language: en
+domain: 'zhaode.wang' # the domain name for your site, e.g. example.com
+language: zh-cn
 # Supported languages list:
 # en: English
 # de: Deutsche (German)

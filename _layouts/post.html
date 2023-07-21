@@ -14,6 +14,8 @@ layout: default
   <div class="post-content">
     {{ content }}
   </div>
+  <br/>
+  <br/>
   <div class="post-info">
     <div class="post-date">
       {{ site.data.lang[site.language].post_write_date}}
@@ -38,12 +40,6 @@ layout: default
         class="post-category">
         {{ category }}
       </a>
-      {% endfor %}
-    </div>
-    <div class="post-tags">
-      <span>{{ site.data.lang[site.language].post_tags }}</span>
-      {% for tag in page.tags %}
-      <span class="post-tag">{{ tag }}</span>
       {% endfor %}
     </div>
     <div class="post-other">
