@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Arm Compute Library Example"
-date:   2023-07-21
-last_modified_at: 2023-07-21
-categories: [debug]
+date:   2023-10-07
+last_modified_at: 2023-10-07
+categories: [library]
 ---
 
 1. download pre-built binries 
