@@ -20,7 +20,7 @@ distributionUrl=https\://downloads.gradle.org/distributions/gradle-8.0-bin.zip
 ```
 pluginManagement {
     repositories {
-+        maven{url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -29,7 +29,10 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-+        maven{url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'}
         google()
         mavenCentral()
     }
