@@ -35,11 +35,11 @@ layout: default
     <div class="post-categories">
       <span>{{ site.data.lang[site.language].post_categories }}</span>
       {% for category in page.categories %}
-      <a 
+      <ax 
         href="{{ site.baseurl }}/categories#{{ category }}"
         class="post-category">
         {{ category }}
-      </a>
+      </ax>
       {% endfor %}
     </div>
     <div class="post-other">
@@ -48,7 +48,7 @@ layout: default
         <span>
           {{ site.data.lang[site.language].post_next }}
         </span>
-        <a href="{{ site.baseurl }}{{ page.next.url }}">
+        <a class="ref_internal" href="{{ site.baseurl }}{{ page.next.url }}">
           {{ page.next.title }}
         </a>
       </div>
@@ -58,7 +58,7 @@ layout: default
         <span>
           {{ site.data.lang[site.language].post_previous }}
         </span>
-        <a href="{{ site.baseurl }}{{ page.previous.url }}">
+        <a class="ref_internal" href="{{ site.baseurl }}{{ page.previous.url }}">
           {{ page.previous.title }}
         </a>
       </div>

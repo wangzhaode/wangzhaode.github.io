@@ -13,15 +13,24 @@ body {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #2980b9;
 }
 
 a:hover {
+  color: #9b59b6;
+}
+
+.ref_internal {
+  text-decoration: none;
+  color: #000;
+}
+
+.ref_internal:hover {
   color: #aaa;
 }
 
 cls {
-  font-size: 1.3em;
+  font-weight: bold;
 }
 
 blockquote {
