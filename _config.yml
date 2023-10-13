@@ -2,11 +2,11 @@
 #
 # This is the configuration file for your blog, please change these items after forked.
 
-title: 杂记
+title: zhaode
 email: hi@zhaode.wang
 name: wangzhaode
 description: >- # this means to ignore newlines until "baseurl:"
-  工作笔记
+  notebook
 keywords: [programer]
 baseurl: '' # the subpath of your site, e.g. /`blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
