@@ -3,7 +3,7 @@ layout: post
 title:  arm neon汇编指令
 date:   2023-11-01
 last_modified_at: 2023-11-01
-categories: []
+categories: [arm]
 ---
 
 ## element-wise计算指令
