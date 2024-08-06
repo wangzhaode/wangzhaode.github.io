@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "gdb/lldb打印SIMD寄存器的值"
-date:   2023-10-11
-last_modified_at: 2023-10-11
+date:   2024-08-06
+last_modified_at: 2024-08-06
 categories: [linux]
 ---
 
