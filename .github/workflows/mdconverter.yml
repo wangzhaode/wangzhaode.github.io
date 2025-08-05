@@ -1,0 +1,73 @@
+# .github/workflows/mdconverter.yml
+
+name: Convert Markdown for Other Platforms
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '_posts/**.md'
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install conversion tools
+        run: |
+          npm install -g md2zhihu
+          npm install -g @mdnice/mdnice-cli
+
+      - name: Find the latest committed markdown file
+        id: find_file
+        run: |
+          LATEST_FILE=$(git diff --name-only HEAD~1 HEAD | grep -E "\.md$|\.markdown$" | head -n 1)
+          if [ -z "$LATEST_FILE" ]; then
+            echo "No markdown file found in the latest commit. Skipping conversion."
+            exit 0
+          fi
+          echo "Found file: $LATEST_FILE"
+          echo "file_path=$LATEST_FILE" >> $GITHUB_ENV
+          echo "file_name=$(basename $LATEST_FILE .md | sed 's/\.markdown$//')" >> $GITHUB_ENV
+
+      - name: Convert to Zhihu format
+        if: env.file_path
+        run: |
+          echo "Processing file for Zhihu: ${{ env.file_path }}"
+          md2zhihu "${{ env.file_path }}" --target zhihu
+
+      - name: Convert to WeChat format
+        if: env.file_path
+        run: |
+          echo "Processing file for WeChat: ${{ env.file_path }}"
+          mdnice transform "${{ env.file_path }}" --output "wechat-output.html"
+
+      - name: Prepare artifacts
+        if: env.file_path
+        run: |
+          mkdir -p output
+          ZHIHU_OUTPUT_FILE="${{ env.file_path%.* }}.zhihu.md"
+          if [ -f "$ZHIHU_OUTPUT_FILE" ]; then
+            mv "$ZHIHU_OUTPUT_FILE" "output/zhihu-${{ env.file_name }}.md"
+          fi
+          if [ -f "wechat-output.html" ]; then
+            mv "wechat-output.html" "output/wechat-${{ env.file_name }}.html"
+          fi
+
+      - name: Upload artifacts
+        if: env.file_path
+        uses: actions/upload-artifact@v4
+        with:
+          name: Converted-Content-${{ env.file_name }}
+          path: output/
