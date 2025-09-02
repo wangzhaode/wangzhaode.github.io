@@ -3,7 +3,7 @@ layout: post
 title: CoreML踩坑记：慎用Conv1D
 date:   2025-08-18
 last_modified_at: 2025-08-18
-categories: []
+categories: [llm, coreml, ios]
 ---
 
 ### CoreML踩坑记：慎用Conv1D
