@@ -6,8 +6,6 @@ last_modified_at: 2025-08-18
 categories: [llm, coreml, ios]
 ---
 
-### CoreML踩坑记：慎用Conv1D
-
 #### 背景
 
 最近在给MNN写CoreML后端，优化`Qwen2.5-Omni`的性能。在测试`BigVGAN`模型的时候发现结果对不齐，逐层调试后发现错误出现在`ConvTranspose1d`（一维转置卷积）算子上。

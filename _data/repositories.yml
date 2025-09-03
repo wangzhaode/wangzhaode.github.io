@@ -1,0 +1,16 @@
+github_users:
+  - wangzhaode
+
+repo_description_lines_max: 4
+
+github_repos:
+  - alibaba/MNN
+  - wangzhaode/mnn-llm
+  - wangzhaode/llm-export
+  - wangzhaode/mnn-stable-diffusion
+  - wangzhaode/mnn-yolo
+  - wangzhaode/onnx-llm
+  # - wangzhaode/mnn-segment-anything
+  # - wangzhaode/mnn-asr
+  # - wangzhaode/mnn-tts
+  # - wangzhaode/llmviz

@@ -1,1 +1,1 @@
-/opt/homebrew/opt/ruby/bin/bundle exec jekyll serve
+bundle exec jekyll serve

@@ -1,0 +1,69 @@
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Zhaode Wang
+    - name: Languages
+      value: Chinese, English
+
+- title: Education
+  type: time_table
+  contents:
+    - title: M.S. in Computer Architecture
+      institution: State Key Laboratory of Computer Architecture, Institute of Computing Technology, Chinese Academy of Sciences
+      year: 2017 - 2020
+    - title: B.S. in Computer Science and Technology
+      institution: Shandong University
+      year: 2013 - 2017
+
+- title: Experience
+  type: time_table
+  contents:
+    - title: Inference Engine Technology Expert
+      institution: Alibaba (Taotian Group)
+      year: 2020 - Present
+      description:
+        - "Responsible for the architecture design and optimization of the MNN inference engine (13K+ GitHub Stars), including operator performance optimization, static memory allocation, and automatic operator fusion."
+        - "Led the development of model conversion tools for TorchScript, Tensorflow, and ONNX, with a focus on supporting control flow for advanced speech models (e.g., ASR, NLU)."
+        - "Developed NPU backends (CoreML, NNAPI) to accelerate algorithms like super-resolution and beauty filters in major apps such as Taobao and Taobao Live."
+        - "Initiated and led the MNN-LLM project (1.5K+ GitHub Stars) for on-device deployment of large language models, involving deep optimization of Transformer models (quantization, memory, computation) to support over 100 open-source LLMs."
+        - "Enhanced the MNN ecosystem by developing cv/audio processing modules, refactoring Python interfaces, and building CI/CD automation pipelines, resulting in 2K+ stars for related demo projects."
+    - title: Compiler Engineer Intern
+      institution: Cambricon Technologies
+      year: 2018 - 2020
+      description:
+        - Focused on operator optimization for Cambricon chips, compiler development, and linker construction.
+
+- title: Publications
+  type: time_table
+  contents:
+    - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
+      year: 2024
+      description: MM Asia 2024
+    - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
+      year: 2022
+      description: OSDI 2022
+
+- title: Competitions
+  type: time_table
+  contents:
+    - title: "IEEE AICAS 2025 Grand Challenge: LLM Software and HardWare System Co-optimization"
+      year: 2025
+      description: "the First Prize"
+    - title: "IEEE AICAS 2024 Grand Challenge: LLM Software and HardWare System Co-optimization"
+      year: 2024
+      description: "the First Prize"
+    - title: "Tecorigin Operator Development Competition"
+      year: 2024
+      description: "the First Prize"
+    - title: "SOPHGO TPU Program Competition"
+      year: 2022
+      description: "the First Prize"
+
+
+
+- title: Skills
+  type: list
+  contents:
+    - C, C++, Python, Assembly
+    - Compilers, AI Inference Engines, CPU/GPU/NPU Operator Optimization, Large Language Models

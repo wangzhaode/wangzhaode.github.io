@@ -4,9 +4,20 @@ _site
 # Cache
 .sass-cache
 .jekyll-metadata
+.jekyll-cache
+.tweet-cache
+
+# Logs
+*.log
+
+# Node dependencies
+node_modules
 
 # Gem lock file
 Gemfile.lock
 
 # Mac OSX
 .DS_store
+
+# Build results
+lighthouse_results/
