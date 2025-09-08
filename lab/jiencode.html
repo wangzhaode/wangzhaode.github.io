@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鸡你太美编解码器</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #ffeef8, #e0f7fa);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  h1 {
+    color: #ff6699;
+    margin-top: 0; /* Remove top margin since logo is gone */
+    font-size: 2em;
+  }
+  /* .logo-container styles removed */
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: vertical;
+  }
+  textarea:focus {
+    border-color: #ff6699;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 102, 153, 0.2);
+  }
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  button {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+  button:active {
+    transform: scale(0.98);
+  }
+  #encodeBtn {
+    background-color: #ff6699;
+    color: white;
+  }
+  #encodeBtn:hover {
+    background-color: #ff4d88;
+  }
+  #decodeBtn {
+    background-color: #4dabf7;
+    color: white;
+  }
+  #decodeBtn:hover {
+    background-color: #339af0;
+  }
+  #copyBtn {
+    background-color: #6c757d;
+    color: white;
+  }
+  #copyBtn:hover {
+    background-color: #5a6268;
+  }
+  #clearBtn {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  #clearBtn:hover {
+    background-color: #e0a800;
+  }
+  .output-container {
+    margin-top: 20px;
+  }
+  #output {
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 50px;
+    word-break: break-all;
+    font-size: 16px;
+  }
+  .notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+  }
+  .notification.show {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <!-- Logo container removed -->
+    <h1>🏀 鸡你太美编解码器 🏀</h1>
+  </header>
+
+  <main>
+    <div class="input-group">
+      <label for="inputText">请输入要编码或解码的文本:</label>
+      <textarea id="inputText" placeholder="在这里输入文本..."></textarea>
+    </div>
+
+    <div class="button-group">
+      <button id="encodeBtn">🔒 编码 (文本 → 鸡你太美)</button>
+      <button id="decodeBtn">🔓 解码 (鸡你太美 → 文本)</button>
+      <button id="copyBtn">📄 复制结果</button>
+      <button id="clearBtn">🧹 清空</button>
+    </div>
+
+    <div class="output-container">
+      <label for="output">输出结果:</label>
+      <div id="output">结果将显示在这里...</div>
+    </div>
+  </main>
+</div>
+
+<div class="notification" id="notification">已复制到剪贴板!</div>
+
+<script>
+  // --- 编解码核心逻辑 (JavaScript 版本) ---
+  const CHARSET = ['鸡', '你', '太', '美'];
+  const BASE = CHARSET.length;
+
+  function encode(text) {
+    if (!text) return "";
+    let encodedChars = [];
+    const encoder = new TextEncoder();
+    const byteData = encoder.encode(text);
+
+    for (let byte of byteData) {
+      let tempByte = byte;
+      let tempChars = [];
+      for (let i = 0; i < 4; i++) {
+        tempChars.push(CHARSET[tempByte % BASE]);
+        tempByte = Math.floor(tempByte / BASE);
+      }
+      encodedChars.push(...tempChars.reverse());
+    }
+    return encodedChars.join('');
+  }
+
+  function decode(encodedText) {
+    if (!encodedText) return "";
+    if (encodedText.length % 4 !== 0) {
+      throw new Error("编码字符串长度必须是4的倍数。");
+    }
+
+    const charToValue = {};
+    CHARSET.forEach((char, i) => charToValue[char] = i);
+
+    let byteArray = [];
+    for (let i = 0; i < encodedText.length; i += 4) {
+      const quadChars = encodedText.substring(i, i + 4);
+      let byteValue = 0;
+      for (let j = 0; j < quadChars.length; j++) {
+        const char = quadChars[j];
+        if (charToValue[char] === undefined) {
+          throw new Error(`编码字符串包含非法字符: '${char}'`);
+        }
+        const value = charToValue[char];
+        byteValue += value * Math.pow(BASE, 3 - j);
+      }
+      byteArray.push(byteValue);
+    }
+
+    const decoder = new TextDecoder('utf-8');
+    return decoder.decode(new Uint8Array(byteArray));
+  }
+  // --- /编解码核心逻辑 ---
+
+  // --- UI 交互逻辑 ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputText = document.getElementById('inputText');
+    const outputDiv = document.getElementById('output');
+    const encodeBtn = document.getElementById('encodeBtn');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const notification = document.getElementById('notification');
+
+    encodeBtn.addEventListener('click', () => {
+      const text = inputText.value;
+      if (!text) {
+        outputDiv.textContent = "请输入要编码的文本。";
+        return;
+      }
+      try {
+        const encoded = encode(text);
+        outputDiv.textContent = encoded;
+      } catch (e) {
+        outputDiv.textContent = `编码错误: ${e.message}`;
+      }
+    });
+
+    decodeBtn.addEventListener('click', () => {
+      const text = inputText.value;
+      if (!text) {
+        outputDiv.textContent = "请输入要解码的'鸡你太美'序列。";
+        return;
+      }
+      try {
+        const decoded = decode(text);
+        outputDiv.textContent = decoded;
+      } catch (e) {
+        outputDiv.textContent = `解码错误: ${e.message}`;
+      }
+    });
+
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = outputDiv.textContent;
+      if (!textToCopy || textToCopy === "结果将显示在这里...") {
+        showNotification("没有内容可复制", "#dc3545"); // Red for error
+        return;
+      }
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showNotification("已复制到剪贴板!");
+      }).catch(err => {
+        console.error('复制失败: ', err);
+        showNotification("复制失败!", "#dc3545");
+      });
+    });
+
+    clearBtn.addEventListener('click', () => {
+      inputText.value = '';
+      outputDiv.textContent = '结果将显示在这里...';
+    });
+
+    function showNotification(message, backgroundColor = '#28a745') {
+        notification.textContent = message;
+        notification.style.backgroundColor = backgroundColor;
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }
+  });
+  // --- /UI 交互逻辑 ---
+</script>
+
+</body>
+</html>
+
+
+
