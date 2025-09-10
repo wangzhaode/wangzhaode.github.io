@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-端侧llm硬件系列-一-内存带宽",
+        },{id: "post-qwen3-next-下一代moe模型架构解析",
+        
+          title: "Qwen3-Next：下一代MoE模型架构解析",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/qwen3-next/";
+          
+        },
+      },{id: "post-端侧llm硬件系列-一-内存带宽",
         
           title: "端侧LLM硬件系列（一）：内存带宽",
         
