@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-qwen3-next-下一代moe模型架构解析",
+        },{id: "post-端侧llm硬件系列-二-内存容量",
+        
+          title: "端侧LLM硬件系列（二）：内存容量",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/device-llm-memory-capacity/";
+          
+        },
+      },{id: "post-qwen3-next-下一代moe模型架构解析",
         
           title: "Qwen3-Next：下一代MoE模型架构解析",
         
