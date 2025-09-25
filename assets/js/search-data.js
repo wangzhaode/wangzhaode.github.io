@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-端侧llm硬件系列-二-内存容量",
+        },{id: "post-一图读懂qwen",
+        
+          title: "一图读懂Qwen",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/qwenfamily/";
+          
+        },
+      },{id: "post-端侧llm硬件系列-二-内存容量",
         
           title: "端侧LLM硬件系列（二）：内存容量",
         
