@@ -1,0 +1,2759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Qwen Family</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-color: #fafafa;
+            --card-color: #ffffff;
+            --timeline-color: #8b5cf6;
+            --text-color: #202020;
+            --text-secondary-color: #6c757d;
+            --border-color: #e9ecef;
+            --shadow-color: rgba(139, 92, 246, 0.1);
+            --accent-color: #8b5cf6;
+            --hover-color: #f8f9fa;
+            --purple-light: #a78bfa;
+            --purple-dark: #7c3aed;
+
+            --text-color-cat: #10b981;
+            --vision-color: #3b82f6;
+            --audio-color: #f59e0b;
+            --coder-color: #FF5722;
+            --math-color: #ef4444;
+            --omni-color: #06b6d4;
+            --guard-color: #64748b;
+            --embedding-color: #ec4899;
+            --reranker-color: #d946ef;
+            --image-editing-color: #84cc16;
+            --tts-color: #6366f1;
+            --default-color: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        header img.banner {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary-color);
+        }
+
+        .generation-block {
+            display: flex;
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-part {
+            width: 200px;
+            flex-shrink: 0;
+            position: relative;
+            padding-top: 1rem;
+        }
+
+        .timeline-part::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--timeline-color), var(--purple-light));
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 50px;
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 0;
+            transform: translateY(50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-color);
+            border: 3px solid var(--timeline-color);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node:hover::before {
+            transform: translateY(50%) scale(1.2);
+            box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.2);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--timeline-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-label {
+            color: var(--text-secondary-color);
+            font-size: 0.8rem;
+        }
+
+        .models-content-part {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .generation-section {
+            padding: 1.5rem;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .generation-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .generation-title {
+            font-size: 1.5rem;
+            color: var(--timeline-color);
+            margin: 0 0 0.3rem 0;
+        }
+
+        .generation-subtitle {
+            color: var(--text-secondary-color);
+            margin: 0;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .model-card {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.18);
+            border-color: var(--accent-color);
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .model-card.text::before { background: linear-gradient(90deg, var(--text-color-cat), #059669); }
+        .model-card.vision::before { background: linear-gradient(90deg, var(--vision-color), #1d4ed8); }
+        .model-card.audio::before { background: linear-gradient(90deg, var(--audio-color), #d97706); }
+        .model-card.coder::before { background: linear-gradient(90deg, var(--coder-color), #E64A19); }
+        .model-card.math::before { background: linear-gradient(90deg, var(--math-color), #dc2626); }
+        .model-card.omni::before { background: linear-gradient(90deg, var(--omni-color), #0891b2); }
+        .model-card.guard::before { background: linear-gradient(90deg, var(--guard-color), #475569); }
+        .model-card.embedding::before { background: linear-gradient(90deg, var(--embedding-color), #db2777); }
+        .model-card.reranker::before { background: linear-gradient(90deg, var(--reranker-color), #c026d3); }
+        .model-card.image-editing::before { background: linear-gradient(90deg, var(--image-editing-color), #65a30d); }
+        .model-card.tts::before { background: linear-gradient(90deg, var(--tts-color), #4f46e5); }
+
+        .model-content {
+            padding: 1rem;
+            flex: 1;
+        }
+
+        .model-card h3 {
+            margin: 0 0 0.8rem 0;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.3;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .model-card .model-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.7rem;
+        }
+
+        .model-card .param-scale {
+            background: linear-gradient(135deg, var(--accent-color), var(--purple-dark));
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+        }
+
+        .model-card .date {
+            color: var(--text-secondary-color);
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--hover-color);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .model-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            border-top: 1px dashed var(--border-color);
+            margin-top: 1rem;
+            padding-top: 0;
+        }
+
+        .model-details.expanded {
+            padding-top: 1rem;
+            max-height: 300px;
+        }
+
+        .model-details p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .model-details span {
+            color: var(--text-secondary-color);
+        }
+
+        .model-details a {
+            color: var(--timeline-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: text-shadow 0.2s;
+        }
+
+        .model-details a:hover {
+            text-shadow: 0 0 5px var(--shadow-color);
+        }
+
+        @media screen and (max-width: 768px) {
+            .generation-block {
+                flex-direction: column;
+            }
+            .timeline-part {
+                width: 100%;
+                padding-top: 0;
+            }
+            .timeline-part::before {
+                left: 10px;
+            }
+            .timeline-node {
+                padding-left: 40px;
+            }
+            .timeline-node::before {
+                left: 1px;
+            }
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="/assets/img/qwenfamily/banner.png" alt="Qwen Family Banner" class="banner"/>
+        </header>
+
+        <div id="timeline-container">
+            <!-- 内容区域，时间线和模型卡片将在这里动态生成 -->
+        </div>
+
+        <!-- 增强的性能数据可视化部分 -->
+        <div class="chart-container" style="padding: 1rem; background-color: var(--card-color); border-radius: 12px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <!-- MMLU分数图表 -->
+            <div>
+                <canvas id="mmlu-chart"></canvas>
+            </div>
+        </div>
+
+        <header>
+            <img src="/assets/img/qwenfamily/footer.png" alt="Qwen Friends Banner" class="banner"/>
+        </header>
+    </div>
+
+    <!-- 引入增强的图表JavaScript文件 -->
+    <script src="/assets/js/qwen_enhanced_charts.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineContainer = document.getElementById('timeline-container');
+
+            const modelsData = {
+    "Qwen3": {
+        "guard": [
+{
+                "name": "Qwen3Guard-Stream-8B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 03:54:48",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 0,
+                "downloads": 79,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Stream-8B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3Guard-Stream-4B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 02:21:54",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 0,
+                "downloads": 41,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Stream-4B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3Guard-Gen-4B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 00:40:15",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 0,
+                "downloads": 209,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Gen-4B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3Guard-Gen-0.6B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 00:37:57",
+                "param_scale": "0.6B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 0,
+                "downloads": 355,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Gen-0.6B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3Guard-Stream-0.6B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 00:37:37",
+                "param_scale": "0.6B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 0,
+                "downloads": 50,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Stream-0.6B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3Guard-Gen-8B",
+                "chinese_name": "",
+                "updated_at": "2025-09-25 00:34:55",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 5,
+                "downloads": 291,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3Guard-Gen-8B",
+                "license": "apache-2.0"
+            }
+        ],
+        "vision": [
+{
+                "name": "Qwen3-VL-235B-A22B-Thinking",
+                "chinese_name": "通义千问3-VL-235B-A22B-Thinking",
+                "updated_at": "2025-09-24 04:41:03",
+                "param_scale": "235B",
+                "type": "视觉语言(VL)",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 6,
+                "downloads": 60891,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Thinking",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-VL-235B-A22B-Instruct",
+                "chinese_name": "通义千问3-VL-235B-A22B-Instruct",
+                "updated_at": "2025-09-24 04:40:23",
+                "param_scale": "235B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 28,
+                "downloads": 64337,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-VL-235B-A22B-Instruct",
+                "license": "apache-2.0"
+            }
+        ],
+        "image-editing": [
+{
+                "name": "Qwen-Image-Edit",
+                "chinese_name": "",
+                "updated_at": "2025-09-23 15:32:13",
+                "param_scale": "30B",
+                "type": "图片生成图片",
+                "tasks": [
+                    "图片生成图片"
+                ],
+                "stars": 211,
+                "downloads": 103648,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-Image-Edit",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen-Image-Edit-2509",
+                "chinese_name": "",
+                "updated_at": "2025-09-23 02:01:40",
+                "param_scale": "30B",
+                "type": "图片生成图片",
+                "tasks": [
+                    "图片生成图片"
+                ],
+                "stars": 37,
+                "downloads": 74814,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-Image-Edit-2509",
+                "license": "apache-2.0"
+            }
+        ],
+        "omni": [
+{
+                "name": "Qwen3-Omni-30B-A3B-Instruct",
+                "chinese_name": "通义千问3-Omni-30B-A3B-Instruct",
+                "updated_at": "2025-09-23 08:52:32",
+                "param_scale": "30B",
+                "type": "指令遵从",
+                "tasks": [
+                    "统一多模态"
+                ],
+                "stars": 27,
+                "downloads": 3903,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Omni-30B-A3B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen3-Omni-30B-A3B-Captioner",
+                "chinese_name": "",
+                "updated_at": "2025-09-23 02:07:20",
+                "param_scale": "30B",
+                "type": "统一多模态",
+                "tasks": [
+                    "统一多模态"
+                ],
+                "stars": 4,
+                "downloads": 324,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Omni-30B-A3B-Captioner",
+                "license": "other"
+            },
+{
+                "name": "Qwen3-Omni-30B-A3B-Thinking",
+                "chinese_name": "",
+                "updated_at": "2025-09-23 01:21:12",
+                "param_scale": "30B",
+                "type": "统一多模态",
+                "tasks": [
+                    "统一多模态"
+                ],
+                "stars": 5,
+                "downloads": 590,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Omni-30B-A3B-Thinking",
+                "license": "other"
+            }
+        ],
+        "text": [
+{
+                "name": "Qwen3-30B-A3B-Instruct-2507",
+                "chinese_name": "通义千问3-30B-A3B-Instruct-2507",
+                "updated_at": "2025-09-17 15:21:50",
+                "param_scale": "30B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 62,
+                "downloads": 209423,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B-Instruct-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-235B-A22B-Instruct-2507",
+                "chinese_name": "通义千问3-235B-A22B-Instruct-2507",
+                "updated_at": "2025-09-17 15:19:20",
+                "param_scale": "235B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 128,
+                "downloads": 77358,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-235B-A22B-Instruct-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Next-80B-A3B-Instruct",
+                "chinese_name": "通义千问3-Next-80B-A3B-Instruct",
+                "updated_at": "2025-09-17 15:14:25",
+                "param_scale": "80B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 83,
+                "downloads": 202281,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Next-80B-A3B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-4B-Instruct-2507",
+                "chinese_name": "通义千问3-4B-Instruct-2507",
+                "updated_at": "2025-09-17 15:13:55",
+                "param_scale": "4B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 17,
+                "downloads": 33635,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-4B-Instruct-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Next-80B-A3B-Thinking",
+                "chinese_name": "通义千问3-Next-80B-A3B-Thinking",
+                "updated_at": "2025-09-16 15:14:13",
+                "param_scale": "80B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 19,
+                "downloads": 5055,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Next-80B-A3B-Thinking",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-235B-A22B-Thinking-2507",
+                "chinese_name": "通义千问3-235B-A22B-Thinking-2507",
+                "updated_at": "2025-08-20 15:42:34",
+                "param_scale": "235B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 74,
+                "downloads": 26414,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-235B-A22B-Thinking-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-30B-A3B-Thinking-2507",
+                "chinese_name": "通义千问3-30B-A3B-Thinking-2507",
+                "updated_at": "2025-08-20 15:42:27",
+                "param_scale": "30B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 28,
+                "downloads": 16107,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B-Thinking-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen-Image",
+                "chinese_name": "",
+                "updated_at": "2025-08-18 10:42:52",
+                "param_scale": "30B",
+                "type": "文本生成图片",
+                "tasks": [
+                    "文本生成图片"
+                ],
+                "stars": 276,
+                "downloads": 408378,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-Image",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-4B-Thinking-2507",
+                "chinese_name": "通义千问3-4B-Thinking-2507",
+                "updated_at": "2025-08-07 13:32:07",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 10,
+                "downloads": 36709,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-4B-Thinking-2507",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-235B-A22B",
+                "chinese_name": "通义千问3-235B-A22B",
+                "updated_at": "2025-07-27 00:13:11",
+                "param_scale": "235B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 193,
+                "downloads": 606839,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-235B-A22B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-30B-A3B-Base",
+                "chinese_name": "通义千问3-30B-A3B-Base",
+                "updated_at": "2025-07-27 00:13:10",
+                "param_scale": "30B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 2,
+                "downloads": 30568,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-4B",
+                "chinese_name": "通义千问3-4B",
+                "updated_at": "2025-07-27 00:13:09",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 53,
+                "downloads": 981250,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-4B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-4B-Base",
+                "chinese_name": "通义千问3-4B-Base",
+                "updated_at": "2025-07-27 00:13:07",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 4,
+                "downloads": 13659,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-4B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-30B-A3B",
+                "chinese_name": "通义千问3-30B-A3B",
+                "updated_at": "2025-07-27 00:12:51",
+                "param_scale": "30B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 48,
+                "downloads": 379726,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-14B",
+                "chinese_name": "通义千问3-14B",
+                "updated_at": "2025-07-27 00:12:49",
+                "param_scale": "14B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 33,
+                "downloads": 267050,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-14B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-1.7B-Base",
+                "chinese_name": "通义千问3-1.7B-Base",
+                "updated_at": "2025-07-27 00:12:44",
+                "param_scale": "1.7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 3,
+                "downloads": 5909,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-1.7B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-32B",
+                "chinese_name": "通义千问3-32B",
+                "updated_at": "2025-07-27 00:12:41",
+                "param_scale": "32B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 199,
+                "downloads": 2153980,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-32B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-1.7B",
+                "chinese_name": "通义千问3-1.7B",
+                "updated_at": "2025-07-27 00:12:40",
+                "param_scale": "1.7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 31,
+                "downloads": 233740,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-1.7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-8B",
+                "chinese_name": "通义千问3-8B",
+                "updated_at": "2025-07-27 00:12:33",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 118,
+                "downloads": 2300586,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-8B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-0.6B",
+                "chinese_name": "通义千问3-0.6B",
+                "updated_at": "2025-07-27 00:12:33",
+                "param_scale": "0.6B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 93,
+                "downloads": 1323679,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-0.6B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-0.6B-Base",
+                "chinese_name": "通义千问3-0.6B-Base",
+                "updated_at": "2025-07-27 00:12:32",
+                "param_scale": "0.6B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 11,
+                "downloads": 124295,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-0.6B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-14B-Base",
+                "chinese_name": "通义千问3-14B-Base",
+                "updated_at": "2025-07-27 00:12:31",
+                "param_scale": "14B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 2,
+                "downloads": 27173,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-14B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-8B-Base",
+                "chinese_name": "通义千问3-8B-Base",
+                "updated_at": "2025-05-22 00:34:26",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 5,
+                "downloads": 96292,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-8B-Base",
+                "license": "apache-2.0"
+            },
+{
+                "name": "WorldPM-72B-HelpSteer2",
+                "chinese_name": "",
+                "updated_at": "2025-05-18 00:29:15",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 0,
+                "downloads": 403,
+                "url": "https://modelscope.cn/models/Qwen/WorldPM-72B-HelpSteer2",
+                "license": "apache-2.0"
+            },
+{
+                "name": "WorldPM-72B-UltraFeedback",
+                "chinese_name": "",
+                "updated_at": "2025-05-18 00:23:13",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 0,
+                "downloads": 409,
+                "url": "https://modelscope.cn/models/Qwen/WorldPM-72B-UltraFeedback",
+                "license": "apache-2.0"
+            },
+{
+                "name": "WorldPM-72B",
+                "chinese_name": "",
+                "updated_at": "2025-05-18 00:23:08",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 4,
+                "downloads": 618,
+                "url": "https://modelscope.cn/models/Qwen/WorldPM-72B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "WorldPM-72B-RLHFLow",
+                "chinese_name": "",
+                "updated_at": "2025-05-18 00:10:16",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 0,
+                "downloads": 359,
+                "url": "https://modelscope.cn/models/Qwen/WorldPM-72B-RLHFLow",
+                "license": "apache-2.0"
+            }
+        ],
+        "coder": [
+{
+                "name": "Qwen3-Coder-30B-A3B-Instruct",
+                "chinese_name": "通义千问3-Coder-30B-A3B-Instruct",
+                "updated_at": "2025-08-22 15:43:16",
+                "param_scale": "30B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 66,
+                "downloads": 92942,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Coder-480B-A35B-Instruct",
+                "chinese_name": "通义千问3-Coder-480B-A35B-Instruct",
+                "updated_at": "2025-08-22 15:42:36",
+                "param_scale": "480B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 816,
+                "downloads": 85904,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Coder-480B-A35B-Instruct",
+                "license": "apache-2.0"
+            }
+        ],
+        "embedding": [
+{
+                "name": "Qwen3-Embedding-8B",
+                "chinese_name": "通义千问3-Embedding-8B-向量化模型",
+                "updated_at": "2025-07-08 00:26:32",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 117,
+                "downloads": 249982,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Embedding-8B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Embedding-0.6B",
+                "chinese_name": "通义千问3-Embedding-0.6B-向量化模型",
+                "updated_at": "2025-06-23 00:17:13",
+                "param_scale": "0.6B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 45,
+                "downloads": 484427,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Embedding-0.6B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Embedding-4B",
+                "chinese_name": "通义千问3-Embedding-4B-向量化模型",
+                "updated_at": "2025-06-21 00:15:19",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 19,
+                "downloads": 98594,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Embedding-4B",
+                "license": "apache-2.0"
+            }
+        ],
+        "reranker": [
+{
+                "name": "Qwen3-Reranker-0.6B",
+                "chinese_name": "通义千问3-Reranker-0.6B",
+                "updated_at": "2025-06-11 00:18:50",
+                "param_scale": "0.6B",
+                "type": "语义相关性",
+                "tasks": [
+                    "语义相关性"
+                ],
+                "stars": 20,
+                "downloads": 316424,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Reranker-0.6B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Reranker-4B",
+                "chinese_name": "通义千问3-Reranker-4B",
+                "updated_at": "2025-06-10 01:03:01",
+                "param_scale": "4B",
+                "type": "语义相关性",
+                "tasks": [
+                    "语义相关性"
+                ],
+                "stars": 13,
+                "downloads": 71028,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Reranker-4B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen3-Reranker-8B",
+                "chinese_name": "通义千问3-Reranker-8B",
+                "updated_at": "2025-06-10 01:00:48",
+                "param_scale": "8B",
+                "type": "语义相关性",
+                "tasks": [
+                    "语义相关性"
+                ],
+                "stars": 39,
+                "downloads": 436465,
+                "url": "https://modelscope.cn/models/Qwen/Qwen3-Reranker-8B",
+                "license": "apache-2.0"
+            }
+        ]
+    },
+    "Qwen2.5": {
+        "vision": [
+{
+                "name": "Qwen2.5-VL-72B-Instruct",
+                "chinese_name": "通义千问2.5-VL-72B-Instruct",
+                "updated_at": "2025-06-07 00:10:19",
+                "param_scale": "72B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 322,
+                "downloads": 921709,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-VL-3B-Instruct",
+                "chinese_name": "通义千问2.5-VL-3B-Instruct",
+                "updated_at": "2025-04-24 06:11:35",
+                "param_scale": "3B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 110,
+                "downloads": 1007637,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-VL-3B-Instruct",
+                "license": ""
+            },
+{
+                "name": "Qwen2.5-VL-32B-Instruct",
+                "chinese_name": "通义千问2.5-VL-32B-Instruct",
+                "updated_at": "2025-04-15 07:16:04",
+                "param_scale": "32B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 107,
+                "downloads": 227964,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-VL-32B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-VL-7B-Instruct",
+                "chinese_name": "通义千问2.5-VL-7B-Instruct",
+                "updated_at": "2025-04-07 06:17:05",
+                "param_scale": "7B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 341,
+                "downloads": 2852958,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-VL-7B-Instruct",
+                "license": "apache-2.0"
+            }
+        ],
+        "omni": [
+{
+                "name": "Qwen2.5-Omni-7B",
+                "chinese_name": "通义千问2.5-Omni-7B全模态",
+                "updated_at": "2025-05-01 00:07:13",
+                "param_scale": "7B",
+                "type": "统一多模态",
+                "tasks": [
+                    "统一多模态"
+                ],
+                "stars": 469,
+                "downloads": 1045627,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Omni-7B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Omni-3B",
+                "chinese_name": "通义千问2.5-Omni-3B全模态",
+                "updated_at": "2025-04-30 22:40:31",
+                "param_scale": "3B",
+                "type": "统一多模态",
+                "tasks": [
+                    "统一多模态"
+                ],
+                "stars": 26,
+                "downloads": 46490,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Omni-3B",
+                "license": "other"
+            }
+        ],
+        "text": [
+{
+                "name": "QwQ-32B",
+                "chinese_name": "通义千问 QwQ-32B",
+                "updated_at": "2025-03-11 20:28:51",
+                "param_scale": "32B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 637,
+                "downloads": 3431993,
+                "url": "https://modelscope.cn/models/Qwen/QwQ-32B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-7B-Instruct",
+                "chinese_name": "通义千问2.5-7B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "7B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 362,
+                "downloads": 3789269,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "QwQ-32B-Preview",
+                "chinese_name": "",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "32B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 97,
+                "downloads": 177105,
+                "url": "https://modelscope.cn/models/Qwen/QwQ-32B-Preview",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-32B-Instruct",
+                "chinese_name": "通义千问2.5-32B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "32B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 81,
+                "downloads": 707110,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-32B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-14B-Instruct",
+                "chinese_name": "通义千问2.5-14B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "14B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 80,
+                "downloads": 1058355,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-14B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-72B-Instruct",
+                "chinese_name": "通义千问2.5-72B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "72B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 198,
+                "downloads": 1069475,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-3B-Instruct",
+                "chinese_name": "通义千问2.5-3B-Instruct",
+                "updated_at": "2025-02-27 02:40:45",
+                "param_scale": "3B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 75,
+                "downloads": 763030,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-3B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-0.5B-Instruct",
+                "chinese_name": "通义千问2.5-0.5B-Instruct",
+                "updated_at": "2025-02-27 02:24:53",
+                "param_scale": "0.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 177,
+                "downloads": 7719810,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-0.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-1.5B-Instruct",
+                "chinese_name": "通义千问2.5-1.5B-Instruct",
+                "updated_at": "2025-02-27 00:17:27",
+                "param_scale": "1.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 96,
+                "downloads": 764607,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-1.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-57B-A14B-Instruct",
+                "chinese_name": "通义千问2-57B-A14B-Instruct",
+                "updated_at": "2025-02-26 20:25:43",
+                "param_scale": "57B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 13,
+                "downloads": 67507,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-57B-A14B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-7B-Instruct-1M",
+                "chinese_name": "通义千问2.5-7B-Instruct-1M",
+                "updated_at": "2025-01-30 06:05:09",
+                "param_scale": "7B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 23,
+                "downloads": 34718,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct-1M",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-14B-Instruct-1M",
+                "chinese_name": "通义千问2.5-14B-Instruct-1M",
+                "updated_at": "2025-01-30 06:05:05",
+                "param_scale": "14B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 25,
+                "downloads": 18770,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-14B-Instruct-1M",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-1.5B",
+                "chinese_name": "通义千问2.5-1.5B-预训练",
+                "updated_at": "2024-10-09 03:23:57",
+                "param_scale": "1.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 13,
+                "downloads": 36580,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-1.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-72B",
+                "chinese_name": "通义千问2.5-72B-预训练",
+                "updated_at": "2024-09-25 23:17:42",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 8,
+                "downloads": 297855,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-7B",
+                "chinese_name": "通义千问2.5-7B-预训练",
+                "updated_at": "2024-09-25 23:17:38",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 27,
+                "downloads": 121360,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-0.5B",
+                "chinese_name": "通义千问2.5-0.5B-预训练",
+                "updated_at": "2024-09-25 23:16:17",
+                "param_scale": "0.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 28,
+                "downloads": 363837,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-0.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-32B",
+                "chinese_name": "通义千问2.5-32B-预训练",
+                "updated_at": "2024-09-20 22:40:56",
+                "param_scale": "32B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 10,
+                "downloads": 26881,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-32B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-3B",
+                "chinese_name": "通义千问2.5-3B-预训练",
+                "updated_at": "2024-09-20 22:37:36",
+                "param_scale": "3B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 16,
+                "downloads": 37398,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-3B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-14B",
+                "chinese_name": "通义千问2.5-14B-预训练",
+                "updated_at": "2024-09-20 22:16:48",
+                "param_scale": "14B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 7,
+                "downloads": 59877,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-14B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-57B-A14B",
+                "chinese_name": "通义千问2-57B-A14B",
+                "updated_at": "2024-06-06 22:52:12",
+                "param_scale": "57B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 4,
+                "downloads": 6004,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-57B-A14B",
+                "license": "apache-2.0"
+            }
+        ],
+        "coder": [
+{
+                "name": "Qwen2.5-Coder-32B-Instruct",
+                "chinese_name": "通义千问2.5-代码-32B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "32B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 122,
+                "downloads": 294091,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-32B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-7B-Instruct",
+                "chinese_name": "通义千问2.5-代码-7B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "7B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 55,
+                "downloads": 52403,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-14B-Instruct",
+                "chinese_name": "通义千问2.5-代码-14B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "14B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 22,
+                "downloads": 90642,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-14B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-0.5B-Instruct",
+                "chinese_name": "通义千问2.5-代码-0.5B-Instruct",
+                "updated_at": "2025-02-27 02:15:55",
+                "param_scale": "0.5B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 9,
+                "downloads": 23063,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-0.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-1.5B-Instruct",
+                "chinese_name": "通义千问2.5-代码-1.5B-Instruct",
+                "updated_at": "2025-02-27 01:29:46",
+                "param_scale": "1.5B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 7,
+                "downloads": 16240,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-1.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-3B-Instruct",
+                "chinese_name": "通义千问2.5-代码-3B-Instruct",
+                "updated_at": "2025-02-27 01:10:50",
+                "param_scale": "3B",
+                "type": "指令遵从, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 2,
+                "downloads": 15981,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-3B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Coder-32B",
+                "chinese_name": "通义千问2.5-代码-32B",
+                "updated_at": "2024-11-19 07:44:39",
+                "param_scale": "32B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 8,
+                "downloads": 51288,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-32B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-1.5B",
+                "chinese_name": "通义千问2.5-代码-1.5B",
+                "updated_at": "2024-11-19 07:12:26",
+                "param_scale": "1.5B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 10,
+                "downloads": 5530,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-1.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-7B",
+                "chinese_name": "通义千问2.5-代码-7B",
+                "updated_at": "2024-11-19 06:55:28",
+                "param_scale": "7B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 18,
+                "downloads": 17038,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-0.5B",
+                "chinese_name": "通义千问2.5-代码-0.5B",
+                "updated_at": "2024-11-18 22:24:29",
+                "param_scale": "0.5B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 5,
+                "downloads": 7448,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-0.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-14B",
+                "chinese_name": "通义千问2.5-代码-14B",
+                "updated_at": "2024-11-18 21:49:43",
+                "param_scale": "14B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 3,
+                "downloads": 329049,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-14B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Coder-3B",
+                "chinese_name": "通义千问2.5-代码-3B",
+                "updated_at": "2024-11-18 21:28:00",
+                "param_scale": "3B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 4,
+                "downloads": 8031,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Coder-3B",
+                "license": "other"
+            }
+        ],
+        "math": [
+{
+                "name": "Qwen2.5-Math-7B-Instruct",
+                "chinese_name": "通义千问2.5-数学-7B-Instruct",
+                "updated_at": "2025-02-27 02:38:04",
+                "param_scale": "7B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 16,
+                "downloads": 16559,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Math-1.5B-Instruct",
+                "chinese_name": "通义千问2.5-数学-1.5B-Instruct",
+                "updated_at": "2025-02-26 23:52:18",
+                "param_scale": "1.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 3,
+                "downloads": 6979,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-1.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Math-72B-Instruct",
+                "chinese_name": "通义千问2.5-数学-72B-Instruct",
+                "updated_at": "2025-02-26 23:25:48",
+                "param_scale": "72B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 10,
+                "downloads": 192797,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-RM-72B",
+                "chinese_name": "通义千问2.5-数学-RM-72B",
+                "updated_at": "2025-02-26 23:24:02",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 2,
+                "downloads": 2399,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-RM-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-7B-PRM800K",
+                "chinese_name": "通义千问2.5-Math-7B-PRM800K",
+                "updated_at": "2025-01-18 01:01:11",
+                "param_scale": "7B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 1,
+                "downloads": 1002,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-7B-PRM800K",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-PRM-72B",
+                "chinese_name": "通义千问2.5-Math-PRM-72B",
+                "updated_at": "2025-01-18 00:47:00",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 3,
+                "downloads": 1091,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-PRM-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-PRM-7B",
+                "chinese_name": "通义千问2.5-Math-PRM-7B",
+                "updated_at": "2025-01-17 22:31:35",
+                "param_scale": "7B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 2,
+                "downloads": 3658,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-PRM-7B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-72B",
+                "chinese_name": "通义千问2.5-数学-72B",
+                "updated_at": "2024-09-23 22:37:10",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 3,
+                "downloads": 4294,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2.5-Math-7B",
+                "chinese_name": "通义千问2.5-数学-7B",
+                "updated_at": "2024-09-23 22:37:04",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 7,
+                "downloads": 14865,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2.5-Math-1.5B",
+                "chinese_name": "通义千问2.5-数学-1.5B",
+                "updated_at": "2024-09-23 22:37:04",
+                "param_scale": "1.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 6,
+                "downloads": 9330,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2.5-Math-1.5B",
+                "license": "apache-2.0"
+            }
+        ]
+    },
+    "Qwen2": {
+        "text": [
+{
+                "name": "Qwen2-0.5B",
+                "chinese_name": "通义千问2-0.5B",
+                "updated_at": "2025-04-24 06:35:35",
+                "param_scale": "0.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 43,
+                "downloads": 168410,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-0.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-1.5B",
+                "chinese_name": "通义千问2-1.5B",
+                "updated_at": "2025-04-24 06:31:47",
+                "param_scale": "1.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 31,
+                "downloads": 144866,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-1.5B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-72B",
+                "chinese_name": "通义千问2-72B",
+                "updated_at": "2025-04-24 06:31:31",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 65,
+                "downloads": 216605,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-7B",
+                "chinese_name": "通义千问2-7B",
+                "updated_at": "2025-04-24 06:26:05",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 80,
+                "downloads": 160389,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-72B-Instruct",
+                "chinese_name": "通义千问2-72B-Instruct",
+                "updated_at": "2025-02-26 20:17:51",
+                "param_scale": "72B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 137,
+                "downloads": 1380456,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-1.5B-Instruct",
+                "chinese_name": "通义千问2-1.5B-Instruct",
+                "updated_at": "2025-02-26 20:17:24",
+                "param_scale": "1.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 34,
+                "downloads": 258564,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-1.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-0.5B-Instruct",
+                "chinese_name": "通义千问2-0.5B-Instruct",
+                "updated_at": "2025-02-26 20:15:53",
+                "param_scale": "0.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 34,
+                "downloads": 373131,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-0.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-7B-Instruct",
+                "chinese_name": "通义千问2-7B-Instruct",
+                "updated_at": "2025-02-26 20:15:48",
+                "param_scale": "7B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 165,
+                "downloads": 514072,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-7B-Instruct",
+                "license": "apache-2.0"
+            }
+        ],
+        "math": [
+{
+                "name": "Qwen2-Math-72B-Instruct",
+                "chinese_name": "通义千问2-数学-72B-Instruct",
+                "updated_at": "2025-04-10 17:12:22",
+                "param_scale": "72B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 29,
+                "downloads": 15072,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-Math-1.5B-Instruct",
+                "chinese_name": "通义千问2-数学-1.5B-Instruct",
+                "updated_at": "2025-04-10 06:49:35",
+                "param_scale": "1.5B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 4,
+                "downloads": 2679,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-1.5B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-Math-7B-Instruct",
+                "chinese_name": "通义千问2-数学-7B-Instruct",
+                "updated_at": "2025-04-10 06:43:29",
+                "param_scale": "7B",
+                "type": "指令遵从",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 3,
+                "downloads": 3942,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-Math-RM-72B",
+                "chinese_name": "通义千问2-数学-RM-72B",
+                "updated_at": "2025-02-27 00:24:28",
+                "param_scale": "72B",
+                "type": "文本分类",
+                "tasks": [
+                    "文本分类"
+                ],
+                "stars": 1,
+                "downloads": 1752,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-RM-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-Math-7B",
+                "chinese_name": "通义千问2-数学-7B",
+                "updated_at": "2024-08-13 22:35:04",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 5,
+                "downloads": 3686,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-Math-72B",
+                "chinese_name": "通义千问2-数学-72B",
+                "updated_at": "2024-08-13 22:34:47",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 4,
+                "downloads": 2313,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-Math-1.5B",
+                "chinese_name": "通义千问2-Math-1.5B",
+                "updated_at": "2024-08-12 08:51:53",
+                "param_scale": "1.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 2,
+                "downloads": 2401,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Math-1.5B",
+                "license": "apache-2.0"
+            }
+        ],
+        "vision": [
+{
+                "name": "Qwen2-VL-7B-Instruct",
+                "chinese_name": "通义千问2-VL-7B-Instruct",
+                "updated_at": "2025-03-07 16:19:00",
+                "param_scale": "7B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 197,
+                "downloads": 814056,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-VL-72B-Instruct",
+                "chinese_name": "通义千问2-VL-72B-Instruct",
+                "updated_at": "2025-02-27 01:19:36",
+                "param_scale": "72B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 45,
+                "downloads": 144826,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-72B-Instruct",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-VL-2B-Instruct",
+                "chinese_name": "通义千问2-VL-2B-Instruct",
+                "updated_at": "2025-02-26 20:16:05",
+                "param_scale": "2B",
+                "type": "视觉语言(VL), 指令遵从",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 85,
+                "downloads": 686156,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-2B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "QVQ-72B-Preview",
+                "chinese_name": "",
+                "updated_at": "2025-01-12 20:05:15",
+                "param_scale": "72B",
+                "type": "视觉多模态理解",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 122,
+                "downloads": 425199,
+                "url": "https://modelscope.cn/models/Qwen/QVQ-72B-Preview",
+                "license": "other"
+            },
+{
+                "name": "Qwen2-VL-7B",
+                "chinese_name": "通义千问2-VL-7B",
+                "updated_at": "2025-01-03 20:15:04",
+                "param_scale": "7B",
+                "type": "视觉语言(VL)",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 12,
+                "downloads": 18339,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-7B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-VL-2B",
+                "chinese_name": "通义千问2-VL-2B",
+                "updated_at": "2024-12-06 20:14:47",
+                "param_scale": "2B",
+                "type": "视觉语言(VL)",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 8,
+                "downloads": 27229,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-2B",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-VL-72B",
+                "chinese_name": "通义千问2-VL-72B",
+                "updated_at": "2024-12-06 20:04:24",
+                "param_scale": "72B",
+                "type": "视觉语言(VL)",
+                "tasks": [
+                    "视觉多模态理解"
+                ],
+                "stars": 5,
+                "downloads": 6084,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-VL-72B",
+                "license": "other"
+            }
+        ],
+        "audio": [
+{
+                "name": "Qwen2-Audio-7B-Instruct",
+                "chinese_name": "通义千问2-Audio-7B-Instruct",
+                "updated_at": "2025-01-12 20:10:41",
+                "param_scale": "7B",
+                "type": "指令遵从, 音频",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 92,
+                "downloads": 155959,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Audio-7B-Instruct",
+                "license": "apache-2.0"
+            },
+{
+                "name": "Qwen2-Audio-7B",
+                "chinese_name": "通义千问2-Audio-7B",
+                "updated_at": "2024-11-20 20:27:00",
+                "param_scale": "7B",
+                "type": "音频",
+                "tasks": [
+                    ""
+                ],
+                "stars": 19,
+                "downloads": 42384,
+                "url": "https://modelscope.cn/models/Qwen/Qwen2-Audio-7B",
+                "license": "apache-2.0"
+            }
+        ]
+    },
+    "Qwen": {
+        "text": [
+{
+                "name": "Qwen-1_8B",
+                "chinese_name": "通义千问-1_8B-预训练",
+                "updated_at": "2025-02-27 02:42:13",
+                "param_scale": "8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 26,
+                "downloads": 61363,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-1_8B",
+                "license": ""
+            },
+{
+                "name": "Qwen-14B-Chat",
+                "chinese_name": "通义千问-14B-Chat",
+                "updated_at": "2025-02-27 02:29:47",
+                "param_scale": "14B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 365,
+                "downloads": 1943652,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-14B-Chat",
+                "license": ""
+            },
+{
+                "name": "Qwen-72B",
+                "chinese_name": "通义千问-72B-预训练",
+                "updated_at": "2025-02-27 02:06:51",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 28,
+                "downloads": 36924,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen-14B",
+                "chinese_name": "通义千问-14B",
+                "updated_at": "2025-02-27 01:38:07",
+                "param_scale": "14B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 85,
+                "downloads": 54329,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-14B",
+                "license": ""
+            },
+{
+                "name": "Qwen-72B-Chat",
+                "chinese_name": "通义千问-72B-Chat",
+                "updated_at": "2025-02-27 01:27:23",
+                "param_scale": "72B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 218,
+                "downloads": 76024,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-72B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen-7B",
+                "chinese_name": "通义千问-7B-预训练",
+                "updated_at": "2025-02-27 00:43:00",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 218,
+                "downloads": 517043,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-7B",
+                "license": "other"
+            },
+{
+                "name": "Qwen-1_8B-Chat",
+                "chinese_name": "通义千问-1_8B-Chat",
+                "updated_at": "2025-02-27 00:34:03",
+                "param_scale": "8B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 133,
+                "downloads": 240782,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-1_8B-Chat",
+                "license": ""
+            },
+{
+                "name": "Qwen-7B-Chat",
+                "chinese_name": "通义千问-7B-Chat",
+                "updated_at": "2025-02-26 23:30:40",
+                "param_scale": "7B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 740,
+                "downloads": 654823,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-7B-Chat",
+                "license": "other"
+            },
+{
+                "name": "CodeQwen1.5-7B-Chat",
+                "chinese_name": "",
+                "updated_at": "2025-02-26 20:15:45",
+                "param_scale": "7B",
+                "type": "对话, 代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 90,
+                "downloads": 693361,
+                "url": "https://modelscope.cn/models/Qwen/CodeQwen1.5-7B-Chat",
+                "license": "other"
+            }
+        ],
+        "vision": [
+{
+                "name": "Qwen-VL-Chat",
+                "chinese_name": "通义千问-VL-Chat",
+                "updated_at": "2025-02-27 02:02:14",
+                "param_scale": "8B",
+                "type": "视觉语言(VL), 对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 316,
+                "downloads": 389427,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-VL-Chat",
+                "license": ""
+            },
+{
+                "name": "Qwen-VL",
+                "chinese_name": "通义千问-VL-预训练",
+                "updated_at": "2025-02-27 00:46:01",
+                "param_scale": "8B",
+                "type": "视觉语言(VL)",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 75,
+                "downloads": 54888,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-VL",
+                "license": ""
+            }
+        ],
+        "audio": [
+{
+                "name": "Qwen-Audio",
+                "chinese_name": "通义千问-Audio-预训练",
+                "updated_at": "2025-02-27 00:37:10",
+                "param_scale": "8B",
+                "type": "音频",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 27,
+                "downloads": 43997,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-Audio",
+                "license": ""
+            },
+{
+                "name": "Qwen-Audio-Chat",
+                "chinese_name": "通义千问-Audio-Chat",
+                "updated_at": "2025-02-27 00:33:04",
+                "param_scale": "8B",
+                "type": "对话, 音频",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 81,
+                "downloads": 72458,
+                "url": "https://modelscope.cn/models/Qwen/Qwen-Audio-Chat",
+                "license": ""
+            }
+        ],
+        "coder": [
+{
+                "name": "CodeQwen1.5-7B",
+                "chinese_name": "",
+                "updated_at": "2024-05-17 13:13:11",
+                "param_scale": "7B",
+                "type": "代码",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 10,
+                "downloads": 8483,
+                "url": "https://modelscope.cn/models/Qwen/CodeQwen1.5-7B",
+                "license": "other"
+            }
+        ]
+    },
+    "Qwen1.5": {
+        "text": [
+{
+                "name": "Qwen1.5-MoE-A2.7B-Chat",
+                "chinese_name": "通义千问1.5-MoE-A2.7B-Chat",
+                "updated_at": "2025-02-26 21:47:29",
+                "param_scale": "2.7B",
+                "type": "对话, 混合专家(MoE)",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 32,
+                "downloads": 15849,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-MoE-A2.7B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-4B-Chat",
+                "chinese_name": "通义千问1.5-4B-Chat",
+                "updated_at": "2025-02-26 20:21:57",
+                "param_scale": "4B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 25,
+                "downloads": 61721,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-4B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-14B-Chat",
+                "chinese_name": "通义千问1.5-14B-Chat",
+                "updated_at": "2025-02-26 20:17:57",
+                "param_scale": "14B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 82,
+                "downloads": 140554,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-14B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-0.5B-Chat",
+                "chinese_name": "通义千问1.5-0.5B-Chat",
+                "updated_at": "2025-02-26 20:17:54",
+                "param_scale": "0.5B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 63,
+                "downloads": 195117,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-0.5B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-72B-Chat",
+                "chinese_name": "通义千问1.5-72B-Chat",
+                "updated_at": "2025-02-26 20:14:44",
+                "param_scale": "72B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 40,
+                "downloads": 31363,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-72B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-1.8B-Chat",
+                "chinese_name": "通义千问1.5-1.8B-Chat",
+                "updated_at": "2025-02-26 20:12:13",
+                "param_scale": "1.8B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 37,
+                "downloads": 88789,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-1.8B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-7B-Chat",
+                "chinese_name": "通义千问1.5-7B-Chat",
+                "updated_at": "2025-02-26 20:11:57",
+                "param_scale": "7B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 159,
+                "downloads": 1379882,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-7B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-110B-Chat",
+                "chinese_name": "通义千问1.5-110B-Chat",
+                "updated_at": "2025-02-26 20:08:31",
+                "param_scale": "110B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 93,
+                "downloads": 366609,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-110B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-32B-Chat",
+                "chinese_name": "通义千问1.5-32B-对话",
+                "updated_at": "2025-02-26 20:08:22",
+                "param_scale": "32B",
+                "type": "对话",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 61,
+                "downloads": 65219,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-32B-Chat",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-110B",
+                "chinese_name": "通义千问1.5-110B",
+                "updated_at": "2024-04-27 19:38:08",
+                "param_scale": "110B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 13,
+                "downloads": 426763,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-110B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-MoE-A2.7B",
+                "chinese_name": "通义千问1.5-MoE-A2.7B",
+                "updated_at": "2024-04-18 22:14:32",
+                "param_scale": "2.7B",
+                "type": "混合专家(MoE)",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 23,
+                "downloads": 12495,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-MoE-A2.7B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-32B",
+                "chinese_name": "通义千问1.5-32B",
+                "updated_at": "2024-04-06 05:18:37",
+                "param_scale": "32B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 18,
+                "downloads": 7377,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-32B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-7B",
+                "chinese_name": "通义千问1.5-7B",
+                "updated_at": "2024-04-05 20:05:58",
+                "param_scale": "7B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 34,
+                "downloads": 50755,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-7B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-72B",
+                "chinese_name": "通义千问1.5-72B",
+                "updated_at": "2024-04-05 20:03:29",
+                "param_scale": "72B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 12,
+                "downloads": 9784,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-72B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-4B",
+                "chinese_name": "通义千问1.5-4B",
+                "updated_at": "2024-04-05 20:00:59",
+                "param_scale": "4B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 13,
+                "downloads": 13511,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-4B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-14B",
+                "chinese_name": "通义千问1.5-14B",
+                "updated_at": "2024-04-05 19:55:51",
+                "param_scale": "14B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 18,
+                "downloads": 17297,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-14B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-1.8B",
+                "chinese_name": "通义千问1.5-1.8B",
+                "updated_at": "2024-04-05 19:53:20",
+                "param_scale": "1.8B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 20,
+                "downloads": 22412,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-1.8B",
+                "license": "other"
+            },
+{
+                "name": "Qwen1.5-0.5B",
+                "chinese_name": "通义千问1.5-0.5B",
+                "updated_at": "2024-04-05 19:50:46",
+                "param_scale": "0.5B",
+                "type": "文本生成",
+                "tasks": [
+                    "文本生成"
+                ],
+                "stars": 34,
+                "downloads": 56855,
+                "url": "https://modelscope.cn/models/Qwen/Qwen1.5-0.5B",
+                "license": "other"
+            }
+        ]
+    }
+};
+
+            const scatterData = [
+                { x: 0.5, y: 46.8, label: 'Qwen1.5 0.5B' },
+                { x: 1.8, y: 56.1, label: 'Qwen1.5 1.8B' },
+                { x: 4, y: 62.5, label: 'Qwen1.5 4B' },
+                { x: 7, y: 67.6, label: 'Qwen1.5 7B' },
+                { x: 14, y: 72.1, label: 'Qwen1.5 14B' },
+                { x: 72, y: 77.4, label: 'Qwen1.5 72B' },
+                { x: 0.5, y: 45.4, label: 'Qwen2 0.5B' },
+                { x: 1.5, y: 52.4, label: 'Qwen2 1.5B' },
+                { x: 7, y: 70.5, label: 'Qwen2 7B' },
+                { x: 72, y: 84.2, label: 'Qwen2 72B' },
+                { x: 7, y: 70.5, label: 'Qwen2.5 7B' },
+                { x: 14, y: 79.7, label: 'Qwen2.5 14B' },
+                { x: 32, y: 83.3, label: 'Qwen2.5 32B' },
+                { x: 72, y: 86.1, label: 'Qwen2.5 72B' },
+                { x: 32, y: 82.2, label: 'Qwen3 32B' },
+                { x: 235, y: 87.8, label: 'Qwen3 235B' }
+            ];
+
+            function getModelCategoryName(category) {
+                const names = {
+                    'text': '文本-Text', 'vision': '视觉-Vision', 'audio': '语音-Audio', 'coder': '代码-Coder', 'math': '数学-Math', 'omni': '全模态-Omni', 'guard': '安全审核-Guard', 'embedding': '嵌入-Embedding', 'reranker': '重排序-Reranker', 'image-editing': '图像编辑-Image Editing', 'tts': '语音生成-TTS', 'default': '其他'
+                };
+                return names[category] || '其他';
+            }
+
+            function sortGenerationsDescending(generations) {
+                return generations.sort((a, b) => {
+                    const numA = parseFloat(a.replace(/[^0-9.]/g, '')) || 0;
+                    const numB = parseFloat(b.replace(/[^0-9.]/g, '')) || 0;
+                    return numB - numA;
+                });
+            }
+
+            function createModelCardHTML(model, category) {
+                const date = new Date(model.updated_at).toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' });
+                return `
+                    <div class="model-card ${category}">
+                        <div class="model-content">
+                            <h3>${model.name}</h3>
+                            <div class="model-meta">
+                                <span class="param-scale">${model.param_scale}</span>
+                                <span class="date">${date}</span>
+                            </div>
+                            <div class="model-details">
+                                <p><span>⭐ Stars:</span> <strong>${model.stars.toLocaleString()}</strong></p>
+                                <p><span>📥 Downloads:</span> <strong>${model.downloads.toLocaleString()}</strong></p>
+                                <p><span>🔗 Model Page:</span> <a href="${model.url}" target="_blank" rel="noopener noreferrer">访问主页</a></p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function sortModelsByDateDescending(models) {
+                return models.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+            }
+
+            function renderBenchmarkChart() {
+                const ctx = document.getElementById('benchmark-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Qwen Models',
+                            data: scatterData,
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                            pointRadius: 8,
+                            pointHoverRadius: 12
+                        }]
+                    },
+                    plugins: [ChartDataLabels],
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            datalabels: {
+                                color: '#333',
+                                anchor: 'end',
+                                align: 'top',
+                                font: { weight: 'bold' },
+                                formatter: (value, context) => {
+                                    return context.chart.data.datasets[0].data[context.dataIndex].label;
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Qwen模型性能(MMLU分数)',
+                                font: { size: 16, family: 'Inter' },
+                                color: '#333'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.data[context.dataIndex].label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += `(参数量: ${context.parsed.x}B, MMLU: ${context.parsed.y}%)`;
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                title: {
+                                    display: true,
+                                    text: '模型大小 (Billion parameters)'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'MMLU Score (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderPage() {
+                timelineContainer.innerHTML = '';
+                const sortedGenerations = sortGenerationsDescending(Object.keys(modelsData));
+
+                sortedGenerations.forEach(generation => {
+                    const categories = modelsData[generation];
+                    const allModelsInGeneration = Object.values(categories).flat();
+                    if (allModelsInGeneration.length === 0) return;
+
+                    const latestDate = allModelsInGeneration.reduce((latest, model) => {
+                        const modelDate = new Date(model.updated_at);
+                        return modelDate > latest ? modelDate : latest;
+                    }, new Date(0));
+                    const dateStr = latestDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short' });
+
+                    const generationBlock = document.createElement('div');
+                    generationBlock.className = 'generation-block';
+
+                    const timelinePart = document.createElement('div');
+                    timelinePart.className = 'timeline-part';
+                    timelinePart.innerHTML = `
+                        <div class="timeline-node">
+                            <div class="timeline-date">${dateStr}</div>
+                            <div class="timeline-label">${generation} 系列</div>
+                        </div>
+                    `;
+
+                    const modelsContentPart = document.createElement('div');
+                    modelsContentPart.className = 'models-content-part';
+
+                    const generationSection = document.createElement('div');
+                    generationSection.className = 'generation-section';
+
+                    const totalModels = allModelsInGeneration.length;
+                    generationSection.innerHTML = `
+                        <div class="generation-header">
+                            <h2 class="generation-title">${generation} 系列</h2>
+                            <p class="generation-subtitle">共 ${totalModels} 个模型</p>
+                        </div>
+                    `;
+
+                    Object.entries(categories).forEach(([category, models]) => {
+                        if (models.length === 0) return;
+                        const sortedModels = sortModelsByDateDescending(models);
+                        const categorySection = document.createElement('div');
+                        categorySection.style.marginBottom = '2rem';
+                        const categoryName = getModelCategoryName(category);
+                        const categoryTitle = document.createElement('h3');
+                        categoryTitle.style.color = `var(--${category === 'text' ? 'text-color-cat' : category}-color)`;
+                        categoryTitle.style.marginBottom = '1rem';
+                        categoryTitle.style.fontSize = '1.1rem';
+                        categoryTitle.innerHTML = `${categoryName} (${sortedModels.length})`;
+                        categorySection.appendChild(categoryTitle);
+
+                        const modelsGrid = document.createElement('div');
+                        modelsGrid.className = 'models-grid';
+                        sortedModels.forEach(model => {
+                            const modelCard = document.createElement('div');
+                            modelCard.innerHTML = createModelCardHTML(model, category);
+                            modelsGrid.appendChild(modelCard.firstElementChild);
+                        });
+
+                        categorySection.appendChild(modelsGrid);
+                        generationSection.appendChild(categorySection);
+                    });
+
+                    modelsContentPart.appendChild(generationSection);
+                    generationBlock.appendChild(timelinePart);
+                    generationBlock.appendChild(modelsContentPart);
+                    timelineContainer.appendChild(generationBlock);
+                });
+
+                addClickListeners();
+            }
+
+            function addClickListeners() {
+                const cards = document.querySelectorAll('.model-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const details = card.querySelector('.model-details');
+                        details.classList.toggle('expanded');
+                    });
+                });
+            }
+
+            // 渲染增强的基准测试图表
+            renderEnhancedBenchmarkCharts();
+            renderPage();
+        });
+    </script>
+</body>
+</html>
