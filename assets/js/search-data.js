@@ -56,6 +56,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/qwen3-next/";
           
         },
+      },{id: "post-mnn模型支持-面壁小钢炮minicpm-v-4",
+        
+          title: "MNN模型支持：面壁小钢炮MiniCPM-V-4",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/minicpm/";
+          
+        },
       },{id: "post-端侧llm硬件系列-一-内存带宽",
         
           title: "端侧LLM硬件系列（一）：内存带宽",
