@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-一图读懂qwen",
+        },{id: "post-mnn模型支持-qwen3-vl",
+        
+          title: "MNN模型支持：Qwen3-VL",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/qwen3vl/";
+          
+        },
+      },{id: "post-一图读懂qwen",
         
           title: "一图读懂Qwen",
         
