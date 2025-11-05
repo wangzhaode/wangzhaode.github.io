@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn模型支持-qwen3-vl",
+        },{id: "post-llm训练实战手册",
+        
+          title: "LLM训练实战手册",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/llm-train/";
+          
+        },
+      },{id: "post-mnn模型支持-qwen3-vl",
         
           title: "MNN模型支持：Qwen3-VL",
         
