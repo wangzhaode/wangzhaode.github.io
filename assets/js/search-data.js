@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-llm训练实战手册",
+        },{id: "post-llm训练实战-从零到一的完整指南",
+        
+          title: "LLM训练实战：从零到一的完整指南",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/llm-train-improved/";
+          
+        },
+      },{id: "post-llm训练实战手册",
         
           title: "LLM训练实战手册",
         
