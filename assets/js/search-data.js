@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-llm训练实战-从零到一的完整指南",
+        },{id: "post-mnn支持eagle3",
+        
+          title: "MNN支持Eagle3",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/mnn-eagle/";
+          
+        },
+      },{id: "post-llm训练实战-从零到一的完整指南",
         
           title: "LLM训练实战：从零到一的完整指南",
         
