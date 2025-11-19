@@ -6,7 +6,6 @@ subtitle: On-Device AI & LLM & Open Source Contributor
 
 profile:
   align: right
-  image:
   image_circular: false
   more_info:
 

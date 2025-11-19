@@ -9,10 +9,10 @@ last_name: Wang
 contact_note: >
   Welcome to my blog.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A blog about technology and life.
+  Expert insights on On-Device AI, LLM Optimization, and High-Performance Computing.
 footer_text: >
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website, blog # add your own keywords or leave empty
+keywords: jekyll, jekyll-theme, academic-website, portfolio-website, blog, MNN, Edge AI, Model Compression, LLM, On-Device AI # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
@@ -430,7 +430,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons|Inter:300,400,500,700|Merriweather:300,400,700&display=swap"
   highlightjs:
     integrity:
       css:
