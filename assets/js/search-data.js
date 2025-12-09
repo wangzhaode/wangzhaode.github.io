@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn支持eagle3",
+        },{id: "post-llm-super-weight-实测-剪枝降智与量化思考",
+        
+          title: "LLM Super Weight 实测：剪枝降智与量化思考",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/super-weight/";
+          
+        },
+      },{id: "post-mnn支持eagle3",
         
           title: "MNN支持Eagle3",
         
