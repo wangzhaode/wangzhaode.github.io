@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-llm-super-weight-实测-剪枝降智与量化思考",
+        },{id: "post-",
+        
+          title: "",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/2025-12-16-jinja-cpp/";
+          
+        },
+      },{id: "post-llm-super-weight-实测-剪枝降智与量化思考",
         
           title: "LLM Super Weight 实测：剪枝降智与量化思考",
         
