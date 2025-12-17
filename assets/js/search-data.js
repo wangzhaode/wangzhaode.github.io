@@ -23,15 +23,15 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-",
+        },{id: "post-jinja-cpp-为什么我要手写一个-jinja2-编译器",
         
-          title: "",
+          title: "jinja.cpp：为什么我要手写一个 Jinja2 编译器",
         
         description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/2025-12-16-jinja-cpp/";
+            window.location.href = "/blog/2025/jinja-cpp/";
           
         },
       },{id: "post-llm-super-weight-实测-剪枝降智与量化思考",
