@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-jinja-cpp-为什么我要手写一个-jinja2-编译器",
+        },{id: "post-stem-用-embedding-替代-up-proj",
+        
+          title: "STEM：用“Embedding”替代“up_proj”",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/stem/";
+          
+        },
+      },{id: "post-jinja-cpp-为什么我要手写一个-jinja2-编译器",
         
           title: "jinja.cpp：为什么我要手写一个 Jinja2 编译器",
         
