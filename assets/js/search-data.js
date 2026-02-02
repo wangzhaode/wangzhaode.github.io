@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-yufeng-xguard-reason-安全模型-mnn-评测与部署",
+        },{id: "post-xguard安全模型-评测与mnn部署",
         
-          title: "YuFeng-XGuard-Reason 安全模型：MNN 评测与部署",
+          title: "XGuard安全模型：评测与MNN部署",
         
         description: "",
         section: "Posts",
