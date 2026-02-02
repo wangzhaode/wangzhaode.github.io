@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-stem-用-embedding-替代-up-proj",
+        },{id: "post-yufeng-xguard-reason-端侧部署实践",
+        
+          title: "YuFeng-XGuard-Reason 端侧部署实践",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/xguard/";
+          
+        },
+      },{id: "post-stem-用-embedding-替代-up-proj",
         
           title: "STEM：用“Embedding”替代“up_proj”",
         
