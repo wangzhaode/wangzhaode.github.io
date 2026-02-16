@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-xguard安全模型-评测与mnn部署",
+        },{id: "post-mnn-模型支持-qwen3-5",
+        
+          title: "MNN 模型支持：Qwen3.5",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/qwen35/";
+          
+        },
+      },{id: "post-xguard安全模型-评测与mnn部署",
         
           title: "XGuard安全模型：评测与MNN部署",
         
