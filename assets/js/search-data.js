@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-qwen3-5-端侧小模型测评-从-0-8b-到-9b",
+        },{id: "post-日记-2026-03-04",
+        
+          title: "日记 2026-03-04",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-qwen3-5-端侧小模型测评-从-0-8b-到-9b",
         
           title: "Qwen3.5 端侧小模型测评：从 0.8B 到 9B",
         
