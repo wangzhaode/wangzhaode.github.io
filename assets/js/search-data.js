@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-04-雪落北京",
+        },{id: "post-白色星期四",
+        
+          title: "白色星期四",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-2026-03-04-雪落北京",
         
           title: "2026.03.04 雪落北京",
         
