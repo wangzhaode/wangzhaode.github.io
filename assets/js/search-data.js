@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-06-榜首",
+        },{id: "post-2026-03-06-周五的光",
         
-          title: "2026.03.06 榜首",
+          title: "2026.03.06 周五的光",
         
         description: "",
         section: "Posts",
