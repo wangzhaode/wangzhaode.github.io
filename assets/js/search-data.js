@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-05-飞雪与辙印",
+        },{id: "post-2026-03-06-榜首",
+        
+          title: "2026.03.06 榜首",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-2026-03-05-飞雪与辙印",
         
           title: "2026.03.05 飞雪与辙印",
         
