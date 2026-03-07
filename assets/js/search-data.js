@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-06-周五的光",
+        },{id: "post-2026-03-07-进度条之外-烟火之间",
+        
+          title: "2026.03.07 进度条之外，烟火之间",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-2026-03-06-周五的光",
         
           title: "2026.03.06 周五的光",
         
