@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-08-周日温柔-周一抵抗",
+        },{id: "post-2026-03-09-两地之间",
+        
+          title: "2026.03.09 两地之间",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-2026-03-08-周日温柔-周一抵抗",
         
           title: "2026.03.08 周日温柔，周一抵抗",
         
