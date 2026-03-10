@@ -34,6 +34,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/mnn-ai-coding-skill/";
           
         },
+      },{id: "post-2026-03-10-杭州春早",
+        
+          title: "2026.03.10 杭州春早",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
       },{id: "post-2026-03-09-两地之间",
         
           title: "2026.03.09 两地之间",
