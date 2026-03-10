@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn-ai-coding实战-复杂任务skill化-多花10刀但值得",
+        },{id: "post-mnn-任务-skill-化-基于-opus-4-6-的实验",
         
-          title: "MNN AI Coding实战：复杂任务Skill化，多花10刀但值得",
+          title: "MNN 任务 Skill 化：基于 Opus 4.6 的实验",
         
         description: "",
         section: "Posts",
