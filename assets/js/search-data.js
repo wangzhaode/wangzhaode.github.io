@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-09-两地之间",
+        },{id: "post-mnn-ai-coding实战-复杂任务skill化-多花10刀但值得",
+        
+          title: "MNN AI Coding实战：复杂任务Skill化，多花10刀但值得",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/mnn-ai-coding-skill/";
+          
+        },
+      },{id: "post-2026-03-09-两地之间",
         
           title: "2026.03.09 两地之间",
         
