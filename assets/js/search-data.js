@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn复杂任务skill拆解实验",
+        },{id: "post-2026-03-11-马脸面包与-ccc",
+        
+          title: "2026.03.11 马脸面包与 ccc",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-mnn复杂任务skill拆解实验",
         
           title: "MNN复杂任务Skill拆解实验",
         
