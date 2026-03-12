@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-11-马脸面包与-ccc",
+        },{id: "post-2026北京家庭新能源分数线预测-两大ai的推演与分歧",
+        
+          title: "2026北京家庭新能源分数线预测：两大AI的推演与分歧",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/xkczb/";
+          
+        },
+      },{id: "post-2026-03-11-马脸面包与-ccc",
         
           title: "2026.03.11 马脸面包与 ccc",
         
@@ -43,6 +54,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/mnn-ai-coding-skill/";
+          
+        },
+      },{id: "post-合成数据实战指南-从零推演-finephrase-百亿-token-级高质量数据集构建",
+        
+          title: "合成数据实战指南：从零推演 FinePhrase 百亿 Token 级高质量数据集构建",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/finephrase-synthetic-data/";
           
         },
       },{id: "post-2026-03-10-杭州春早",
