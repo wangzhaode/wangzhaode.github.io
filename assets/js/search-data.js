@@ -34,9 +34,9 @@ ninja.data = [{
             window.location.href = "/blog/2026/xkczb/";
           
         },
-      },{id: "post-2026-03-12-曲奇与告别",
+      },{id: "post-2026-03-12-曲奇与订阅",
         
-          title: "2026.03.12 曲奇与告别",
+          title: "2026.03.12 曲奇与订阅",
         
         description: "",
         section: "Posts",
