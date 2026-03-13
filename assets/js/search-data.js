@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026北京家庭新能源分数线预测-两大ai的推演与分歧",
+        },{id: "post-2026-03-13-奔波的一天",
+        
+          title: "2026.03.13 奔波的一天",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/diary/";
+          
+        },
+      },{id: "post-2026北京家庭新能源分数线预测-两大ai的推演与分歧",
         
           title: "2026北京家庭新能源分数线预测：两大AI的推演与分歧",
         
