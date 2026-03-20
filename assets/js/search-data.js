@@ -23,7 +23,29 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-2026-03-13-奔波的一天",
+        },{id: "post-如何设计端侧高性能-tokenizer-mnn-重构实践与思考",
+        
+          title: "如何设计端侧高性能 Tokenizer？—— MNN 重构实践与思考",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/tokenizer/";
+          
+        },
+      },{id: "post-minimax-m2-7-实测-离-claude-还有多远",
+        
+          title: "MiniMax-M2.7 实测：离 Claude 还有多远？",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/minimax2.7/";
+          
+        },
+      },{id: "post-2026-03-13-奔波的一天",
         
           title: "2026.03.13 奔波的一天",
         
@@ -241,6 +263,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/llm-train/";
+          
+        },
+      },{id: "post-大模型训练深度实录-从smollm看llm研发的理论与现实",
+        
+          title: "大模型训练深度实录：从SmolLM看LLM研发的理论与现实",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/llm-train-v2/";
           
         },
       },{id: "post-mnn模型支持-qwen3-vl",
