@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  如何设计端侧高性能 Tokenizer？—— MNN 重构实践与思考
+title:  如何设计端侧高性能 Tokenizer？MNN 重构实践与思考
 date:   2026-03-20
 last_modified_at: 2026-03-20
 categories: [MNN, llm]
@@ -40,9 +40,9 @@ MNN 很早就支持了 LLM 推理的 Tokenizer，但由于当时各家模型的 
 
 每个阶段都是可插拔的组件，不同模型只是组件的组合不同。这样一套架构就能覆盖几乎所有主流 LLM 的 Tokenizer。
 
-### 2.2 以 Qwen3 为例：一句话的完整编码过程
+### 2.2 以 Qwen3.5 为例：一句话的完整编码过程
 
-以 Qwen3（BPE 模型，ByteLevel 预分词）处理一句话 `"Hello, MNN!"` 为例，展示每一步的变化：
+以 Qwen3.5（BPE 模型，ByteLevel 预分词）处理一句话 `"Hello, MNN!"` 为例，展示每一步的变化：
 
 **Step 0: 原始输入**
 ```
@@ -87,14 +87,14 @@ ByteLevel 映射后：
 合并2: ["He", "ll", "o"]           ← (l, l) 合并
 合并3: ["He", "llo"]               ← (ll, o) 合并
 合并4: ["Hello"]                   ← (He, llo) 合并
-查表:  Hello → 9906
+查表:  Hello → 9419
 ```
 
 对所有子串执行 BPE 后：
 ```
-"Hello" → [9906]
+"Hello" → [9419]
 ","     → [11]
-"ĠMNN"  → [386, 2224]    ← "ĠMNN" 被分为 "ĠM" 和 "NN" 两个子词
+"ĠMNN"  → [380, 9455]    ← "ĠMNN" 被分为 "ĠM" 和 "NN" 两个子词
 "!"     → [0]
 ```
 
@@ -102,7 +102,7 @@ ByteLevel 映射后：
 
 合并所有子串的 token ID：
 ```
-[9906, 11, 386, 2224, 0]
+[9419, 11, 380, 9455, 0]
 ```
 
 这就是模型实际接收到的输入。
@@ -111,7 +111,7 @@ ByteLevel 映射后：
 
 解码时，Decoder 将 token ID 还原为文本：
 ```
-[9906, 11, 386, 2224, 0]
+[9419, 11, 380, 9455, 0]
 → 查表: ["Hello", ",", "ĠM", "NN", "!"]
 → 拼接: "Hello,ĠMNN!"
 → ByteLevel 逆映射: "Hello, MNN!"
