@@ -34,6 +34,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/tokenizer/";
           
         },
+      },{id: "post-gpt-5-4-pro-amp-mimo-v2-pro-参战-谁能挑战-claude",
+        
+          title: "GPT-5.4-Pro &amp; MiMo-V2-Pro 参战：谁能挑战 Claude？",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/gpt-mimo/";
+          
+        },
       },{id: "post-minimax-m2-7-实测-离-claude-还有多远",
         
           title: "MiniMax-M2.7 实测：离 Claude 还有多远？",
