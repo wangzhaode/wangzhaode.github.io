@@ -25,7 +25,7 @@ ninja.data = [{
           },
         },{id: "post-如何设计端侧高性能-tokenizer-mnn-重构实践与思考",
         
-          title: "如何设计端侧高性能 Tokenizer？—— MNN 重构实践与思考",
+          title: "如何设计端侧高性能 Tokenizer？MNN 重构实践与思考",
         
         description: "",
         section: "Posts",
