@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-如何设计端侧高性能-tokenizer-mnn-重构实践与思考",
+        },{id: "post-mimo-v2-pro-测评-同一模型-两种结局",
+        
+          title: "MiMo-V2-Pro 测评：同一模型，两种结局",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/mimov2pro/";
+          
+        },
+      },{id: "post-如何设计端侧高性能-tokenizer-mnn-重构实践与思考",
         
           title: "如何设计端侧高性能 Tokenizer？MNN 重构实践与思考",
         
