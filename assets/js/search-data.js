@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mimo-v2-pro-测评-同一模型-两种结局",
+        },{id: "post-mnn-任务实测-七个模型-三个梯队",
+        
+          title: "MNN 任务实测：七个模型，三个梯队",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/mnntask-eval/";
+          
+        },
+      },{id: "post-mimo-v2-pro-测评-同一模型-两种结局",
         
           title: "MiMo-V2-Pro 测评：同一模型，两种结局",
         
