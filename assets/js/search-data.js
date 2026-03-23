@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-google-stitch-体验-终于解决了-claude-code-ui-难调的痛点",
+        },{id: "post-google-stitch-体验-解决-cc-写-ui-的痛",
         
-          title: "Google Stitch 体验：终于解决了 Claude Code UI 难调的痛点",
+          title: "Google Stitch 体验：解决 CC 写 UI 的痛",
         
         description: "",
         section: "Posts",
