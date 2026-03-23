@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Google Stitch 体验：终于解决了 Claude Code UI 难调的痛点
+title:  Google Stitch 体验：解决 CC 写 UI 的痛
 date:   2026-03-23
 last_modified_at: 2026-03-23
 categories: [tool]
