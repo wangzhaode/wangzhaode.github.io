@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn-任务实测-七个模型-三个梯队",
+        },{id: "post-google-stitch-体验-终于解决了-claude-code-ui-难调的痛点",
+        
+          title: "Google Stitch 体验：终于解决了 Claude Code UI 难调的痛点",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/stitch-claude-code/";
+          
+        },
+      },{id: "post-mnn-任务实测-七个模型-三个梯队",
         
           title: "MNN 任务实测：七个模型，三个梯队",
         
@@ -54,17 +65,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/tokenizer/";
-          
-        },
-      },{id: "post-gpt-5-4-pro-amp-mimo-v2-pro-参战-谁能挑战-claude",
-        
-          title: "GPT-5.4-Pro &amp; MiMo-V2-Pro 参战：谁能挑战 Claude？",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/gpt-mimo/";
           
         },
       },{id: "post-minimax-m2-7-实测-离-claude-还有多远",
