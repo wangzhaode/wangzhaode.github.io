@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-google-stitch-体验-解决-cc-写-ui-的痛",
+        },{id: "post-turboquant-一篇论文砸崩存储股价-mnn在手机上跑通了",
+        
+          title: "TurboQuant：一篇论文砸崩存储股价？MNN在手机上跑通了",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/turboquant/";
+          
+        },
+      },{id: "post-google-stitch-体验-解决-cc-写-ui-的痛",
         
           title: "Google Stitch 体验：解决 CC 写 UI 的痛",
         
