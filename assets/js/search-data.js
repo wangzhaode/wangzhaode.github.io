@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-claude有多大-从推理速度反推opus和capybara的参数量",
+        },{id: "post-claude有多大-从推理速度反推参数量",
         
-          title: "Claude有多大？从推理速度反推Opus和Capybara的参数量",
+          title: "Claude有多大？从推理速度反推参数量",
         
         description: "",
         section: "Posts",
