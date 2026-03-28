@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-turboquant-一篇论文砸崩存储股价-mnn在手机上跑通了",
+        },{id: "post-claude有多大-从推理速度反推opus和capybara的参数量",
+        
+          title: "Claude有多大？从推理速度反推Opus和Capybara的参数量",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/claude-parameter-analysis/";
+          
+        },
+      },{id: "post-turboquant-一篇论文砸崩存储股价-mnn在手机上跑通了",
         
           title: "TurboQuant：一篇论文砸崩存储股价？MNN在手机上跑通了",
         
