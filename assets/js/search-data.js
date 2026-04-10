@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-claude有多大-从推理速度反推参数量",
+        },{id: "post-mnn-支持-gemma4-全系列-ple-kv共享与多模态",
+        
+          title: "MNN 支持 Gemma4 全系列：PLE、KV共享与多模态",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/gemma4/";
+          
+        },
+      },{id: "post-claude有多大-从推理速度反推参数量",
         
           title: "Claude有多大？从推理速度反推参数量",
         

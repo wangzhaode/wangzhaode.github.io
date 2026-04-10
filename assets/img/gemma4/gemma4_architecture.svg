@@ -1,0 +1,307 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 1410" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="12">
+  <defs>
+    <marker id="a" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <path d="M0,0 L6,2.5 L0,5" fill="none" stroke="#333" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="1410" fill="#fff"/>
+
+  <!-- Title -->
+  <text x="410" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#222">Gemma4 Architecture</text>
+  <text x="410" y="50" text-anchor="middle" font-size="11" fill="#999">E2B(35L) / E4B(42L) / 31B(60L) / 26B-A4B(30L)</text>
+
+  <!-- ===== INPUTS ===== -->
+  <rect x="60" y="72" width="140" height="36" rx="3" fill="none" stroke="#333" stroke-width="1.2"/>
+  <text x="130" y="95" text-anchor="middle" fill="#333">Text (token_ids)</text>
+
+  <rect x="340" y="72" width="140" height="36" rx="3" fill="none" stroke="#555" stroke-width="1.2"/>
+  <text x="410" y="95" text-anchor="middle" fill="#555">Image (pixels)</text>
+
+  <rect x="620" y="72" width="140" height="36" rx="3" fill="none" stroke="#555" stroke-width="1.2"/>
+  <text x="690" y="95" text-anchor="middle" fill="#555">Audio (waveform)</text>
+
+  <!-- Arrows -->
+  <line x1="130" y1="108" x2="130" y2="134" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="410" y1="108" x2="410" y2="134" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="690" y1="108" x2="690" y2="134" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- ===== ENCODERS ===== -->
+  <rect x="75" y="138" width="110" height="28" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="130" y="157" text-anchor="middle" font-size="11" fill="#444">Tokenizer</text>
+
+  <rect x="310" y="138" width="200" height="80" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="410" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#444">SigLIP ViT</text>
+  <text x="410" y="172" text-anchor="middle" font-size="10" fill="#888">Patch 16x16 + 2D pos</text>
+  <text x="410" y="186" text-anchor="middle" font-size="10" fill="#888">Pooler 3x3 (9x compress)</text>
+  <text x="410" y="200" text-anchor="middle" font-size="10" fill="#888">RMSNorm + Linear</text>
+
+  <rect x="590" y="138" width="200" height="80" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="690" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#444">USM Conformer</text>
+  <text x="690" y="172" text-anchor="middle" font-size="10" fill="#888">Mel 128-d, 16kHz</text>
+  <text x="690" y="186" text-anchor="middle" font-size="10" fill="#888">Subsample Conv</text>
+  <text x="690" y="200" text-anchor="middle" font-size="10" fill="#888">Chunked Attention</text>
+
+  <!-- Arrow from tokenizer down, split to two embeddings -->
+  <line x1="130" y1="166" x2="130" y2="250" stroke="#333" stroke-width="1"/>
+
+  <!-- ===== EMBEDDING (two paths) ===== -->
+  <rect x="28" y="256" width="170" height="60" rx="3" fill="none" stroke="#333" stroke-width="1.2"/>
+  <text x="113" y="276" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">embed_tokens</text>
+  <text x="113" y="292" text-anchor="middle" font-size="10" fill="#888">[262144, hidden]</text>
+  <text x="113" y="306" text-anchor="middle" font-size="10" fill="#888">+ Linear proj + Norm</text>
+
+  <rect x="220" y="256" width="170" height="60" rx="3" fill="none" stroke="#333" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="305" y="276" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">PLE Embedding</text>
+  <text x="305" y="292" text-anchor="middle" font-size="10" fill="#888">[262144, L x ple_dim]</text>
+  <text x="305" y="306" text-anchor="middle" font-size="10" fill="#888">int4, ~1.4GB on disk</text>
+
+  <!-- Fork -->
+  <line x1="130" y1="250" x2="113" y2="256" stroke="#333" stroke-width="1"/>
+  <line x1="130" y1="250" x2="305" y2="256" stroke="#333" stroke-width="1"/>
+
+  <!-- Fusion + -->
+  <text x="209" y="348" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">(+)</text>
+  <line x1="113" y1="316" x2="200" y2="340" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="305" y1="316" x2="218" y2="340" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <text x="209" y="370" text-anchor="middle" font-size="10" fill="#888">x 2^(-0.5) -> per_layer_inputs</text>
+
+  <!-- Multimodal merge -->
+  <line x1="410" y1="218" x2="410" y2="388" stroke="#bbb" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="690" y1="218" x2="690" y2="388" stroke="#bbb" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <rect x="80" y="392" width="660" height="28" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="410" y="411" text-anchor="middle" font-size="11" fill="#666">[text_embeds | image_embeds | audio_embeds] -> hidden_states</text>
+
+  <line x1="410" y1="420" x2="410" y2="448" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- ===== DECODER BLOCK ===== -->
+  <rect x="40" y="452" width="740" height="810" rx="4" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="410" y="474" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">Decoder Layer x N</text>
+  <text x="410" y="490" text-anchor="middle" font-size="10" fill="#999">E2B:35 | E4B:42 | 31B:60 | 26B-A4B:30</text>
+
+  <!-- hidden_states -->
+  <text x="150" y="520" text-anchor="middle" font-size="11" fill="#333">hidden_states</text>
+  <line x1="150" y1="525" x2="150" y2="545" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- PLE Gate Injection -->
+  <rect x="60" y="550" width="380" height="56" rx="3" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="250" y="568" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">PLE Gate Injection</text>
+  <text x="250" y="584" text-anchor="middle" font-size="10" fill="#888">Gate(Linear+Act) x ple[i] -> Proj -> Norm -> residual+</text>
+
+  <!-- PLE arrow -->
+  <path d="M209,370 Q50,370 55,550" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#a)"/>
+  <text x="36" y="460" text-anchor="middle" font-size="9" fill="#999" transform="rotate(-90,36,460)">ple[layer_i]</text>
+
+  <line x1="250" y1="606" x2="250" y2="630" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- Pre-attn norm -->
+  <rect x="170" y="634" width="160" height="24" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="250" y="651" text-anchor="middle" font-size="10" fill="#666">pre_attention_norm</text>
+
+  <line x1="250" y1="658" x2="250" y2="680" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- ===== MIXED ATTENTION ===== -->
+  <rect x="60" y="684" width="700" height="196" rx="3" fill="none" stroke="#333" stroke-width="1.2"/>
+  <text x="410" y="702" text-anchor="middle" font-size="11" font-weight="bold" fill="#222">Mixed Attention (alternating)</text>
+
+  <!-- Sliding -->
+  <rect x="75" y="712" width="310" height="156" rx="3" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="230" y="730" text-anchor="middle" font-size="11" font-weight="bold" fill="#444">Sliding Window</text>
+  <text x="230" y="746" text-anchor="middle" font-size="10" fill="#888">head_dim=256  theta=10,000</text>
+  <text x="230" y="760" text-anchor="middle" font-size="10" fill="#888">window=512</text>
+
+  <!-- QKVO boxes - sliding -->
+  <rect x="92" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="120" y="787" text-anchor="middle" font-size="10" fill="#555">Q</text>
+  <rect x="158" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="186" y="787" text-anchor="middle" font-size="10" fill="#555">K</text>
+  <rect x="224" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="252" y="787" text-anchor="middle" font-size="10" fill="#555">V</text>
+  <rect x="290" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="318" y="787" text-anchor="middle" font-size="10" fill="#555">O</text>
+
+  <text x="120" y="810" text-anchor="middle" font-size="9" fill="#999">q_norm</text>
+  <text x="186" y="810" text-anchor="middle" font-size="9" fill="#999">k_norm</text>
+  <text x="252" y="810" text-anchor="middle" font-size="9" fill="#999">v_norm</text>
+
+  <text x="153" y="828" text-anchor="middle" font-size="9" fill="#999">+RoPE(10K)</text>
+  <text x="230" y="848" text-anchor="middle" font-size="9" font-weight="bold" fill="#666">attn_scale = 1.0</text>
+
+  <!-- Full -->
+  <rect x="415" y="712" width="330" height="156" rx="3" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="580" y="730" text-anchor="middle" font-size="11" font-weight="bold" fill="#444">Full Global</text>
+  <text x="580" y="746" text-anchor="middle" font-size="10" fill="#888">head_dim=512  theta=1,000,000</text>
+  <text x="580" y="760" text-anchor="middle" font-size="10" fill="#888">partial_rotary_factor</text>
+
+  <!-- QKVO boxes - full -->
+  <rect x="432" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="460" y="787" text-anchor="middle" font-size="10" fill="#555">Q</text>
+  <rect x="498" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="526" y="787" text-anchor="middle" font-size="10" fill="#555">K</text>
+  <rect x="564" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="592" y="787" text-anchor="middle" font-size="10" fill="#555">V*</text>
+  <rect x="644" y="772" width="56" height="22" rx="2" fill="none" stroke="#aaa" stroke-width="1"/>
+  <text x="672" y="787" text-anchor="middle" font-size="10" fill="#555">O</text>
+
+  <text x="460" y="810" text-anchor="middle" font-size="9" fill="#999">q_norm</text>
+  <text x="526" y="810" text-anchor="middle" font-size="9" fill="#999">k_norm</text>
+  <text x="592" y="810" text-anchor="middle" font-size="9" fill="#999">v_norm</text>
+
+  <text x="493" y="828" text-anchor="middle" font-size="9" fill="#999">+RoPE(1M,partial)</text>
+  <text x="580" y="848" text-anchor="middle" font-size="9" fill="#999">*31B/26B: K=V, no v_proj</text>
+
+  <!-- ===== KV Cache Sharing Diagram (E2B example) ===== -->
+  <rect x="60" y="888" width="700" height="168" rx="3" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="410" y="906" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">KV Cache Sharing (E2B/E4B)</text>
+
+  <!-- Layer stack: independent KV (layers 0-14) -->
+  <text x="108" y="926" text-anchor="middle" font-size="9" fill="#888">Independent KV</text>
+
+  <!-- layers 0..12 compressed -->
+  <rect x="76" y="932" width="64" height="14" rx="2" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8"/>
+  <text x="108" y="943" text-anchor="middle" font-size="8" fill="#666">L0..12</text>
+
+  <!-- layer 13 = source sliding -->
+  <rect x="76" y="950" width="64" height="14" rx="2" fill="#e8e8e8" stroke="#333" stroke-width="1.2"/>
+  <text x="108" y="961" text-anchor="middle" font-size="8" font-weight="bold" fill="#333">L13 (S)</text>
+
+  <!-- layer 14 = source full -->
+  <rect x="76" y="968" width="64" height="14" rx="2" fill="#e8e8e8" stroke="#333" stroke-width="1.2"/>
+  <text x="108" y="979" text-anchor="middle" font-size="8" font-weight="bold" fill="#333">L14 (F)</text>
+
+  <text x="108" y="998" text-anchor="middle" font-size="8" fill="#888">15 layers own KV</text>
+
+  <!-- Arrow bracket from source layers -->
+  <line x1="144" y1="953" x2="160" y2="953" stroke="#333" stroke-width="1"/>
+  <line x1="144" y1="971" x2="160" y2="971" stroke="#333" stroke-width="1"/>
+  <line x1="160" y1="953" x2="160" y2="971" stroke="#333" stroke-width="1"/>
+  <line x1="160" y1="962" x2="178" y2="962" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <text x="170" y="955" font-size="8" fill="#888">source</text>
+
+  <!-- Shared layers (layers 15-34) -->
+  <text x="310" y="926" text-anchor="middle" font-size="9" fill="#888">Shared Layers (reuse L13/L14 KV)</text>
+
+  <!-- 4 groups of 5, showing the pattern -->
+  <!-- Group 1: L15-19 -->
+  <rect x="198" y="932" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="215" y="942" text-anchor="middle" font-size="7" fill="#999">15</text>
+  <rect x="234" y="932" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="251" y="942" text-anchor="middle" font-size="7" fill="#999">16</text>
+  <rect x="270" y="932" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="287" y="942" text-anchor="middle" font-size="7" fill="#999">17</text>
+  <rect x="306" y="932" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="323" y="942" text-anchor="middle" font-size="7" fill="#999">18</text>
+  <rect x="342" y="932" width="34" height="12" rx="1" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="359" y="942" text-anchor="middle" font-size="7" fill="#999">19</text>
+
+  <!-- Group 2: L20-24 -->
+  <rect x="198" y="948" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="215" y="958" text-anchor="middle" font-size="7" fill="#999">20</text>
+  <rect x="234" y="948" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="251" y="958" text-anchor="middle" font-size="7" fill="#999">21</text>
+  <rect x="270" y="948" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="287" y="958" text-anchor="middle" font-size="7" fill="#999">22</text>
+  <rect x="306" y="948" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="323" y="958" text-anchor="middle" font-size="7" fill="#999">23</text>
+  <rect x="342" y="948" width="34" height="12" rx="1" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="359" y="958" text-anchor="middle" font-size="7" fill="#999">24</text>
+
+  <!-- Group 3: L25-29 -->
+  <rect x="198" y="964" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="215" y="974" text-anchor="middle" font-size="7" fill="#999">25</text>
+  <rect x="234" y="964" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="251" y="974" text-anchor="middle" font-size="7" fill="#999">26</text>
+  <rect x="270" y="964" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="287" y="974" text-anchor="middle" font-size="7" fill="#999">27</text>
+  <rect x="306" y="964" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="323" y="974" text-anchor="middle" font-size="7" fill="#999">28</text>
+  <rect x="342" y="964" width="34" height="12" rx="1" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="359" y="974" text-anchor="middle" font-size="7" fill="#999">29</text>
+
+  <!-- Group 4: L30-34 -->
+  <rect x="198" y="980" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="215" y="990" text-anchor="middle" font-size="7" fill="#999">30</text>
+  <rect x="234" y="980" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="251" y="990" text-anchor="middle" font-size="7" fill="#999">31</text>
+  <rect x="270" y="980" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="287" y="990" text-anchor="middle" font-size="7" fill="#999">32</text>
+  <rect x="306" y="980" width="34" height="12" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="323" y="990" text-anchor="middle" font-size="7" fill="#999">33</text>
+  <rect x="342" y="980" width="34" height="12" rx="1" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="359" y="990" text-anchor="middle" font-size="7" fill="#999">34</text>
+
+  <!-- Arrows: dashed rows (sliding, ->L13) -->
+  <!-- Each group's first 4 share L13(S), last 1 shares L14(F) -->
+  <!-- Curly brace left side for 4 sliding layers per group -->
+  <path d="M196,934 Q186,956 196,977" fill="none" stroke="#999" stroke-width="0.8"/>
+  <line x1="186" y1="956" x2="178" y2="956" stroke="#999" stroke-width="0.8" marker-end="url(#a)"/>
+  <text x="190" y="1000" font-size="7" fill="#999">->L13</text>
+
+  <!-- Full attention layers (19,24,29,34) share L14 -->
+  <line x1="378" y1="938" x2="400" y2="938" stroke="#999" stroke-width="0.8"/>
+  <line x1="378" y1="954" x2="400" y2="954" stroke="#999" stroke-width="0.8"/>
+  <line x1="378" y1="970" x2="400" y2="970" stroke="#999" stroke-width="0.8"/>
+  <line x1="378" y1="986" x2="400" y2="986" stroke="#999" stroke-width="0.8"/>
+  <line x1="400" y1="938" x2="400" y2="986" stroke="#999" stroke-width="0.8"/>
+  <line x1="400" y1="962" x2="412" y2="962" stroke="#999" stroke-width="0.8"/>
+  <text x="430" y="966" font-size="7" fill="#999">->L14</text>
+
+  <!-- Legend for the sharing diagram -->
+  <rect x="470" y="932" width="10" height="10" rx="1" fill="#e8e8e8" stroke="#333" stroke-width="1"/>
+  <text x="486" y="941" font-size="8" fill="#666">= source layer (own KV)</text>
+
+  <rect x="470" y="948" width="10" height="10" rx="1" fill="none" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="486" y="957" font-size="8" fill="#666">= shared (reuse source KV)</text>
+
+  <rect x="470" y="964" width="10" height="10" rx="1" fill="#f0f0f0" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="486" y="973" font-size="8" fill="#666">= full attn layer (->L14)</text>
+
+  <text x="470" y="992" font-size="8" fill="#666">Pattern: every 5 layers,</text>
+  <text x="470" y="1004" font-size="8" fill="#666">4x sliding->L13, 1x full->L14</text>
+
+  <text x="470" y="1024" font-size="9" fill="#333">20/35 layers shared = 57% KV saved</text>
+  <text x="470" y="1038" font-size="8" fill="#999">E4B: 18/42 shared = 43% KV saved</text>
+
+  <!-- Post attn -->
+  <line x1="250" y1="880" x2="250" y2="1078" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <rect x="140" y="1082" width="220" height="24" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="250" y="1099" text-anchor="middle" font-size="10" fill="#666">post_attention_norm + residual</text>
+
+  <line x1="250" y1="1106" x2="250" y2="1128" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- FFN -->
+  <rect x="60" y="1132" width="380" height="52" rx="3" fill="none" stroke="#333" stroke-width="1.2"/>
+  <text x="250" y="1152" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Feed-Forward</text>
+  <text x="250" y="1168" text-anchor="middle" font-size="10" fill="#888">GeGLU: gate x up -> down</text>
+  <text x="250" y="1180" text-anchor="middle" font-size="9" fill="#999">26B-A4B: +MoE(128 experts, top-8)</text>
+
+  <!-- Post FFN -->
+  <line x1="250" y1="1184" x2="250" y2="1206" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+  <rect x="120" y="1210" width="260" height="24" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="250" y="1227" text-anchor="middle" font-size="10" fill="#666">post_feedforward_norm + residual</text>
+
+  <line x1="250" y1="1234" x2="250" y2="1250" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- ===== OUTPUT ===== -->
+  <rect x="170" y="1290" width="160" height="28" rx="3" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="250" y="1309" text-anchor="middle" font-size="11" fill="#444">Final RMSNorm</text>
+
+  <line x1="250" y1="1318" x2="250" y2="1340" stroke="#333" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="150" y="1344" width="200" height="32" rx="3" fill="none" stroke="#333" stroke-width="1.2"/>
+  <text x="250" y="1364" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">LM Head -> Logits</text>
+
+  <!-- ===== SIDE NOTE: precision ===== -->
+  <rect x="520" y="1132" width="240" height="56" rx="3" fill="none" stroke="#c00" stroke-width="1"/>
+  <text x="640" y="1150" text-anchor="middle" font-size="10" font-weight="bold" fill="#c00">Requires fp32 precision</text>
+  <text x="640" y="1164" text-anchor="middle" font-size="9" fill="#888">attn_scale=1.0 + QKV Norm</text>
+  <text x="640" y="1178" text-anchor="middle" font-size="9" fill="#888">fp16 -> repetition collapse</text>
+
+  <!-- ===== LEGEND ===== -->
+  <text x="520" y="1298" font-size="10" font-weight="bold" fill="#444">Variants:</text>
+  <text x="520" y="1314" font-size="9" fill="#888">E2B   35L h=1536 KV-share  8/1 heads</text>
+  <text x="520" y="1328" font-size="9" fill="#888">E4B   42L h=2560 KV-share  8/2 heads</text>
+  <text x="520" y="1342" font-size="9" fill="#888">31B   60L h=5376 K=V      32/16 heads</text>
+  <text x="520" y="1356" font-size="9" fill="#888">26B   30L h=2816 K=V+MoE  16/8 heads</text>
+</svg>
