@@ -23,15 +23,15 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mnn-支持-gemma4-全系列-ple-kv共享与多模态",
+        },{id: "post-deepseek-v4-实测-12-一次通过的国产模型",
         
-          title: "MNN 支持 Gemma4 全系列：PLE、KV共享与多模态",
+          title: "DeepSeek-V4 实测：¥12 一次通过的国产模型",
         
         description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2026/gemma4/";
+            window.location.href = "/blog/2026/deepseekv4/";
           
         },
       },{id: "post-claude有多大-从推理速度反推参数量",
