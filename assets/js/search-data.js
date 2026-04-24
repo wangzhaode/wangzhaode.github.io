@@ -23,9 +23,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-deepseek-v4-实测-12-一次通过的国产模型",
+        },{id: "post-deepseek-v4-实测-谦虚的官方-靠谱的模型",
         
-          title: "DeepSeek-V4 实测：¥12 一次通过的国产模型",
+          title: "DeepSeek-V4 实测：谦虚的官方，靠谱的模型",
         
         description: "",
         section: "Posts",
