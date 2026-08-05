@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-deepseek-v4-实测-谦虚的官方-靠谱的模型",
+        },{id: "post-年会2-笑点不少-共鸣不多",
+        
+          title: "《年会2》：笑点不少，共鸣不多",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/nianhui2/";
+          
+        },
+      },{id: "post-deepseek-v4-实测-谦虚的官方-靠谱的模型",
         
           title: "DeepSeek-V4 实测：谦虚的官方，靠谱的模型",
         
