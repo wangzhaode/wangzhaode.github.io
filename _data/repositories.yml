@@ -1,15 +1,49 @@
 github_users:
   - wangzhaode
 
+github_profile:
+  name: 王召德
+  bio: MNN developer
+
 repo_description_lines_max: 4
 
 github_repos:
-  - alibaba/MNN
-  - wangzhaode/mnn-llm
-  - wangzhaode/llm-export
-  - wangzhaode/mnn-stable-diffusion
-  - wangzhaode/mnn-yolo
-  - wangzhaode/onnx-llm
+  - name: alibaba/MNN
+    description: "MNN: A blazing-fast, lightweight inference engine battle-tested by Alibaba, powering high-performance on-device LLMs and Edge AI."
+    language: C++
+    language_color: "#f34b7d"
+    stars: "15.8k"
+    forks: "2.4k"
+  - name: wangzhaode/mnn-llm
+    description: LLM deployment project based on MNN. This project has merged into MNN.
+    language: C++
+    language_color: "#f34b7d"
+    stars: "1.6k"
+    forks: "177"
+  - name: wangzhaode/llm-export
+    description: Export large language models to ONNX.
+    language: Python
+    language_color: "#3572A5"
+    stars: "355"
+    forks: "40"
+  - name: wangzhaode/mnn-stable-diffusion
+    description: Stable Diffusion inference using MNN.
+    language: C++
+    language_color: "#f34b7d"
+    stars: "68"
+    forks: "5"
+  - name: wangzhaode/mnn-yolo
+    description: YOLO demos powered by MNN.
+    language: C++
+    language_color: "#f34b7d"
+    stars: "87"
+    forks: "14"
+  - name: wangzhaode/onnx-llm
+    description: LLM deployment project based on ONNX.
+    language: C++
+    language_color: "#f34b7d"
+    stars: "49"
+    forks: "9"
   # - wangzhaode/mnn-segment-anything
   # - wangzhaode/mnn-asr
   # - wangzhaode/mnn-tts

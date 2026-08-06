@@ -1,47 +1,31 @@
-{% assign repo_url = include.repository | split: '/' %}
-{% if site.data.repositories.github_users contains repo_url.first %}
-  {% assign show_owner = false %}
-{% else %}
-  {% assign show_owner = true %}
-{% endif %}
+{% assign repository = include.repository %}
+{% assign repo_url = repository.name | split: '/' %}
 
-{% assign lang = site.lang | split: '-' | first %}
+<div class="repo p-2">
+  <a class="repo-card" href="https://github.com/{{ repository.name }}" target="_blank" rel="noopener noreferrer">
+    <span class="repo-card-header">
+      <span class="repo-card-name">
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <span class="repo-card-owner">{{ repo_url[0] }}/</span><strong>{{ repo_url[1] }}</strong>
+      </span>
+      <i class="fa-solid fa-arrow-up-right-from-square repo-card-external" aria-hidden="true"></i>
+    </span>
 
-{% case lang %}
-  {% when 'pt' %}
-    {% assign lang = site.lang %}
+    <span class="repo-card-description">{{ repository.description }}</span>
 
-  {% when 'zh' %}
-    {% assign lang_last = site.lang | split: '-' | last %}
-    {% case lang_last %}
-      {% when 'cn', 'sg', 'my', 'hans' %}
-        {% assign lang = 'cn' %}
-      {% when 'tw', 'hk', 'mo', 'hant' %}
-        {% assign lang = 'zh-tw' %}
-    {% endcase %}
-
-    {% comment %} Add a new language using when... if needed {% endcomment %}
-    {% comment %} If you still encounter language-display issues, check the available locale codes in github-readme-stats (different from ISO-639 standard used in your website) {% endcomment %}
-    {% comment %} https://github.com/anuraghazra/github-readme-stats?tab=readme-ov-file#available-locales {% endcomment %}
-{% endcase %}
-
-{% if site.data.repositories.repo_description_lines_max %}
-  {% assign max_lines = site.data.repositories.repo_description_lines_max %}
-{% else %}
-  {% assign max_lines = 2 %}
-{% endif %}
-
-<div class="repo p-2 text-center">
-  <a href="https://github.com/{{ include.repository }}">
-    <img
-      class="only-light w-100"
-      alt="{{ include.repository }}"
-      src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_light }}&locale={{ lang }}&show_owner={{ show_owner }}&description_lines_count={{ max_lines }}"
-    >
-    <img
-      class="only-dark w-100"
-      alt="{{ include.repository }}"
-      src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_dark }}&locale={{ lang }}&show_owner={{ show_owner }}&description_lines_count={{ max_lines }}"
-    >
+    <span class="repo-card-meta">
+      {% if repository.language %}
+        <span>
+          <span class="repo-language-dot" style="--repo-language-color: {{ repository.language_color }}"></span>
+          {{ repository.language }}
+        </span>
+      {% endif %}
+      {% if repository.stars %}
+        <span><i class="fa-regular fa-star" aria-hidden="true"></i> {{ repository.stars }}</span>
+      {% endif %}
+      {% if repository.forks %}
+        <span><i class="fa-solid fa-code-fork" aria-hidden="true"></i> {{ repository.forks }}</span>
+      {% endif %}
+    </span>
   </a>
 </div>
