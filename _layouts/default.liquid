@@ -1,56 +1,56 @@
 <!doctype html>
-<html lang="{{ site.lang }}">
-  <!-- Head -->
+<html lang="{{ site.lang | default: 'en' }}">
   <head>
-    {% if page.redirect %}
-      {% if page.redirect == true %}
-        {% assign redirect = site.baseurl | append: '/' %}
-      {% elsif page.redirect contains '://' %}
-        {% assign redirect = page.redirect %}
-      {% else %}
-        {% assign redirect = page.redirect | relative_url %}
-      {% endif %}
-      <meta http-equiv="refresh" content="3; url={{ redirect }}">
-    {% endif %}
     {% include head.liquid %}
+    <link rel="stylesheet" href="{{ '/assets/css/paper.css' | relative_url | bust_css_cache }}">
   </head>
 
-  <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
-    <!-- Header -->
-    {% include header.liquid %}
+  <body class="paper-page{% if page.cv_mode %} cv-page{% endif %}">
+    <div class="container-wrapper">
+      <header class="container-header">
+        <div class="header-info">
+          <a class="header-info-name ref_internal" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+          <span class="header-info-desc">{{ site.description }}</span>
+        </div>
+        <nav class="header-nav" aria-label="Primary navigation">
+          <ul class="header-main-nav">
+            <li class="header-main-nav-item">
+              <a
+                class="ref_internal{% if page.url == '/' or page.url == '/blog/' or page.layout == 'post' %} is-active{% endif %}"
+                href="{{ '/' | relative_url }}"
+              >
+                Blog
+              </a>
+            </li>
+            <li class="header-main-nav-item">
+              <a
+                class="ref_internal{% if page.url == '/cv/' %} is-active{% endif %}"
+                href="{{ '/cv/' | relative_url }}"
+              >
+                CV
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-    <!-- Content -->
-    <div class="container mt-5" role="main">
-      {% if page.toc and page.toc.sidebar %}
-        {% if page.toc.sidebar == 'right' %}
-          <div class="row">
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
-          </div>
-        {% else %}
-          <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-          </div>
-        {% endif %}
-      {% else %}
+      <main class="container-main" id="main-content">
         {{ content }}
-      {% endif %}
+      </main>
+
+      <footer class="container-footer">
+        <div class="footer-copyright">
+          <span class="footer-copyright-text float-left">Copyright &copy; {{ site.time | date: '%Y' }}. zhaode.wang.</span>
+          <span class="footer-copyright-text float-right"> Powered by <a class="ref_internal" href="https://jekyllrb.com/">Jekyll</a>. </span>
+        </div>
+      </footer>
     </div>
 
-    <!-- Footer -->
-    {% include footer.liquid %}
-
-    <!-- JavaScripts -->
+    <script>
+      function determineComputedTheme() {
+        return 'light';
+      }
+    </script>
     {% include scripts.liquid %}
   </body>
 </html>

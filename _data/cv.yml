@@ -1,69 +1,134 @@
-- title: General Information
-  type: map
+- title: Profile
+  type: profile
   contents:
-    - name: Full Name
-      value: Zhaode Wang
-    - name: Languages
-      value: Chinese, English
+    name: Zhaode Wang
+    headline: AI Inference Engine Expert · On-Device LLM · High-Performance Computing
+    contacts:
+      - label: hi@zhaode.wang
+        url: mailto:hi@zhaode.wang
+      - label: github.com/wangzhaode
+        url: https://github.com/wangzhaode
 
 - title: Education
-  type: time_table
+  type: education
   contents:
-    - title: M.S. in Computer Architecture
-      institution: State Key Laboratory of Computer Architecture, Institute of Computing Technology, Chinese Academy of Sciences
+    - institution: Institute of Computing Technology, Chinese Academy of Sciences
+      affiliation: State Key Laboratory of Computer Architecture
+      degree: M.S. in Computer Architecture
       year: 2017 - 2020
-    - title: B.S. in Computer Science and Technology
-      institution: Shandong University
+    - institution: Shandong University
+      degree: B.S. in Computer Science and Technology
       year: 2013 - 2017
 
 - title: Experience
-  type: time_table
+  type: experience
   contents:
-    - title: Inference Engine Technology Expert
-      institution: Alibaba (Taotian Group)
+    - company: Alibaba · Taotian Group
+      role: MNN Tech Lead
       year: 2020 - Present
-      description:
-        - "Responsible for the architecture design and optimization of the MNN inference engine (13K+ GitHub Stars), including operator performance optimization, static memory allocation, and automatic operator fusion."
-        - "Led the development of model conversion tools for TorchScript, Tensorflow, and ONNX, with a focus on supporting control flow for advanced speech models (e.g., ASR, NLU)."
-        - "Developed NPU backends (CoreML, NNAPI) to accelerate algorithms like super-resolution and beauty filters in major apps such as Taobao and Taobao Live."
-        - "Initiated and led the MNN-LLM project (1.5K+ GitHub Stars) for on-device deployment of large language models, involving deep optimization of Transformer models (quantization, memory, computation) to support over 100 open-source LLMs."
-        - "Enhanced the MNN ecosystem by developing cv/audio processing modules, refactoring Python interfaces, and building CI/CD automation pipelines, resulting in 2K+ stars for related demo projects."
-    - title: Compiler Engineer Intern
-      institution: Cambricon Technologies
+      highlights:
+        - label: Inference engine
+          text: Lead MNN architecture and performance optimization across CPU, Metal, OpenCL, Vulkan, Hexagon, CoreML, and NNAPI, covering operator kernels, memory planning, graph optimization, and automatic fusion.
+        - label: On-device LLM
+          text: Initiated and lead MNN-LLM for 100+ language and multimodal models, spanning low-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding.
+        - label: Production impact
+          text: Built MNN's on-device Python runtime and enabled dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; drove MNN deployment across Taobao, Xianyu, Quark, and Qwen, reaching tens of millions of users, and supported DingTalk, Youku, Taobao Instant Commerce, and Amap.
+        - label: Developer ecosystem
+          text: Build end-to-end model conversion and deployment, CV/audio modules, Python APIs, and CI/CD for MNN (15.8K+ GitHub stars).
+    - company: Cambricon Technologies
+      role: Compiler Engineer Intern
       year: 2018 - 2020
-      description:
-        - Focused on operator optimization for Cambricon chips, compiler development, and linker construction.
+      highlights:
+        - text: Optimized operators for Cambricon accelerators and contributed to compiler optimization and linker development.
+    - company: Megvii
+      role: Algorithm Engineer Intern
+      year: 2019
+      highlights:
+        - text: Optimized traffic video understanding algorithms and productionized them in C++.
+    - company: Microsoft Asia Engineering Academy
+      role: Software Engineer Intern
+      year: 2016
+      highlights:
+        - text: Evaluated LevelDB, Presto, and Hadoop for advertising data storage and analytics workloads.
 
-- title: Publications
-  type: time_table
+- title: Selected Publications
+  type: publications
+  groups:
+    - name: Core Contributions
+      contents:
+        - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
+          venue: ISCAS
+          year: 2026
+          link: https://epapers2.org/iscas2026/ESR/paper_details.php?paper_id=2132
+        - title: "RecGPT-Mobile: On-Device Large Language Models for User Intent Understanding in Taobao Feed Recommendation"
+          venue: SIGIR
+          year: 2026
+          link: https://doi.org/10.1145/3805712.3808410
+        - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
+          venue: MM Asia
+          year: 2024
+          link: https://doi.org/10.1145/3700410.3702126
+        - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
+          venue: OSDI
+          year: 2022
+          link: https://arxiv.org/abs/2205.14833
+    - name: Collaborative Research
+      contents:
+        - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
+          venue: ICML
+          year: 2026
+          link: https://icml.cc/virtual/2026/poster/66788
+        - title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation"
+          venue: ICML
+          year: 2026
+          link: https://icml.cc/virtual/2026/poster/65615
+        - title: "AccKV: Towards Efficient Audio-Video LLMs Inference via Adaptive-Focusing and Cross-Calibration KV Cache Optimization"
+          venue: AAAI
+          year: 2026
+          link: https://doi.org/10.1609/aaai.v40i7.37467
+        - title: "VertiKV: Vertical-Integrity KV Cache Compression for Efficient Multimodal Long-Context Inference"
+          venue: ACM MM
+          year: 2026
+          link: https://openreview.net/group?id=acmmm.org/ACMMM/2026/Conference
+        - title: "MadaKV: Adaptive Modality-Perception KV Cache Eviction for Efficient Multimodal Long-Context Inference"
+          venue: ACL
+          year: 2025
+          link: https://aclanthology.org/2025.acl-long.652/
+
+- title: Patents & Applications
+  type: patents
   contents:
-    - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
+    - titles:
+        - "BANG-Linker: Heterogeneous Linking Method, Apparatus, and Related Products"
+        - "BANG Simulator: Programming Debugging Method, Apparatus, and Related Products"
+      organization: Cambricon
+      status: Filed
+      year: 2019
+    - title: "Solution for Deploying Large Language Models on Mobile Devices"
+      organization: Alibaba
+      status: Filed
       year: 2024
-      description: MM Asia 2024
-    - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
-      year: 2022
-      description: OSDI 2022
+    - titles:
+        - "Saliency-Aware Blockwise Quantization via Floating-Point Zero-Point Degrees of Freedom"
+        - "Mixed-Precision Allocation for Low-Bit LLMs Based on Action-Conditioned Operator Error"
+      organization: Alibaba
+      status: Pending
+      year: 2026
 
-- title: Competitions
-  type: time_table
+- title: Honors & Competitions
+  type: honors
   contents:
-    - title: "IEEE AICAS 2025 Grand Challenge: LLM Software and HardWare System Co-optimization"
-      year: 2025
-      description: "the First Prize"
-    - title: "IEEE AICAS 2024 Grand Challenge: LLM Software and HardWare System Co-optimization"
-      year: 2024
-      description: "the First Prize"
-    - title: "Tecorigin Operator Development Competition"
-      year: 2024
-      description: "the First Prize"
-    - title: "SOPHGO TPU Program Competition"
-      year: 2022
-      description: "the First Prize"
-
-
+    - title: "IEEE AICAS Grand Challenge: LLM Software and Hardware System Co-optimization"
+      result: First Prize
+      year: "2024, 2025"
+    - title: "NPU Competitions: Tecorigin Operator Development & SOPHGO TPU Programming"
+      result: First Prize
+      year: "2022, 2024"
 
 - title: Skills
-  type: list
+  type: skills
   contents:
-    - C, C++, Python, Assembly
-    - Compilers, AI Inference Engines, CPU/GPU/NPU Operator Optimization, Large Language Models
+    - name: Languages
+      value: C, C++, Python, Assembly, CUDA, OpenCL, Vulkan, Metal, BANG, Java, Objective-C
+    - name: Expertise
+      value: Compilers, AI inference engines, CPU/GPU/NPU operator optimization, model conversion, quantization, large language models

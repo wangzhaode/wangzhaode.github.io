@@ -2,8 +2,9 @@
 layout: page
 permalink: /repositories/
 title: repositories
+published: false
 description: "Explore open-source projects and live demos, including the MNN inference engine and other experiments in AI and machine learning."
-nav: true
+nav: false
 nav_order: 2
 ---
 

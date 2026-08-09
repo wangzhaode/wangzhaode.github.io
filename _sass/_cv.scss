@@ -1,220 +1,692 @@
 /*****************************
- * CV shared styles
+ * Dense, monochrome A4 CV
  *****************************/
 
-div.container-link-button {
-  margin-right: 0.5rem;
+body.cv-page {
+  padding-bottom: 0;
+  background: #ededed;
 }
 
-table.table-cv {
-  background-color: transparent !important;
+body.cv-page footer {
+  display: none;
+}
 
-  td,
-  th {
-    padding: 1px;
+body.cv-page #progress {
+  display: none;
+}
+
+body.cv-page .container-wrapper {
+  width: 100%;
+  max-width: none;
+}
+
+body.cv-page .container-header {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+body.cv-page .container-main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  overflow: visible;
+}
+
+.resume-shell {
+  position: relative;
+  width: min(210mm, 100%);
+  margin: 0 auto 2rem;
+}
+
+.resume-toolbar {
+  position: absolute;
+  top: 4mm;
+  right: 13mm;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  align-items: baseline;
+  margin: 0;
+  color: #555;
+  font-size: 8.5pt;
+  line-height: 1.35;
+}
+
+.resume-language-option {
+  padding: 0 0 0.12rem;
+  color: #555;
+  font: inherit;
+  line-height: 1.55;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: #111;
+    border-bottom-color: #111;
+    outline: none;
+  }
+
+}
+
+.resume-action {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0 0 0.12rem;
+  color: #555 !important;
+  font: inherit;
+  line-height: 1.55;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.resume-action:hover,
+.resume-action:focus-visible {
+  color: #111 !important;
+  text-decoration: none !important;
+  border-bottom-color: #111;
+  outline: none;
+}
+
+.resume-sheet {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 14mm 13mm 9.5mm;
+  overflow: hidden;
+  color: #000;
+  font:
+    9.25pt/1.28 Arial,
+    "Helvetica Neue",
+    sans-serif;
+  background: #fff;
+  box-shadow: 0 0.25rem 1.5rem rgb(0 0 0 / 12%);
+
+  strong {
+    font-weight: 700;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: #000 !important;
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+  }
+
+  time {
+    white-space: nowrap;
+    text-align: right;
   }
 }
 
-a.btncv {
-  color: var(--global-text-color) !important;
-  border: 1px solid var(--global-text-color) !important;
-  border-radius: 0.125rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 0.7rem;
+.resume-sheet[hidden] {
+  display: none;
+}
+
+.resume-sheet[lang="zh-CN"] {
+  font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+
+  .resume-header h1,
+  .resume-headline,
+  .resume-section h2,
+  .resume-job-heading,
+  .resume-highlights li,
+  .resume-publication-group-title {
+    font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  }
+}
+
+.resume-header {
+  margin-bottom: 3.2mm;
   text-align: center;
-  vertical-align: middle;
-  text-transform: uppercase;
-  white-space: nowrap;
+
+  h1 {
+    margin: 0;
+    color: #000;
+    font:
+      700 22pt/1.05 Arial,
+      "Helvetica Neue",
+      sans-serif;
+    letter-spacing: 0.015em;
+  }
 }
 
-a.btncv:hover {
-  color: var(--global-theme-color) !important;
-  border-color: var(--global-theme-color) !important;
-  text-decoration: none !important;
+.resume-headline {
+  margin: 1.2mm 0 1.5mm;
+  color: #000;
+  font:
+    600 9.3pt/1.2 Arial,
+    "Helvetica Neue",
+    sans-serif;
+  letter-spacing: 0.01em;
 }
 
-/*****************************
- * CV TIME_TABLE styles
- *****************************/
-
-p.location {
-  font-size: 0.7rem;
-  white-space: nowrap;
-}
-
-i.iconlocation {
-  color: var(--global-theme-color);
-  font-size: 0.8rem;
-}
-
-i.iconinstitution {
-  color: var(--global-theme-color);
-  font-size: 0.95rem;
-  margin-right: 0.3rem;
-}
-
-i.icondepartment {
-  color: var(--global-theme-color);
-  font-size: 0.8rem;
-  margin-right: 0.3rem;
-}
-
-table.institution {
-  margin-bottom: 1rem;
-}
-
-td.department {
-  font-size: 0.8rem;
-}
-
-div.container-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-/*****************************
- * CV MAP styles
- *****************************/
-
-div.container-pdf {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-/*****************************
- * CV LIST_GROUPS styles
- *****************************/
-
-div.list-groups {
+.resume-contact {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  flex-direction: row;
-  align-content: center;
+  justify-content: center;
+  font-size: 8.6pt;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  a + a::before {
+    margin: 0 3.5mm;
+    color: #777;
+    content: "·";
+  }
 }
 
-div.list-group {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 2rem;
+.resume-section {
+  margin-top: 2.8mm;
+
+  h2 {
+    margin: 0 0 1.4mm;
+    padding: 0 0 0.8mm;
+    color: #000;
+    font:
+      700 11pt/1.1 Arial,
+      "Helvetica Neue",
+      sans-serif;
+    letter-spacing: 0.015em;
+    border-bottom: 0.75pt solid #000;
+  }
 }
 
-td.list-group-category {
-  color: var(--global-theme-color);
-  margin-bottom: 0.5rem;
+.resume-rows {
+  display: grid;
+  gap: 0.65mm;
 }
 
-td.list-group-category-icon {
-  font-size: 0.8rem;
-  color: var(--global-theme-color);
-  width: 1.4rem;
-  padding-right: 0.4rem;
+.resume-row {
+  display: grid;
+  align-items: baseline;
+  column-gap: 3mm;
+  padding: 0 1mm;
 }
 
-td.list-group-name {
-  font-size: 0.8rem;
+.resume-row-primary {
+  min-width: 0;
+
+  span {
+    display: block;
+    margin-top: 0.15mm;
+    font-size: 8.4pt;
+  }
 }
 
-td.list-group-level {
-  font-size: 0.8rem;
-  padding-left: 0.5rem;
+.resume-education-row {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) auto;
 }
 
-td.list-group-school {
-  font-size: 0.7rem;
-  padding-left: 0.5rem;
-  text-align: center;
+.resume-job {
+  break-inside: avoid;
+
+  & + & {
+    margin-top: 1.7mm;
+  }
 }
 
-p.list-group-time {
-  font-size: 0.7rem;
-  padding-left: 0.5rem;
+.resume-job-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.05fr) 24mm;
+  gap: 3mm;
+  align-items: baseline;
+  padding: 0 1mm;
+  font-size: 9.5pt;
+
+  > span {
+    font-weight: 700;
+  }
 }
 
-td.list-group-link {
-  padding-left: 0.5rem;
-}
-
-/*****************************
- * CV TOC styles
- *****************************/
-
-a.anchor {
-  display: block;
-  position: relative;
-  top: -50px;
-  visibility: hidden;
-}
-
-ul.timeline {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-ul.timeline li {
-  position: relative;
-  min-height: 2.2rem;
-  color: var(--global-text-color);
-  list-style-position: inside;
-}
-
-span.badge-toc {
-  color: var(--global-bg-color);
-  background-color: var(--global-theme-color);
-  border-radius: 0.125rem;
-  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
-  font-weight: 700 !important;
-  display: inline-block;
-  inline-size: fit-content;
-}
-
-ul.timeline li::before {
-  content: "";
-  min-height: 2.5rem;
-  width: 1px;
-  background: var(--global-text-color);
-  margin: 0;
+.resume-highlights {
+  margin: 0.7mm 0 0 5.2mm;
   padding: 0;
-  position: absolute;
-  left: 2px;
-  top: -0.5rem;
+
+  li {
+    margin: 0 0 0.65mm;
+    padding-left: 0.5mm;
+    font-family: Arial, "Helvetica Neue", sans-serif;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
 }
 
-/*ul.timeline::before {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: 0.4rem;
-     color: var(--global-text-color);
+.resume-publication-row {
+  grid-template-columns: minmax(0, 1fr) 15mm 11mm;
+  line-height: 1.2;
+
+  > span {
+    white-space: nowrap;
+    text-align: right;
+  }
 }
- ul.timeline::after {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: -1rem;
-     color: var(--global-text-color);
+
+.resume-publication-group {
+  break-inside: avoid;
+
+  & + & {
+    margin-top: 1.1mm;
+  }
 }
-*/
+
+.resume-publication-group-title {
+  margin: 0 1mm 0.6mm;
+  color: #000;
+  font:
+    700 8.4pt/1.15 Arial,
+    "Helvetica Neue",
+    sans-serif;
+}
+
+.resume-honor-row,
+.resume-patent-row {
+  grid-template-columns: minmax(0, 1fr) 27mm 20mm;
+  column-gap: 2mm;
+  break-inside: avoid;
+}
+
+.resume-honor-row {
+
+  > strong {
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+
+.resume-patent-row {
+  line-height: 1.2;
+
+  > span {
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+
+.resume-patent-title {
+  margin-top: 0 !important;
+  font-size: 8.4pt !important;
+}
+
+.resume-patent-title + .resume-patent-title {
+  margin-top: 0.35mm !important;
+}
+
+.resume-skills {
+  display: grid;
+  gap: 0.75mm;
+  padding: 0 1mm;
+}
+
+.resume-skill-row {
+  display: grid;
+  grid-template-columns: 20mm minmax(0, 1fr);
+  gap: 2mm;
+}
+
+.resume-sheet[lang="en"] {
+  padding: 12mm 13mm 8mm;
+  font-size: 8.9pt;
+  line-height: 1.22;
+
+  .resume-header {
+    margin-bottom: 2.7mm;
+  }
+
+  .resume-section {
+    margin-top: 2.4mm;
+
+    h2 {
+      margin-bottom: 1.2mm;
+      padding-bottom: 0.7mm;
+    }
+  }
+
+  .resume-rows {
+    gap: 0.5mm;
+  }
+
+  .resume-job + .resume-job {
+    margin-top: 1.3mm;
+  }
+
+  .resume-highlights {
+    margin-top: 0.5mm;
+
+    li {
+      margin-bottom: 0.45mm;
+    }
+  }
+
+  .resume-publication-group + .resume-publication-group {
+    margin-top: 0.8mm;
+  }
+
+  .resume-skills {
+    gap: 0.55mm;
+  }
+}
+
+@media (max-width: 760px) {
+  body.cv-page .container-main {
+    padding: 0;
+  }
+
+  .resume-shell,
+  .resume-sheet {
+    width: 100%;
+  }
+
+  .resume-shell {
+    margin-bottom: 0;
+  }
+
+  .resume-toolbar {
+    position: static;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.75rem 1rem 0;
+    font-size: 0.82rem;
+    background: #fff;
+  }
+
+  .resume-sheet {
+    min-height: 0;
+    padding: 1.15rem 1rem 1.5rem;
+    font-size: 9.7pt;
+    box-shadow: none;
+  }
+
+  .resume-contact a + a::before {
+    margin: 0 0.5rem;
+  }
+
+  .resume-education-row,
+  .resume-job-heading {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .resume-education-row .resume-row-detail,
+  .resume-job-heading > span {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .resume-job-heading time {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .resume-publication-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    > span {
+      display: none;
+    }
+  }
+
+  .resume-honor-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    > strong {
+      grid-column: 1;
+      grid-row: 2;
+      text-align: left;
+    }
+
+    > time {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .resume-patent-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    > span {
+      grid-column: 1;
+      grid-row: 2;
+      text-align: left;
+    }
+
+    > time {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body.cv-page {
+    width: 210mm;
+    min-width: 0 !important;
+    max-width: 210mm !important;
+    min-height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  body.cv-page #navbar,
+  body.cv-page .container-header,
+  body.cv-page footer,
+  body.cv-page .resume-toolbar,
+  body.cv-page #progress,
+  body.cv-page .progress-container,
+  body.cv-page #back-to-top {
+    display: none !important;
+  }
+
+  body.cv-page .container-wrapper,
+  body.cv-page .container-main {
+    width: 210mm;
+    max-width: none;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-shell {
+    width: 210mm;
+    margin: 0;
+  }
+
+  .resume-sheet {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 14mm 13mm 9.5mm;
+    font-size: 9.25pt;
+    line-height: 1.28;
+    box-shadow: none;
+    print-color-adjust: exact;
+
+    a,
+    a:hover,
+    a:focus-visible {
+      text-decoration: none !important;
+    }
+  }
+
+  .resume-header {
+    margin-bottom: 3.2mm;
+
+    h1 {
+      font-size: 22pt;
+    }
+  }
+
+  .resume-headline {
+    margin: 1.2mm 0 1.5mm;
+    font-size: 9.3pt;
+  }
+
+  .resume-contact {
+    font-size: 8.6pt;
+  }
+
+  .resume-section {
+    margin-top: 2.8mm;
+
+    h2 {
+      margin-bottom: 1.4mm;
+      padding-bottom: 0.8mm;
+      font-size: 11pt;
+    }
+  }
+
+  .resume-rows {
+    gap: 0.65mm;
+  }
+
+  .resume-job + .resume-job {
+    margin-top: 1.7mm;
+  }
+
+  .resume-job-heading {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.05fr) 24mm;
+    font-size: 9.5pt;
+
+    > span,
+    time {
+      grid-row: auto;
+      grid-column: auto;
+    }
+  }
+
+  .resume-highlights {
+    margin-top: 0.7mm;
+
+    li {
+      margin-bottom: 0.65mm;
+    }
+  }
+
+  .resume-publication-group + .resume-publication-group {
+    margin-top: 1.1mm;
+  }
+
+  .resume-publication-group-title {
+    margin-bottom: 0.6mm;
+    font-size: 8.4pt;
+  }
+
+  .resume-skills {
+    gap: 0.75mm;
+  }
+
+  .resume-education-row {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) auto;
+
+    .resume-row-detail {
+      grid-row: auto;
+      grid-column: auto;
+    }
+  }
+
+  .resume-publication-row {
+    grid-template-columns: minmax(0, 1fr) 15mm 11mm;
+
+    > span {
+      display: block;
+    }
+  }
+
+  .resume-honor-row {
+    grid-template-columns: minmax(0, 1fr) 27mm 20mm;
+
+    > strong,
+    > time {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    > strong {
+      text-align: right;
+    }
+  }
+
+  .resume-patent-row {
+    grid-template-columns: minmax(0, 1fr) 27mm 20mm;
+
+    > span,
+    > time {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    > span {
+      text-align: right;
+    }
+  }
+
+  .resume-sheet[lang="en"] {
+    padding: 12mm 13mm 8mm;
+    font-size: 8.9pt;
+    line-height: 1.22;
+
+    .resume-header {
+      margin-bottom: 2.7mm;
+    }
+
+    .resume-section {
+      margin-top: 2.4mm;
+
+      h2 {
+        margin-bottom: 1.2mm;
+        padding-bottom: 0.7mm;
+      }
+    }
+
+    .resume-rows {
+      gap: 0.5mm;
+    }
+
+    .resume-job + .resume-job {
+      margin-top: 1.3mm;
+    }
+
+    .resume-highlights {
+      margin-top: 0.5mm;
+
+      li {
+        margin-bottom: 0.45mm;
+      }
+    }
+
+    .resume-publication-group + .resume-publication-group {
+      margin-top: 0.8mm;
+    }
+
+    .resume-skills {
+      gap: 0.55mm;
+    }
+  }
+}
