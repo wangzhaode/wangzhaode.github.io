@@ -1,0 +1,134 @@
+- title: 个人信息
+  type: profile
+  contents:
+    name: 王召德
+    headline: AI 推理引擎专家 · 端侧大模型 · 高性能计算
+    contacts:
+      - label: hi@zhaode.wang
+        url: mailto:hi@zhaode.wang
+      - label: github.com/wangzhaode
+        url: https://github.com/wangzhaode
+
+- title: 教育经历
+  type: education
+  contents:
+    - institution: 中国科学院计算技术研究所
+      affiliation: 计算机体系结构国家重点实验室
+      degree: 计算机体系结构硕士
+      year: 2017 - 2020
+    - institution: 山东大学
+      degree: 计算机科学与技术学士
+      year: 2013 - 2017
+
+- title: 工作经历
+  type: experience
+  contents:
+    - company: 阿里巴巴 · 淘天集团
+      role: MNN 技术负责人
+      year: 2020 - 至今
+      highlights:
+        - label: 推理引擎
+          text: 负责 MNN 架构与性能优化，覆盖 CPU、Metal、OpenCL、Vulkan、Hexagon、CoreML 和 NNAPI，包括算子内核、内存规划、图优化及自动融合。
+        - label: 端侧大模型
+          text: 发起并负责 MNN-LLM，支持 100+ 文本及多模态模型，涵盖低比特与混合精度量化、KV Cache 与 Attention 优化、投机解码。
+        - label: 业务落地
+          text: 构建 MNN 端侧 Python 运行时，支撑拍立淘、淘宝直播、安全、信息流等数十个算法；推动 MNN 在手淘、闲鱼、夸克、千问等业务场景落地，覆盖千万级用户，并为钉钉、优酷、淘宝闪购和高德提供技术支持。
+        - label: 开发者生态
+          text: 建设端到端模型转换与部署能力、CV/音频模块、Python API 和 CI/CD；MNN GitHub Star 15.8K+。
+    - company: 寒武纪科技
+      role: 编译器工程师实习生
+      year: 2018 - 2020
+      highlights:
+        - text: 优化寒武纪加速器算子，并参与编译器优化与链接器开发。
+    - company: 旷视科技
+      role: 算法工程师实习生
+      year: 2019
+      highlights:
+        - text: 优化交通视频理解算法，并完成 C++ 工程化落地。
+    - company: 微软亚洲工程院
+      role: 软件工程师实习生
+      year: 2016
+      highlights:
+        - text: 调研 LevelDB、Presto 和 Hadoop 在广告数据存储与分析场景中的应用。
+
+- title: 代表性论文
+  type: publications
+  groups:
+    - name: 深度参与
+      contents:
+        - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
+          venue: ISCAS
+          year: 2026
+          link: https://epapers2.org/iscas2026/ESR/paper_details.php?paper_id=2132
+        - title: "RecGPT-Mobile: On-Device Large Language Models for User Intent Understanding in Taobao Feed Recommendation"
+          venue: SIGIR
+          year: 2026
+          link: https://doi.org/10.1145/3805712.3808410
+        - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
+          venue: MM Asia
+          year: 2024
+          link: https://doi.org/10.1145/3700410.3702126
+        - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
+          venue: OSDI
+          year: 2022
+          link: https://arxiv.org/abs/2205.14833
+    - name: 合作研究
+      contents:
+        - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
+          venue: ICML
+          year: 2026
+          link: https://icml.cc/virtual/2026/poster/66788
+        - title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation"
+          venue: ICML
+          year: 2026
+          link: https://icml.cc/virtual/2026/poster/65615
+        - title: "AccKV: Towards Efficient Audio-Video LLMs Inference via Adaptive-Focusing and Cross-Calibration KV Cache Optimization"
+          venue: AAAI
+          year: 2026
+          link: https://doi.org/10.1609/aaai.v40i7.37467
+        - title: "VertiKV: Vertical-Integrity KV Cache Compression for Efficient Multimodal Long-Context Inference"
+          venue: ACM MM
+          year: 2026
+          link: https://openreview.net/group?id=acmmm.org/ACMMM/2026/Conference
+        - title: "MadaKV: Adaptive Modality-Perception KV Cache Eviction for Efficient Multimodal Long-Context Inference"
+          venue: ACL
+          year: 2025
+          link: https://aclanthology.org/2025.acl-long.652/
+
+- title: 专利与申请
+  type: patents
+  contents:
+    - titles:
+        - "BANG-Linker：一种异构链接方法、装置及相关产品"
+        - "BANG 模拟器：一种编程调试方法、装置及相关产品"
+      organization: 寒武纪
+      status: 已申请
+      year: 2019
+    - title: "一种面向移动设备部署大语言模型的解决方案"
+      organization: 阿里巴巴
+      status: 已申请
+      year: 2024
+    - titles:
+        - "一种利用浮点零点自由度的显著性感知分块量化方法"
+        - "一种基于动作条件算子误差的低比特大语言模型混合精度量化分配方法"
+      organization: 阿里巴巴
+      status: 申请中
+      year: 2026
+
+- title: 荣誉与竞赛
+  type: honors
+  contents:
+    - title: "IEEE AICAS Grand Challenge：LLM 软硬件系统协同优化"
+      result: 第一名
+      year: "2024, 2025"
+    - title: "国产 NPU 竞赛：太初元碁算子开发竞赛、算能 TPU 编程竞赛"
+      result: 第一名
+      year: "2022, 2024"
+
+- title: 专业技能
+  type: skills
+  contents:
+    - name: 编程语言
+      value: C、C++、Python、汇编、CUDA、OpenCL、Vulkan、Metal、BANG、Java、Objective-C
+    - name: 专业方向
+      value: 编译器、AI 推理引擎、CPU/GPU/NPU 算子优化、模型转换、量化、大语言模型

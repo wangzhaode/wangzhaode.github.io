@@ -1,0 +1,159 @@
+{% assign profile = include.data | where: 'type', 'profile' | first %}
+
+<article
+  class="resume-sheet"
+  lang="{{ include.html_lang }}"
+  data-cv-lang="{{ include.lang }}"
+  aria-labelledby="resume-{{ include.lang }}-name"
+  {% if include.hidden %}hidden{% endif %}
+>
+  <header class="resume-header">
+    <h1 id="resume-{{ include.lang }}-name">{{ profile.contents.name }}</h1>
+    {% if profile.contents.headline %}
+      <p class="resume-headline">{{ profile.contents.headline }}</p>
+    {% endif %}
+    <div class="resume-contact" aria-label="Contact information">
+      {% for contact in profile.contents.contacts %}
+        <a
+          href="{{ contact.url }}"
+          {% unless contact.url contains 'mailto:' %}
+            target="_blank" rel="noopener noreferrer"
+          {% endunless %}
+        >
+          {{- contact.label -}}
+        </a>
+      {% endfor %}
+    </div>
+  </header>
+
+  {% for entry in include.data %}
+    {% if entry.type == 'profile' %}
+      {% continue %}
+    {% endif %}
+
+    <section class="resume-section resume-section-{{ entry.type }}" aria-labelledby="resume-{{ include.lang }}-{{ entry.type }}">
+      <h2 id="resume-{{ include.lang }}-{{ entry.type }}">{{ entry.title }}</h2>
+
+      {% case entry.type %}
+        {% when 'education' %}
+          <div class="resume-rows">
+            {% for item in entry.contents %}
+              <div class="resume-row resume-education-row">
+                <div class="resume-row-primary">
+                  <strong>{{ item.institution }}</strong>
+                  {% if item.affiliation -%}
+                    <span>{{ item.affiliation }}</span>
+                  {%- endif %}
+                </div>
+                <div class="resume-row-detail">{{ item.degree }}</div>
+                <time>{{ item.year }}</time>
+              </div>
+            {% endfor %}
+          </div>
+
+        {% when 'experience' %}
+          {% for item in entry.contents %}
+            <div class="resume-job">
+              <div class="resume-job-heading">
+                <strong>{{ item.company }}</strong>
+                <span>{{ item.role }}</span>
+                <time>{{ item.year }}</time>
+              </div>
+              {% if item.highlights %}
+                <ul class="resume-highlights">
+                  {% for highlight in item.highlights %}
+                    <li>
+                      {% if highlight.label -%}
+                        <strong>{{ highlight.label }}:</strong>
+                      {%- endif %}
+                      {{ highlight.text }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+        {% when 'publications' %}
+          {% if entry.groups %}
+            {% for group in entry.groups %}
+              <div class="resume-publication-group">
+                <h3 class="resume-publication-group-title">{{ group.name }}</h3>
+                <div class="resume-rows">
+                  {% for item in group.contents %}
+                    <div class="resume-row resume-publication-row">
+                      <div class="resume-row-primary">
+                        {% if item.link %}
+                          <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+                        {% else %}
+                          {{ item.title }}
+                        {% endif %}
+                      </div>
+                      <span>{{ item.venue }}</span>
+                      <time>{{ item.year }}</time>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="resume-rows">
+              {% for item in entry.contents %}
+                <div class="resume-row resume-publication-row">
+                  <div class="resume-row-primary">
+                    {% if item.link %}
+                      <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+                    {% else %}
+                      {{ item.title }}
+                    {% endif %}
+                  </div>
+                  <span>{{ item.venue }}</span>
+                  <time>{{ item.year }}</time>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        {% when 'honors' %}
+          <div class="resume-rows">
+            {% for item in entry.contents %}
+              <div class="resume-row resume-honor-row">
+                <div class="resume-row-primary">{{ item.title }}</div>
+                <strong>{{ item.result }}</strong>
+                <time>{{ item.year }}</time>
+              </div>
+            {% endfor %}
+          </div>
+
+        {% when 'patents' %}
+          <div class="resume-rows">
+            {% for item in entry.contents %}
+              <div class="resume-row resume-patent-row">
+                <div class="resume-row-primary">
+                  {% if item.titles %}
+                    {% for title in item.titles %}
+                      <span class="resume-patent-title">{{ title }}</span>
+                    {% endfor %}
+                  {% else %}
+                    <span class="resume-patent-title">{{ item.title }}</span>
+                  {% endif %}
+                </div>
+                <span>{{ item.organization }} · {{ item.status }}</span>
+                <time>{{ item.year }}</time>
+              </div>
+            {% endfor %}
+          </div>
+
+        {% when 'skills' %}
+          <div class="resume-skills">
+            {% for item in entry.contents %}
+              <div class="resume-skill-row">
+                <strong>{{ item.name }}</strong>
+                <span>{{ item.value }}</span>
+              </div>
+            {% endfor %}
+          </div>
+      {% endcase %}
+    </section>
+  {% endfor %}
+</article>

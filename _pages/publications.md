@@ -2,6 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
+published: false
 description: "A list of academic publications on machine learning systems, on-device AI, and high-performance inference engine design."
 nav: false
 nav_order: 3

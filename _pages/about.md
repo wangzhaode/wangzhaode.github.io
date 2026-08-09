@@ -2,6 +2,7 @@
 layout: about
 title: about
 permalink: /
+published: false
 subtitle: On-Device AI & LLM & Open Source Contributor
 
 profile:
