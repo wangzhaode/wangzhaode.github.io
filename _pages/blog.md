@@ -2,6 +2,7 @@
 layout: default
 permalink: /
 title: Blog
+browser_title: zhaode · bits & days
 nav: true
 pagination:
   enabled: true
