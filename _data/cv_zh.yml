@@ -27,19 +27,19 @@
       role: MNN 技术负责人
       year: 2020 - 至今
       highlights:
-        - label: 推理引擎
-          text: 负责 MNN 架构与性能优化，覆盖 CPU、Metal、OpenCL、Vulkan、Hexagon、CoreML 和 NNAPI，包括算子内核、内存规划、图优化及自动融合。
-        - label: 端侧大模型
-          text: 发起并负责 MNN-LLM，支持 100+ 文本及多模态模型，涵盖低比特与混合精度量化、KV Cache 与 Attention 优化、投机解码。
-        - label: 业务落地
-          text: 构建 MNN 端侧 Python 运行时，支撑拍立淘、淘宝直播、安全、信息流等数十个算法；推动 MNN 在手淘、闲鱼、夸克、千问等业务场景落地，覆盖千万级用户，并为钉钉、优酷、淘宝闪购和高德提供技术支持。
-        - label: 开发者生态
-          text: 建设端到端模型转换与部署能力、CV/音频模块、Python API 和 CI/CD；MNN GitHub Star 15.8K+。
+        - label: MNN 核心架构
+          text: 负责 MNN 架构及异构硬件性能优化，覆盖 ARM CPU、Metal/OpenCL/Vulkan GPU 与 Hexagon/CoreML/NNAPI 加速后端，包括算子内核、内存规划、图优化与融合、模型转换。
+        - label: 端侧 AI 平台
+          text: 构建端侧 Python 运行时和端到端部署体系，包括 CV/音频模块、Python API 与 CI/CD，支撑拍立淘、淘宝直播、安全、信息流等数十个算法落地。
+        - label: MNN-LLM
+          text: 发起并负责 MNN-LLM，支持 100+ 文本及多模态模型，覆盖 2/3/4/8-bit 与混合精度量化、KV Cache 与 Attention 优化、投机解码。
+        - label: 业务与开源影响
+          text: 推动 MNN 在手淘、闲鱼、夸克、千问等场景落地；推动端侧大模型在手淘、闲鱼搜推场景应用，覆盖千万级用户；为钉钉、优酷、淘宝闪购和高德提供技术支持；MNN GitHub Star 15.8K+。
     - company: 寒武纪科技
       role: 编译器工程师实习生
       year: 2018 - 2020
       highlights:
-        - text: 优化寒武纪加速器算子，并参与编译器优化与链接器开发。
+        - text: 从事寒武纪 BANG 编译器与链接器研发，重点参与异构链接能力建设；并基于 Caffe 优化寒武纪 MLU 算子性能。
     - company: 旷视科技
       role: 算法工程师实习生
       year: 2019
@@ -74,6 +74,10 @@
           link: https://arxiv.org/abs/2205.14833
     - name: 合作研究
       contents:
+        - title: "LISA: Locality-Informed Speculative Decoding for Accelerating Autoregressive Image Generation"
+          venue: ECCV
+          year: 2026
+          link: https://openreview.net/forum?id=K6kwO8a3qt
         - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
           venue: ICML
           year: 2026

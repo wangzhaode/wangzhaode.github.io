@@ -27,19 +27,19 @@
       role: MNN Tech Lead
       year: 2020 - Present
       highlights:
-        - label: Inference engine
-          text: Lead MNN architecture and performance optimization across CPU, Metal, OpenCL, Vulkan, Hexagon, CoreML, and NNAPI, covering operator kernels, memory planning, graph optimization, and automatic fusion.
-        - label: On-device LLM
-          text: Initiated and lead MNN-LLM for 100+ language and multimodal models, spanning low-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding.
-        - label: Production impact
-          text: Built MNN's on-device Python runtime and enabled dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; drove MNN deployment across Taobao, Xianyu, Quark, and Qwen, reaching tens of millions of users, and supported DingTalk, Youku, Taobao Instant Commerce, and Amap.
-        - label: Developer ecosystem
-          text: Build end-to-end model conversion and deployment, CV/audio modules, Python APIs, and CI/CD for MNN (15.8K+ GitHub stars).
+        - label: MNN core architecture
+          text: Lead MNN architecture and heterogeneous performance optimization across ARM CPUs, Metal/OpenCL/Vulkan GPUs, and Hexagon/CoreML/NNAPI accelerators, covering operator kernels, memory planning, graph optimization and fusion, and model conversion.
+        - label: On-device AI platform
+          text: Built an embedded Python runtime and end-to-end deployment stack with CV/audio modules, Python APIs, and CI/CD, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed.
+        - label: MNN-LLM
+          text: Initiated and lead MNN-LLM for 100+ language and multimodal models, with 2/3/4/8-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding.
+        - label: Production & open source
+          text: Drove MNN adoption across Taobao, Xianyu, Quark, and Qwen; deployed on-device LLMs in Taobao and Xianyu search and recommendation scenarios at tens-of-millions-user scale; supported DingTalk, Youku, Taobao Instant Commerce, and Amap; grew MNN to 15.8K+ GitHub stars.
     - company: Cambricon Technologies
       role: Compiler Engineer Intern
       year: 2018 - 2020
       highlights:
-        - text: Optimized operators for Cambricon accelerators and contributed to compiler optimization and linker development.
+        - text: Developed compiler and linker components for Cambricon's BANG toolchain, focusing on heterogeneous linking; subsequently optimized Caffe operators for MLU accelerators.
     - company: Megvii
       role: Algorithm Engineer Intern
       year: 2019
@@ -74,6 +74,10 @@
           link: https://arxiv.org/abs/2205.14833
     - name: Collaborative Research
       contents:
+        - title: "LISA: Locality-Informed Speculative Decoding for Accelerating Autoregressive Image Generation"
+          venue: ECCV
+          year: 2026
+          link: https://openreview.net/forum?id=K6kwO8a3qt
         - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
           venue: ICML
           year: 2026

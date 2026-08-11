@@ -647,6 +647,49 @@ body.cv-page .container-main {
     }
   }
 
+  .resume-sheet[lang="zh-CN"] {
+    padding: 12mm 13mm 8mm;
+    font-size: 9.05pt;
+    line-height: 1.23;
+
+    .resume-header {
+      margin-bottom: 2.7mm;
+    }
+
+    .resume-section {
+      margin-top: 2.35mm;
+
+      h2 {
+        margin-bottom: 1.1mm;
+        padding-bottom: 0.65mm;
+      }
+    }
+
+    .resume-rows {
+      gap: 0.5mm;
+    }
+
+    .resume-job + .resume-job {
+      margin-top: 1.25mm;
+    }
+
+    .resume-highlights {
+      margin-top: 0.5mm;
+
+      li {
+        margin-bottom: 0.4mm;
+      }
+    }
+
+    .resume-publication-group + .resume-publication-group {
+      margin-top: 0.75mm;
+    }
+
+    .resume-skills {
+      gap: 0.5mm;
+    }
+  }
+
   .resume-sheet[lang="en"] {
     padding: 12mm 13mm 8mm;
     font-size: 8.9pt;
