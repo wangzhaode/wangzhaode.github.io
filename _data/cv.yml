@@ -54,7 +54,7 @@
 - title: Selected Publications
   type: publications
   groups:
-    - name: Core Contributions
+    - name: Systems & Applications
       contents:
         - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
           venue: ISCAS

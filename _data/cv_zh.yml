@@ -54,7 +54,7 @@
 - title: 代表性论文
   type: publications
   groups:
-    - name: 深度参与
+    - name: 系统与应用
       contents:
         - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
           venue: ISCAS
