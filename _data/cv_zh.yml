@@ -28,9 +28,9 @@
       year: 2020 - 至今
       highlights:
         - label: MNN 核心架构
-          text: 负责 MNN 架构及异构硬件性能优化，覆盖 ARM CPU、Metal/OpenCL/Vulkan GPU 与 Hexagon/CoreML/NNAPI 加速后端，包括算子内核、内存规划、图优化与融合、模型转换。
+          text: 负责 MNN 架构及异构硬件性能优化，覆盖 ARM CPU、Metal/OpenCL/Vulkan GPU 与 Hexagon/CoreML/NNAPI 加速后端，包括算子内核、内存规划、图优化与融合、模型转换；MNN GitHub Star 15.8K+。
         - label: 端侧 AI 平台
-          text: 构建端侧 Python 运行时和端到端部署体系，支撑拍立淘、淘宝直播、安全、信息流等数十个算法，并服务夸克、千问、钉钉、优酷、淘宝闪购和高德等业务；MNN GitHub Star 15.8K+。
+          text: 构建端侧 Python 运行时和端到端部署体系，支撑拍立淘、淘宝直播、安全、信息流等数十个算法，并服务夸克、千问、钉钉、优酷、淘宝闪购和高德等业务。
         - label: MNN-LLM 与业务
           text: 发起并负责 MNN-LLM，支持 100+ 文本及多模态模型，覆盖 2/3/4/8-bit 与混合精度量化、KV Cache 与 Attention 优化、投机解码；推动端侧大模型在手淘、闲鱼搜推场景落地，覆盖千万级用户。
         - label: 端侧 SLM

@@ -28,9 +28,9 @@
       year: 2020 - Present
       highlights:
         - label: MNN core architecture
-          text: Lead MNN architecture and heterogeneous performance optimization across ARM CPUs, Metal/OpenCL/Vulkan GPUs, and Hexagon/CoreML/NNAPI accelerators, covering operator kernels, memory planning, graph optimization and fusion, and model conversion.
+          text: Lead MNN architecture and heterogeneous performance optimization across ARM CPUs, Metal/OpenCL/Vulkan GPUs, and Hexagon/CoreML/NNAPI accelerators, covering operator kernels, memory planning, graph optimization and fusion, and model conversion; grew MNN to 15.8K+ GitHub stars.
         - label: On-device AI platform
-          text: Built an embedded Python runtime and end-to-end deployment stack, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; supported Quark, Qwen, DingTalk, Youku, Taobao Instant Commerce, and Amap; grew MNN to 15.8K+ GitHub stars.
+          text: Built an embedded Python runtime and end-to-end deployment stack, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; supported Quark, Qwen, DingTalk, Youku, Taobao Instant Commerce, and Amap.
         - label: MNN-LLM & production
           text: Initiated and currently lead MNN-LLM for 100+ language and multimodal models, spanning 2/3/4/8-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding; deployed on-device LLMs in Taobao and Xianyu search and recommendation at tens-of-millions-user scale.
         - label: On-device SLM
