@@ -53,51 +53,47 @@
 
 - title: 代表性论文
   type: publications
-  groups:
-    - name: 系统与应用
-      contents:
-        - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
-          venue: ISCAS
-          year: 2026
-          link: https://epapers2.org/iscas2026/ESR/paper_details.php?paper_id=2132
-        - title: "RecGPT-Mobile: On-Device Large Language Models for User Intent Understanding in Taobao Feed Recommendation"
-          venue: SIGIR
-          year: 2026
-          link: https://doi.org/10.1145/3805712.3808410
-        - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
-          venue: MM Asia
-          year: 2024
-          link: https://doi.org/10.1145/3700410.3702126
-        - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
-          venue: OSDI
-          year: 2022
-          link: https://arxiv.org/abs/2205.14833
-    - name: 合作研究
-      contents:
-        - title: "LISA: Locality-Informed Speculative Decoding for Accelerating Autoregressive Image Generation"
-          venue: ECCV
-          year: 2026
-          link: https://openreview.net/forum?id=K6kwO8a3qt
-        - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
-          venue: ICML
-          year: 2026
-          link: https://icml.cc/virtual/2026/poster/66788
-        - title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation"
-          venue: ICML
-          year: 2026
-          link: https://icml.cc/virtual/2026/poster/65615
-        - title: "AccKV: Towards Efficient Audio-Video LLMs Inference via Adaptive-Focusing and Cross-Calibration KV Cache Optimization"
-          venue: AAAI
-          year: 2026
-          link: https://doi.org/10.1609/aaai.v40i7.37467
-        - title: "VertiKV: Vertical-Integrity KV Cache Compression for Efficient Multimodal Long-Context Inference"
-          venue: ACM MM
-          year: 2026
-          link: https://openreview.net/group?id=acmmm.org/ACMMM/2026/Conference
-        - title: "MadaKV: Adaptive Modality-Perception KV Cache Eviction for Efficient Multimodal Long-Context Inference"
-          venue: ACL
-          year: 2025
-          link: https://aclanthology.org/2025.acl-long.652/
+  contents:
+    - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"
+      venue: ISCAS
+      year: 2026
+      link: https://epapers2.org/iscas2026/ESR/paper_details.php?paper_id=2132
+    - title: "RecGPT-Mobile: On-Device Large Language Models for User Intent Understanding in Taobao Feed Recommendation"
+      venue: SIGIR
+      year: 2026
+      link: https://doi.org/10.1145/3805712.3808410
+    - title: "MNN-LLM: A Generic Inference Engine for Fast Large Language Model Deployment on Mobile Devices"
+      venue: MM Asia
+      year: 2024
+      link: https://doi.org/10.1145/3700410.3702126
+    - title: "Walle: An End-to-End, General-Purpose, and Large-Scale Production System for Device-Cloud Collaborative Machine Learning"
+      venue: OSDI
+      year: 2022
+      link: https://arxiv.org/abs/2205.14833
+    - title: "LISA: Locality-Informed Speculative Decoding for Accelerating Autoregressive Image Generation"
+      venue: ECCV
+      year: 2026
+      link: https://openreview.net/forum?id=K6kwO8a3qt
+    - title: "ARC-Decode: Accelerated Decoding with Risk-Bounded Acceptance"
+      venue: ICML
+      year: 2026
+      link: https://icml.cc/virtual/2026/poster/66788
+    - title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation"
+      venue: ICML
+      year: 2026
+      link: https://icml.cc/virtual/2026/poster/65615
+    - title: "AccKV: Towards Efficient Audio-Video LLMs Inference via Adaptive-Focusing and Cross-Calibration KV Cache Optimization"
+      venue: AAAI
+      year: 2026
+      link: https://doi.org/10.1609/aaai.v40i7.37467
+    - title: "VertiKV: Vertical-Integrity KV Cache Compression for Efficient Multimodal Long-Context Inference"
+      venue: ACM MM
+      year: 2026
+      link: https://openreview.net/group?id=acmmm.org/ACMMM/2026/Conference
+    - title: "MadaKV: Adaptive Modality-Perception KV Cache Eviction for Efficient Multimodal Long-Context Inference"
+      venue: ACL
+      year: 2025
+      link: https://aclanthology.org/2025.acl-long.652/
 
 - title: 专利与申请
   type: patents
