@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Hexagon PWL 优化前后 DSP 耗时对比</title>
+  <desc id="desc">三个测试项均将原始实现归一化为百分之百，learned8 在 MulSiLU、Qwen prefill 和 decode 中分别降低耗时百分之五十二点四七、四十二点七九和二十七点四八。</desc>
+  <defs>
+    <style>
+      .title { font-family: "Alibaba PuHuiTi"; font-size: 26px; font-weight: 700; fill: #111827; }
+      .sub { font-family: "Alibaba PuHuiTi"; font-size: 15px; font-weight: 400; fill: #4b5563; }
+      .label { font-family: "Alibaba PuHuiTi"; font-size: 18px; font-weight: 700; fill: #111827; }
+      .value { font-family: Menlo, monospace; font-size: 15px; font-weight: 700; fill: #111827; }
+      .tick { font-family: "Alibaba PuHuiTi"; font-size: 13px; font-weight: 400; fill: #6b7280; }
+      .legend { font-family: "Alibaba PuHuiTi"; font-size: 15px; font-weight: 400; fill: #374151; }
+      .grid { stroke: #e5e7eb; stroke-width: 1; }
+      .base { fill: #9ca3af; }
+      .compact { fill: #56b4e9; }
+      .learned { fill: #0072b2; stroke: #004f7c; stroke-width: 1.5; }
+      .gain { font-family: "Alibaba PuHuiTi"; font-size: 17px; font-weight: 700; fill: #0072b2; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="680" rx="18" fill="#ffffff"/>
+  <text x="600" y="44" text-anchor="middle" class="title">PWL 将激活热点的 DSP 耗时降低 27%～52%</text>
+  <text x="600" y="70" text-anchor="middle" class="sub">同一 Host/runtime/test tuple；柱长按各测试的原始实现归一化，数值标签为 DSP 耗时中位数</text>
+
+  <rect x="328" y="88" width="18" height="18" rx="3" class="base"/>
+  <text x="354" y="103" class="legend">PWL 前原始实现</text>
+  <rect x="520" y="88" width="18" height="18" rx="3" class="compact"/>
+  <text x="546" y="103" class="legend">companded16</text>
+  <rect x="690" y="88" width="18" height="18" rx="3" class="learned"/>
+  <text x="716" y="103" class="legend">learned8（默认）</text>
+
+  <line x1="330" y1="130" x2="330" y2="620" class="grid"/>
+  <line x1="490" y1="130" x2="490" y2="620" class="grid"/>
+  <line x1="650" y1="130" x2="650" y2="620" class="grid"/>
+  <line x1="810" y1="130" x2="810" y2="620" class="grid"/>
+  <line x1="970" y1="130" x2="970" y2="620" class="grid"/>
+  <text x="330" y="644" text-anchor="middle" class="tick">0%</text>
+  <text x="490" y="644" text-anchor="middle" class="tick">25%</text>
+  <text x="650" y="644" text-anchor="middle" class="tick">50%</text>
+  <text x="810" y="644" text-anchor="middle" class="tick">75%</text>
+  <text x="970" y="644" text-anchor="middle" class="tick">100%</text>
+  <text x="650" y="670" text-anchor="middle" class="sub">相对 DSP 耗时（越低越好）</text>
+
+  <text x="40" y="171" class="label">MulSiLU 单算子</text>
+  <text x="40" y="194" class="sub">元素数：262144</text>
+  <rect x="330" y="137" width="640" height="30" rx="5" class="base"/>
+  <text x="980" y="158" class="value">10.2770 ms</text>
+  <rect x="330" y="174" width="330" height="30" rx="5" class="compact"/>
+  <text x="670" y="195" class="value">5.2995 ms</text>
+  <rect x="330" y="211" width="304" height="30" rx="5" class="learned"/>
+  <text x="644" y="232" class="value">4.8850 ms</text>
+  <text x="1030" y="222" class="gain">−52.47% / 2.10×</text>
+
+  <line x1="40" y1="280" x2="1160" y2="280" class="grid"/>
+  <text x="40" y="331" class="label">Qwen3-0.6B prefill</text>
+  <text x="40" y="354" class="sub">BINARY_ELEMENTWISE</text>
+  <rect x="330" y="297" width="640" height="30" rx="5" class="base"/>
+  <text x="980" y="318" class="value">56.0425 ms</text>
+  <rect x="330" y="334" width="397" height="30" rx="5" class="compact"/>
+  <text x="737" y="355" class="value">34.7880 ms</text>
+  <rect x="330" y="371" width="366" height="30" rx="5" class="learned"/>
+  <text x="706" y="392" class="value">32.0605 ms</text>
+  <text x="1030" y="382" class="gain">−42.79% / 1.75×</text>
+
+  <line x1="40" y1="440" x2="1160" y2="440" class="grid"/>
+  <text x="40" y="491" class="label">Qwen3-0.6B decode</text>
+  <text x="40" y="514" class="sub">BINARY_ELEMENTWISE</text>
+  <rect x="330" y="457" width="640" height="30" rx="5" class="base"/>
+  <text x="980" y="478" class="value">49.3120 ms</text>
+  <rect x="330" y="494" width="482" height="30" rx="5" class="compact"/>
+  <text x="822" y="515" class="value">37.1125 ms</text>
+  <rect x="330" y="531" width="464" height="30" rx="5" class="learned"/>
+  <text x="804" y="552" class="value">35.7615 ms</text>
+  <text x="1030" y="542" class="gain">−27.48% / 1.38×</text>
+
+  <rect x="40" y="590" width="1120" height="30" rx="8" fill="#eaf5fb"/>
+  <text x="600" y="611" text-anchor="middle" class="sub">加速比与耗时降幅均以 learned8 相对 PWL 前原始实现计算</text>
+</svg>
