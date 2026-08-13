@@ -44,7 +44,7 @@
       role: Algorithm Engineer Intern
       year: 2019
       highlights:
-        - text: Optimized traffic video understanding algorithms and productionized them in C++.
+        - text: Contributed to traffic video understanding algorithms, focusing on lane marking detection, monocular-camera vehicle speed estimation, and traffic sign recognition.
     - company: Microsoft Asia Engineering Academy
       role: Software Engineer Intern
       year: 2016
