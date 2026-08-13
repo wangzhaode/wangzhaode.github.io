@@ -24,17 +24,17 @@
   type: experience
   contents:
     - company: Alibaba · Taotian Group
-      role: MNN Tech Lead
+      role: Senior Technical Expert · MNN Tech Lead
       year: 2020 - Present
       highlights:
         - label: MNN core architecture
           text: Lead MNN architecture and heterogeneous performance optimization across ARM CPUs, Metal/OpenCL/Vulkan GPUs, and Hexagon/CoreML/NNAPI accelerators, covering operator kernels, memory planning, graph optimization and fusion, and model conversion.
         - label: On-device AI platform
-          text: Built an embedded Python runtime and end-to-end deployment stack with CV/audio modules, Python APIs, and CI/CD, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed.
-        - label: MNN-LLM
-          text: Initiated and lead MNN-LLM for 100+ language and multimodal models, with 2/3/4/8-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding.
-        - label: Production & open source
-          text: Drove MNN adoption across Taobao, Xianyu, Quark, and Qwen; deployed on-device LLMs in Taobao and Xianyu search and recommendation scenarios at tens-of-millions-user scale; supported DingTalk, Youku, Taobao Instant Commerce, and Amap; grew MNN to 15.8K+ GitHub stars.
+          text: Built an embedded Python runtime and end-to-end deployment stack, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; supported Quark, Qwen, DingTalk, Youku, Taobao Instant Commerce, and Amap; grew MNN to 15.8K+ GitHub stars.
+        - label: MNN-LLM & production
+          text: Initiated and currently lead MNN-LLM for 100+ language and multimodal models, spanning 2/3/4/8-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding; deployed on-device LLMs in Taobao and Xianyu search and recommendation at tens-of-millions-user scale.
+        - label: On-device SLM
+          text: Led a team to train a 0.3B SLM from scratch for on-device applications, covering data collection and quality assessment, pre-training, SFT, RL, and end-to-end model evaluation.
     - company: Cambricon Technologies
       role: Compiler Engineer Intern
       year: 2018 - 2020
