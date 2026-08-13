@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Hexagon 激活函数原始路径与 PWL 路径对比</title>
+  <desc id="desc">原始路径需要 FP16/FP32 转换、指数和倒数迭代，PWL 路径使用选段查表、系数查表和 QF16 乘加。</desc>
+  <defs>
+    <style>
+      .title { font-family: "Alibaba PuHuiTi"; font-size: 25px; font-weight: 700; fill: #111827; }
+      .row-title { font-family: "Alibaba PuHuiTi"; font-size: 20px; font-weight: 700; }
+      .box-title { font-family: "Alibaba PuHuiTi"; font-size: 17px; font-weight: 700; fill: #111827; }
+      .box-sub { font-family: "Alibaba PuHuiTi"; font-size: 14px; font-weight: 400; fill: #4b5563; }
+      .note { font-family: "Alibaba PuHuiTi"; font-size: 15px; font-weight: 400; fill: #374151; }
+      .math { font-family: Menlo, monospace; font-size: 17px; font-weight: 600; fill: #111827; }
+      .old-box { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 2; stroke-dasharray: 7 5; }
+      .new-box { fill: #eaf5fb; stroke: #0072b2; stroke-width: 2; }
+      .fma-box { fill: #fff4e6; stroke: #d55e00; stroke-width: 2.5; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="600" rx="18" fill="#ffffff"/>
+  <text x="600" y="43" text-anchor="middle" class="title">从高开销非线性计算到 HVX 友好的 PWL 数据流</text>
+
+  <text x="36" y="106" class="row-title" fill="#6b7280">原始路径</text>
+  <rect x="160" y="72" width="150" height="72" rx="12" class="old-box"/>
+  <text x="235" y="102" text-anchor="middle" class="box-title">FP16 输入</text>
+  <text x="235" y="125" text-anchor="middle" class="box-sub">64 lanes / vector</text>
+
+  <rect x="370" y="72" width="150" height="72" rx="12" class="old-box"/>
+  <text x="445" y="102" text-anchor="middle" class="box-title">转为 FP32</text>
+  <text x="445" y="125" text-anchor="middle" class="box-sub">拆成两组向量</text>
+
+  <rect x="580" y="72" width="150" height="72" rx="12" class="old-box"/>
+  <text x="655" y="102" text-anchor="middle" class="box-title">exp2 近似</text>
+  <text x="655" y="125" text-anchor="middle" class="box-sub">计算指数项</text>
+
+  <rect x="790" y="72" width="150" height="72" rx="12" class="old-box"/>
+  <text x="865" y="102" text-anchor="middle" class="box-title">倒数 + Newton</text>
+  <text x="865" y="125" text-anchor="middle" class="box-sub">求 sigmoid 分母逆</text>
+
+  <rect x="1000" y="72" width="160" height="72" rx="12" class="old-box"/>
+  <text x="1080" y="102" text-anchor="middle" class="box-title">组合并转 FP16</text>
+  <text x="1080" y="125" text-anchor="middle" class="box-sub">多次乘加与转换</text>
+
+  <line x1="310" y1="108" x2="360" y2="108" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <polygon points="360,102 370,108 360,114" fill="#6b7280"/>
+  <line x1="520" y1="108" x2="570" y2="108" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <polygon points="570,102 580,108 570,114" fill="#6b7280"/>
+  <line x1="730" y1="108" x2="780" y2="108" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <polygon points="780,102 790,108 780,114" fill="#6b7280"/>
+  <line x1="940" y1="108" x2="990" y2="108" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <polygon points="990,102 1000,108 990,114" fill="#6b7280"/>
+
+  <text x="36" y="269" class="row-title" fill="#0072b2">PWL 路径</text>
+  <rect x="160" y="227" width="150" height="84" rx="12" class="new-box"/>
+  <text x="235" y="259" text-anchor="middle" class="box-title">FP16 输入</text>
+  <text x="235" y="282" text-anchor="middle" class="box-sub">提取符号与 |x|</text>
+
+  <rect x="370" y="227" width="160" height="84" rx="12" class="new-box"/>
+  <text x="450" y="259" text-anchor="middle" class="box-title">确定分段</text>
+  <text x="450" y="282" text-anchor="middle" class="box-sub">位编码 / 1 次 LUT</text>
+
+  <rect x="590" y="227" width="170" height="84" rx="12" class="new-box"/>
+  <text x="675" y="259" text-anchor="middle" class="box-title">查找系数</text>
+  <text x="675" y="282" text-anchor="middle" class="box-sub">2 次 vlut16 取 a、b</text>
+
+  <rect x="820" y="227" width="150" height="84" rx="12" class="fma-box"/>
+  <text x="895" y="259" text-anchor="middle" class="box-title">乘加（QF16）</text>
+  <text x="895" y="284" text-anchor="middle" class="math">y = a·x + b</text>
+
+  <rect x="1030" y="227" width="130" height="84" rx="12" class="new-box"/>
+  <text x="1095" y="259" text-anchor="middle" class="box-title">恢复输出</text>
+  <text x="1095" y="282" text-anchor="middle" class="box-sub">对称 + 饱和</text>
+
+  <line x1="310" y1="269" x2="360" y2="269" stroke="#0072b2" stroke-width="2.8"/>
+  <polygon points="360,263 370,269 360,275" fill="#0072b2"/>
+  <line x1="530" y1="269" x2="580" y2="269" stroke="#0072b2" stroke-width="2.8"/>
+  <polygon points="580,263 590,269 580,275" fill="#0072b2"/>
+  <line x1="760" y1="269" x2="810" y2="269" stroke="#0072b2" stroke-width="2.8"/>
+  <polygon points="810,263 820,269 810,275" fill="#0072b2"/>
+  <line x1="970" y1="269" x2="1020" y2="269" stroke="#0072b2" stroke-width="2.8"/>
+  <polygon points="1020,263 1030,269 1020,275" fill="#0072b2"/>
+
+  <rect x="60" y="365" width="1080" height="170" rx="16" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="86" y="401" class="box-title">关键点</text>
+  <circle cx="96" cy="435" r="5" fill="#0072b2"/>
+  <text x="116" y="441" class="note">learned8 SiLU：1 次索引 LUT + 2 次系数 LUT；companded16：用 FP16 位模式直接生成分段索引。</text>
+  <circle cx="96" cy="471" r="5" fill="#d55e00"/>
+  <text x="116" y="477" class="note">主体计算始终保持在 FP16/QF16 向量域，避免指数、倒数迭代和 FP16↔FP32 往返。</text>
+  <circle cx="96" cy="507" r="5" fill="#009e73"/>
+  <text x="116" y="513" class="note">利用函数对称性只拟合正半轴，区间外直接饱和，减少表项与分支。</text>
+
+  <text x="600" y="575" text-anchor="middle" class="box-sub">实线表示 PWL 快速路径，虚线表示原始复杂数学路径</text>
+</svg>
