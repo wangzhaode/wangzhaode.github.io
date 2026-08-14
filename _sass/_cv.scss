@@ -345,45 +345,45 @@ body.cv-page .container-main {
 }
 
 .resume-sheet[lang="en"] {
-  padding: 12mm 13mm 8mm;
-  font-size: 8.9pt;
-  line-height: 1.22;
+  padding: 10mm 12mm 6mm;
+  font-size: 8.55pt;
+  line-height: 1.16;
 
   .resume-header {
-    margin-bottom: 2.7mm;
+    margin-bottom: 2.1mm;
   }
 
   .resume-section {
-    margin-top: 2.4mm;
+    margin-top: 1.85mm;
 
     h2 {
-      margin-bottom: 1.2mm;
-      padding-bottom: 0.7mm;
+      margin-bottom: 0.85mm;
+      padding-bottom: 0.45mm;
     }
   }
 
   .resume-rows {
-    gap: 0.5mm;
+    gap: 0.35mm;
   }
 
   .resume-job + .resume-job {
-    margin-top: 1.3mm;
+    margin-top: 0.9mm;
   }
 
   .resume-highlights {
-    margin-top: 0.5mm;
+    margin-top: 0.3mm;
 
     li {
-      margin-bottom: 0.45mm;
+      margin-bottom: 0.25mm;
     }
   }
 
   .resume-publication-group + .resume-publication-group {
-    margin-top: 0.8mm;
+    margin-top: 0.7mm;
   }
 
   .resume-skills {
-    gap: 0.55mm;
+    gap: 0.35mm;
   }
 }
 
@@ -650,7 +650,7 @@ body.cv-page .container-main {
   .resume-sheet[lang="zh-CN"] {
     padding: 12mm 13mm 8mm;
     font-size: 9.05pt;
-    line-height: 1.23;
+    line-height: 1.21;
 
     .resume-header {
       margin-bottom: 2.7mm;
@@ -691,45 +691,45 @@ body.cv-page .container-main {
   }
 
   .resume-sheet[lang="en"] {
-    padding: 12mm 13mm 8mm;
-    font-size: 8.9pt;
-    line-height: 1.22;
+    padding: 10mm 12mm 6mm;
+    font-size: 8.55pt;
+    line-height: 1.16;
 
     .resume-header {
-      margin-bottom: 2.7mm;
+      margin-bottom: 2.1mm;
     }
 
     .resume-section {
-      margin-top: 2.4mm;
+      margin-top: 1.85mm;
 
       h2 {
-        margin-bottom: 1.2mm;
-        padding-bottom: 0.7mm;
+        margin-bottom: 0.85mm;
+        padding-bottom: 0.45mm;
       }
     }
 
     .resume-rows {
-      gap: 0.5mm;
+      gap: 0.35mm;
     }
 
     .resume-job + .resume-job {
-      margin-top: 1.3mm;
+      margin-top: 0.9mm;
     }
 
     .resume-highlights {
-      margin-top: 0.5mm;
+      margin-top: 0.3mm;
 
       li {
-        margin-bottom: 0.45mm;
+        margin-bottom: 0.25mm;
       }
     }
 
     .resume-publication-group + .resume-publication-group {
-      margin-top: 0.8mm;
+      margin-top: 0.7mm;
     }
 
     .resume-skills {
-      gap: 0.55mm;
+      gap: 0.35mm;
     }
   }
 }

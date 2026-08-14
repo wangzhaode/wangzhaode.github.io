@@ -28,18 +28,22 @@
       year: 2020 - 至今
       highlights:
         - label: MNN 核心架构
-          text: 负责 MNN 架构及异构硬件性能优化，覆盖 ARM CPU、Metal/OpenCL/Vulkan GPU 与 Hexagon/CoreML/NNAPI 加速后端，包括算子内核、内存规划、图优化与融合、模型转换；MNN GitHub Star 15.8K+。
+          text: 负责 MNN 核心架构与技术路线，持续建设模型转换、计算图优化、内存规划、算子融合以及 CPU/GPU/NPU 后端，形成覆盖模型导入、编译优化、执行与异构加速的完整端侧推理引擎，MNN GitHub Star 15.8K+。
+        - label: MNN-LLM 工程化
+          text: 发起并负责 MNN-LLM，建设模型转换与量化工具链、Runtime、Tokenizer、KV Cache、评测和 ModelZoo，支持 200+ 语言与多模态模型，下载超百万次；围绕低内存、长上下文和生成速度，落地低比特与混合精度量化、权重/KV Cache mmap、FlashAttention 和投机解码。
+        - label: 生产业务落地
+          text: 推动端侧大模型在手淘信息流、购后推荐、商品重排和闲鱼消息理解等场景上线，覆盖千万级用户并取得业务正向收益；除大模型外，MNN 的通用端侧推理能力还服务夸克、千问、钉钉、优酷、淘宝闪购和高德等业务。
+        - label: 端侧 SLM 研发
+          text: 带领团队从零训练面向端侧业务的 0.3B SLM，打通数据、Tokenizer、预训练、SFT、RL、评测和 MNN 部署链路。
         - label: 端侧 AI 平台
-          text: 构建端侧 Python 运行时和端到端部署体系，支撑拍立淘、淘宝直播、安全、信息流等数十个算法，并服务夸克、千问、钉钉、优酷、淘宝闪购和高德等业务。
-        - label: MNN-LLM 与业务
-          text: 发起并负责 MNN-LLM，支持 100+ 文本及多模态模型，覆盖 2/3/4/8-bit 与混合精度量化、KV Cache 与 Attention 优化、投机解码；推动端侧大模型在手淘、闲鱼搜推场景落地，覆盖千万级用户。
-        - label: 端侧 SLM
-          text: 带领团队从零训练面向端侧业务的 0.3B SLM，覆盖数据采集与质量评估、预训练、SFT、RL 和端到端模型评测。
+          text: 针对算法依赖 Python/OpenCV/NumPy、移动端缺少统一运行环境的问题，构建端侧 Python Runtime 以及模型转换、调试和发布链路，支撑拍立淘、淘宝直播、安全、信息流等数十个算法；核心 CV/NumPy API 性能平均提升 15%+，直播 App 包体降低 13MB。
+        - label: 研发基础设施
+          text: 从零搭建 MNN 文档、跨平台 CI、精度/性能测评与 Crash 分析体系；建设开发、测试、性能分析与问题定位的 Agent/Skill，重点沉淀模型分析、适配、导出和验证工作流，使复杂模型适配由专家数天缩短至新人借助 AI 数小时。
     - company: 寒武纪科技
       role: 编译器工程师实习生
       year: 2018 - 2020
       highlights:
-        - text: 从事寒武纪 BANG 编译器与链接器研发，重点参与异构链接能力建设；并基于 Caffe 优化寒武纪 MLU 算子性能。
+        - text: 参与寒武纪 BANG 编译器与链接器研发，重点参与异构链接能力建设；并参与基于 Caffe 的 MLU 算子接入与性能优化。
     - company: 旷视科技
       role: 算法工程师实习生
       year: 2019
@@ -51,7 +55,7 @@
       highlights:
         - text: 调研 LevelDB、Presto 和 Hadoop 在广告数据存储与分析场景中的应用。
 
-- title: 代表性论文
+- title: 论文
   type: publications
   contents:
     - title: "Efficient LLM Inference on ARM via Hardware-Aware Operator Co-Design and Heuristic Mixed-Precision Search"

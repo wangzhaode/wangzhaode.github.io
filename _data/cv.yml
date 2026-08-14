@@ -28,18 +28,22 @@
       year: 2020 - Present
       highlights:
         - label: MNN core architecture
-          text: Lead MNN architecture and heterogeneous performance optimization across ARM CPUs, Metal/OpenCL/Vulkan GPUs, and Hexagon/CoreML/NNAPI accelerators, covering operator kernels, memory planning, graph optimization and fusion, and model conversion; grew MNN to 15.8K+ GitHub stars.
+          text: Own MNN's core architecture and technical roadmap across model conversion, graph optimization, memory planning, operator fusion, and CPU/GPU/NPU backends, delivering an end-to-end on-device inference engine spanning model import, compilation, execution, and heterogeneous acceleration; MNN has reached 15.8K+ GitHub stars.
+        - label: MNN-LLM engineering
+          text: Founded and currently lead MNN-LLM, building conversion and quantization tools, runtime, tokenizer, KV cache, evaluation, and ModelZoo; the stack supports 200+ language and multimodal models with over one million downloads. Delivered low-bit and mixed-precision quantization, weight/KV-cache mmap, FlashAttention, and speculative decoding for low-memory, long-context, and faster generation.
+        - label: Production deployment
+          text: Shipped on-device LLMs for Taobao feed, post-purchase recommendation, item reranking, and Xianyu message understanding at tens-of-millions-user scale with positive business impact; beyond LLMs, MNN's general on-device inference stack also supports Quark, Qwen, DingTalk, Youku, Taobao Instant Commerce, and Amap.
+        - label: On-device SLM R&D
+          text: Led a team to train a 0.3B SLM for on-device applications from scratch, spanning data collection, tokenization, pre-training, SFT, RL, evaluation, and MNN deployment.
         - label: On-device AI platform
-          text: Built an embedded Python runtime and end-to-end deployment stack, enabling dozens of algorithms for Pailitao visual search, Taobao Live, security, and feed; supported Quark, Qwen, DingTalk, Youku, Taobao Instant Commerce, and Amap.
-        - label: MNN-LLM & production
-          text: Initiated and currently lead MNN-LLM for 100+ language and multimodal models, spanning 2/3/4/8-bit and mixed-precision quantization, KV-cache and attention optimization, and speculative decoding; deployed on-device LLMs in Taobao and Xianyu search and recommendation at tens-of-millions-user scale.
-        - label: On-device SLM
-          text: Led a team to train a 0.3B SLM from scratch for on-device applications, covering data collection and quality assessment, pre-training, SFT, RL, and end-to-end model evaluation.
+          text: Addressed mobile deployment constraints for Python/OpenCV/NumPy-based algorithms by building an embedded Python runtime and model conversion, debugging, and release pipeline; enabled dozens of algorithms for Pailitao, Taobao Live, security, and feed, improving core CV/NumPy APIs by 15%+ on average while reducing a live-streaming app package by 13MB.
+        - label: Engineering infrastructure
+          text: Built MNN's documentation, cross-platform CI, accuracy/performance evaluation, and production crash analysis from scratch. Developed Agent/Skill workflows spanning coding, testing, performance analysis, and debugging, with model analysis, integration, export, and validation as a core workflow; reduced complex model integration from days of expert work to hours for engineers new to the stack.
     - company: Cambricon Technologies
       role: Compiler Engineer Intern
       year: 2018 - 2020
       highlights:
-        - text: Developed compiler and linker components for Cambricon's BANG toolchain, focusing on heterogeneous linking; subsequently optimized Caffe operators for MLU accelerators.
+        - text: Contributed to Cambricon's BANG compiler and linker, focusing on heterogeneous linking, and optimized Caffe operators for MLU accelerators.
     - company: Megvii
       role: Algorithm Engineer Intern
       year: 2019
