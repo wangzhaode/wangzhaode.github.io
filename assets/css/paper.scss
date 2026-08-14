@@ -67,6 +67,10 @@ body.paper-page {
   border-bottom: 1px solid #aaa;
 }
 
+.container-header-minimal {
+  border-bottom: 0;
+}
+
 .header-info {
   display: flex;
   gap: 0.9rem;
