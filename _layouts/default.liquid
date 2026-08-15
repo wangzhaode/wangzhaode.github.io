@@ -7,12 +7,12 @@
 
   <body class="paper-page{% if page.cv_mode %} cv-page{% endif %}">
     <div class="container-wrapper">
-      <header class="container-header{% if page.url == '/index.html' or page.url == '/cv/' %} container-header-minimal{% endif %}">
+      <header class="container-header{% if page.url == '/index.html' or page.url == '/cv/' or page.layout == 'post' %} container-header-minimal{% endif %}">
         <div class="header-info">
           <a class="header-info-name ref_internal" href="{{ '/' | relative_url }}">{{ site.title }}</a>
           <span class="header-info-desc">{{ site.description }}</span>
         </div>
-        {% unless page.url == '/index.html' or page.url == '/cv/' %}
+        {% unless page.url == '/index.html' or page.url == '/cv/' or page.layout == 'post' %}
         <nav class="header-nav" aria-label="Primary navigation">
           <ul class="header-main-nav">
             <li class="header-main-nav-item">
